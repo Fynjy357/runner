@@ -1,0 +1,2090 @@
+2025-11-14 02:41:18 - root - INFO - Запуск бота...
+2025-11-14 02:41:18 - root - INFO - ==================================================
+2025-11-14 02:41:18 - root - INFO - Бот запускается...
+2025-11-14 02:41:18 - root - INFO - Токен бота: **********r9fl4
+2025-11-14 02:41:18 - root - INFO - Путь к БД: runners.db
+2025-11-14 02:41:18 - root - INFO - ==================================================
+2025-11-14 02:41:18 - aiogram.dispatcher - INFO - Start polling
+2025-11-14 02:41:18 - aiogram.dispatcher - INFO - Run polling for bot @PPrunner_bot id=8282391920 - 'PP'
+2025-11-14 02:41:36 - root - INFO - Пользователь 79669142 запустил бота
+2025-11-14 02:41:36 - root - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-14 02:41:36 - root - INFO - Ответ отправлен пользователю 79669142
+2025-11-14 02:41:36 - aiogram.event - INFO - Update id=301819976 is handled. Duration 186 ms by bot id=8282391920
+2025-11-14 02:42:06 - aiogram.dispatcher - INFO - Polling stopped
+2025-11-14 02:42:06 - root - INFO - ==================================================
+2025-11-14 02:42:06 - root - INFO - Бот завершает работу...
+2025-11-14 02:42:06 - root - INFO - ==================================================
+2025-11-14 02:42:06 - root - INFO - Завершение работы бота...
+2025-11-14 02:42:06 - aiogram.dispatcher - INFO - Polling stopped for bot @PPrunner_bot id=8282391920 - 'PP'
+2025-11-14 02:42:06 - root - INFO - Бот остановлен пользователем (Ctrl+C)
+2025-11-14 02:42:06 - root - INFO - Работа бота завершена
+2025-11-14 02:43:01 - root - INFO - Запуск бота...
+2025-11-14 02:43:01 - root - INFO - ==================================================
+2025-11-14 02:43:01 - root - INFO - Бот запускается...
+2025-11-14 02:43:01 - root - INFO - Токен бота: **********r9fl4
+2025-11-14 02:43:01 - root - INFO - Путь к БД: runners.db
+2025-11-14 02:43:01 - root - INFO - ==================================================
+2025-11-14 02:43:01 - aiogram.dispatcher - INFO - Start polling
+2025-11-14 02:43:01 - aiogram.dispatcher - INFO - Run polling for bot @PPrunner_bot id=8282391920 - 'PP'
+2025-11-14 02:43:06 - root - INFO - Пользователь 79669142 запустил бота
+2025-11-14 02:43:06 - root - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-14 02:43:07 - root - INFO - Ответ отправлен пользователю 79669142
+2025-11-14 02:43:07 - aiogram.event - INFO - Update id=301819977 is handled. Duration 187 ms by bot id=8282391920
+2025-11-14 02:45:18 - root - INFO - Получен сигнал 2, завершаем работу...
+2025-11-14 02:45:18 - root - INFO - Инициировано корректное завершение работы...
+2025-11-14 02:45:18 - aiogram.dispatcher - INFO - Polling stopped for bot @PPrunner_bot id=8282391920 - 'PP'
+2025-11-14 02:45:18 - aiogram.dispatcher - INFO - Polling stopped
+2025-11-14 02:45:18 - root - INFO - ==================================================
+2025-11-14 02:45:18 - root - INFO - Бот завершает работу...
+2025-11-14 02:45:18 - root - INFO - ==================================================
+2025-11-14 02:45:18 - root - INFO - Все ресурсы освобождены
+2025-11-14 02:45:18 - root - INFO - Работа бота завершена
+2025-11-14 02:45:23 - bot - INFO - Запуск бота...
+2025-11-14 02:45:23 - bot - INFO - ==================================================
+2025-11-14 02:45:23 - bot - INFO - Бот запускается...
+2025-11-14 02:45:23 - bot - INFO - Токен бота: **********r9fl4
+2025-11-14 02:45:23 - bot - INFO - Путь к БД: runners.db
+2025-11-14 02:45:23 - bot - INFO - ==================================================
+2025-11-14 02:45:27 - bot - INFO - Пользователь 79669142 запустил бота
+2025-11-14 02:45:27 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-14 02:45:27 - bot - INFO - Ответ отправлен пользователю 79669142
+2025-11-14 02:48:49 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-14 02:48:49 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-14 02:48:49 - bot - INFO - ==================================================
+2025-11-14 02:48:49 - bot - INFO - Бот завершает работу...
+2025-11-14 02:48:49 - bot - INFO - ==================================================
+2025-11-14 02:48:49 - bot - INFO - Все ресурсы освобождены
+2025-11-14 02:48:49 - bot - INFO - Работа бота завершена
+2025-11-14 02:48:53 - bot - INFO - Обработчики сигналов установлены
+2025-11-14 02:48:53 - bot - INFO - Запуск бота...
+2025-11-14 02:48:53 - bot - INFO - ==================================================
+2025-11-14 02:48:53 - bot - INFO - Бот запускается...
+2025-11-14 02:48:53 - bot - INFO - Токен бота: **********r9fl4
+2025-11-14 02:48:53 - bot - INFO - Путь к БД: runners.db
+2025-11-14 02:48:53 - bot - INFO - ==================================================
+2025-11-14 02:48:56 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-14 02:48:56 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-14 02:48:56 - bot - INFO - ==================================================
+2025-11-14 02:48:56 - bot - INFO - Бот завершает работу...
+2025-11-14 02:48:56 - bot - INFO - ==================================================
+2025-11-14 02:48:56 - bot - INFO - Polling остановлен
+2025-11-14 02:48:56 - bot - INFO - Сессия бота закрыта
+2025-11-14 02:48:56 - bot - INFO - Все ресурсы освобождены
+2025-11-14 02:48:56 - bot - INFO - Работа бота завершена
+2025-11-14 02:53:34 - bot - INFO - Обработчики сигналов установлены
+2025-11-14 02:53:34 - bot - INFO - Запуск бота...
+2025-11-14 02:53:34 - bot - INFO - ==================================================
+2025-11-14 02:53:34 - bot - INFO - Бот запускается...
+2025-11-14 02:53:34 - bot - INFO - Токен бота: **********r9fl4
+2025-11-14 02:53:34 - bot - INFO - Путь к БД: runners.db
+2025-11-14 02:53:34 - bot - INFO - ==================================================
+2025-11-14 02:53:49 - bot - INFO - Пользователь 79669142 запустил бота
+2025-11-14 02:53:49 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-14 02:53:49 - bot - INFO - Ответ отправлен пользователю 79669142
+2025-11-14 02:56:11 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-14 02:56:11 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-14 02:56:11 - bot - INFO - ==================================================
+2025-11-14 02:56:11 - bot - INFO - Бот завершает работу...
+2025-11-14 02:56:11 - bot - INFO - ==================================================
+2025-11-14 02:56:11 - bot - INFO - Polling остановлен
+2025-11-14 02:56:11 - bot - INFO - Сессия бота закрыта
+2025-11-14 02:56:11 - bot - INFO - Все ресурсы освобождены
+2025-11-14 02:56:11 - bot - INFO - Работа бота завершена
+2025-11-14 02:56:15 - bot - INFO - Обработчики сигналов установлены
+2025-11-14 02:56:15 - bot - INFO - Запуск бота...
+2025-11-14 02:56:15 - bot - INFO - ==================================================
+2025-11-14 02:56:15 - bot - INFO - Бот запускается...
+2025-11-14 02:56:15 - bot - INFO - Токен бота: **********r9fl4
+2025-11-14 02:56:15 - bot - INFO - Путь к БД: runners.db
+2025-11-14 02:56:15 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-14 02:56:15 - bot - INFO - Всего таблиц: 8
+2025-11-14 02:56:15 - bot - INFO - ==================================================
+2025-11-14 02:56:21 - bot - INFO - Пользователь 79669142 запустил бота
+2025-11-14 02:56:21 - bot - INFO - Ответ отправлен пользователю 79669142
+2025-11-14 03:19:40 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-14 03:19:40 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-14 03:19:40 - bot - INFO - ==================================================
+2025-11-14 03:19:40 - bot - INFO - Бот завершает работу...
+2025-11-14 03:19:40 - bot - INFO - ==================================================
+2025-11-14 03:19:40 - bot - INFO - Polling остановлен
+2025-11-14 03:19:40 - bot - INFO - Сессия бота закрыта
+2025-11-14 03:19:40 - bot - INFO - Все ресурсы освобождены
+2025-11-14 03:19:40 - bot - INFO - Работа бота завершена
+2025-11-14 03:22:22 - bot - INFO - Обработчики сигналов установлены
+2025-11-14 03:22:22 - bot - INFO - Запуск бота...
+2025-11-14 03:22:22 - bot - INFO - ==================================================
+2025-11-14 03:22:22 - bot - INFO - Бот запускается...
+2025-11-14 03:22:22 - bot - INFO - Токен бота: **********r9fl4
+2025-11-14 03:22:22 - bot - INFO - Путь к БД: runners.db
+2025-11-14 03:22:22 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-14 03:22:22 - bot - INFO - Всего таблиц: 8
+2025-11-14 03:22:22 - bot - INFO - ==================================================
+2025-11-14 03:27:59 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-14 03:27:59 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-14 03:27:59 - bot - INFO - ==================================================
+2025-11-14 03:27:59 - bot - INFO - Бот завершает работу...
+2025-11-14 03:27:59 - bot - INFO - ==================================================
+2025-11-14 03:27:59 - bot - INFO - Polling остановлен
+2025-11-14 03:27:59 - bot - INFO - Сессия бота закрыта
+2025-11-14 03:27:59 - bot - INFO - Все ресурсы освобождены
+2025-11-14 03:27:59 - bot - INFO - Работа бота завершена
+2025-11-14 03:28:03 - bot - INFO - Обработчики сигналов установлены
+2025-11-14 03:28:03 - bot - INFO - Запуск бота...
+2025-11-14 03:28:03 - bot - INFO - ==================================================
+2025-11-14 03:28:03 - bot - INFO - Бот запускается...
+2025-11-14 03:28:03 - bot - INFO - Токен бота: **********r9fl4
+2025-11-14 03:28:03 - bot - INFO - Путь к БД: runners.db
+2025-11-14 03:28:03 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-14 03:28:03 - bot - INFO - Пользователей в manual_upload: 0
+2025-11-14 03:28:03 - bot - INFO - ==================================================
+2025-11-14 03:28:13 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-14 03:28:13 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-14 03:28:13 - bot - INFO - ==================================================
+2025-11-14 03:28:13 - bot - INFO - Бот завершает работу...
+2025-11-14 03:28:13 - bot - INFO - ==================================================
+2025-11-14 03:28:13 - bot - INFO - Polling остановлен
+2025-11-14 03:28:13 - bot - INFO - Сессия бота закрыта
+2025-11-14 03:28:13 - bot - INFO - Все ресурсы освобождены
+2025-11-14 03:28:13 - bot - INFO - Работа бота завершена
+2025-11-14 03:28:16 - bot - INFO - Обработчики сигналов установлены
+2025-11-14 03:28:16 - bot - INFO - Запуск бота...
+2025-11-14 03:28:16 - bot - INFO - ==================================================
+2025-11-14 03:28:16 - bot - INFO - Бот запускается...
+2025-11-14 03:28:16 - bot - INFO - Токен бота: **********r9fl4
+2025-11-14 03:28:16 - bot - INFO - Путь к БД: runners.db
+2025-11-14 03:28:16 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-14 03:28:16 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-14 03:28:16 - bot - INFO - ==================================================
+2025-11-14 03:29:30 - bot - INFO - Создана ссылка для participant_id 1: Рыбников Антон
+2025-11-14 03:33:01 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-14 03:33:01 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-14 03:33:01 - bot - INFO - ==================================================
+2025-11-14 03:33:01 - bot - INFO - Бот завершает работу...
+2025-11-14 03:33:01 - bot - INFO - ==================================================
+2025-11-14 03:33:02 - bot - INFO - Polling остановлен
+2025-11-14 03:33:02 - bot - INFO - Сессия бота закрыта
+2025-11-14 03:33:02 - bot - INFO - Все ресурсы освобождены
+2025-11-14 03:33:02 - bot - INFO - Работа бота завершена
+2025-11-14 03:33:05 - bot - INFO - Обработчики сигналов установлены
+2025-11-14 03:33:05 - bot - INFO - Запуск бота...
+2025-11-14 03:33:05 - bot - INFO - ==================================================
+2025-11-14 03:33:05 - bot - INFO - Бот запускается...
+2025-11-14 03:33:05 - bot - INFO - Токен бота: **********r9fl4
+2025-11-14 03:33:05 - bot - INFO - Путь к БД: runners.db
+2025-11-14 03:33:05 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-14 03:33:05 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-14 03:33:05 - bot - INFO - ==================================================
+2025-11-14 03:33:38 - bot - INFO - Пользователь 79669142 запросил список активных ссылок
+2025-11-14 03:38:43 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-14 03:38:43 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-14 03:38:43 - bot - INFO - ==================================================
+2025-11-14 03:38:43 - bot - INFO - Бот завершает работу...
+2025-11-14 03:38:43 - bot - INFO - ==================================================
+2025-11-14 03:38:44 - bot - INFO - Polling остановлен
+2025-11-14 03:38:44 - bot - INFO - Сессия бота закрыта
+2025-11-14 03:38:44 - bot - INFO - Все ресурсы освобождены
+2025-11-14 03:38:44 - bot - INFO - Работа бота завершена
+2025-11-14 03:38:48 - bot - INFO - Бот: @PPrunner_bot
+2025-11-14 03:38:48 - bot - INFO - Обработчики сигналов установлены
+2025-11-14 03:38:48 - bot - INFO - Запуск бота...
+2025-11-14 03:38:48 - bot - INFO - ==================================================
+2025-11-14 03:38:48 - bot - INFO - Бот запускается...
+2025-11-14 03:38:48 - bot - INFO - Бот: @PPrunner_bot
+2025-11-14 03:38:48 - bot - INFO - Токен бота: **********r9fl4
+2025-11-14 03:38:48 - bot - INFO - Путь к БД: runners.db
+2025-11-14 03:38:48 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-14 03:38:48 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-14 03:38:48 - bot - INFO - ==================================================
+2025-11-14 03:38:48 - bot - INFO - ==================================================
+2025-11-14 03:38:48 - bot - INFO - Бот завершает работу...
+2025-11-14 03:38:48 - bot - INFO - ==================================================
+2025-11-14 03:38:48 - bot - CRITICAL - Критическая ошибка при запуске бота: Event loop is closed
+Traceback (most recent call last):
+  File "D:\runner\src\main.py", line 106, in main
+    await dp.start_polling(bot)
+  File "D:\runner\.venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 551, in start_polling
+    await asyncio.gather(*done)
+  File "D:\runner\.venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 340, in _polling
+    user: User = await bot.me()
+                 ^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiogram\client\bot.py", line 370, in me
+    self._me = await self.get_me()
+               ^^^^^^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiogram\client\bot.py", line 1868, in get_me
+    return await self(call, request_timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiogram\client\bot.py", line 498, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiogram\client\session\aiohttp.py", line 181, in make_request
+    async with session.post(
+  File "D:\runner\.venv\Lib\site-packages\aiohttp\client.py", line 1425, in __aenter__
+    self._resp: _RetType = await self._coro
+                           ^^^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiohttp\client.py", line 579, in _request
+    handle = tm.start()
+             ^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiohttp\helpers.py", line 587, in start
+    return self._loop.call_at(when, self.__call__)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 741, in call_at
+    self._check_closed()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 520, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+2025-11-14 03:38:48 - bot - CRITICAL - Непредвиденная ошибка: Event loop is closed
+Traceback (most recent call last):
+  File "D:\runner\src\main.py", line 114, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "D:\runner\src\main.py", line 106, in main
+    await dp.start_polling(bot)
+  File "D:\runner\.venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 551, in start_polling
+    await asyncio.gather(*done)
+  File "D:\runner\.venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 340, in _polling
+    user: User = await bot.me()
+                 ^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiogram\client\bot.py", line 370, in me
+    self._me = await self.get_me()
+               ^^^^^^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiogram\client\bot.py", line 1868, in get_me
+    return await self(call, request_timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiogram\client\bot.py", line 498, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiogram\client\session\aiohttp.py", line 181, in make_request
+    async with session.post(
+  File "D:\runner\.venv\Lib\site-packages\aiohttp\client.py", line 1425, in __aenter__
+    self._resp: _RetType = await self._coro
+                           ^^^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiohttp\client.py", line 579, in _request
+    handle = tm.start()
+             ^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiohttp\helpers.py", line 587, in start
+    return self._loop.call_at(when, self.__call__)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 741, in call_at
+    self._check_closed()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 520, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+2025-11-14 03:38:48 - bot - INFO - Работа бота завершена
+2025-11-14 03:39:06 - bot - INFO - Бот: @PPrunner_bot
+2025-11-14 03:39:06 - bot - INFO - Обработчики сигналов установлены
+2025-11-14 03:39:06 - bot - INFO - Запуск бота...
+2025-11-14 03:39:06 - bot - INFO - ==================================================
+2025-11-14 03:39:06 - bot - INFO - Бот запускается...
+2025-11-14 03:39:06 - bot - INFO - Бот: @PPrunner_bot
+2025-11-14 03:39:06 - bot - INFO - Токен бота: **********r9fl4
+2025-11-14 03:39:06 - bot - INFO - Путь к БД: runners.db
+2025-11-14 03:39:06 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-14 03:39:06 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-14 03:39:06 - bot - INFO - ==================================================
+2025-11-14 03:39:06 - bot - INFO - ==================================================
+2025-11-14 03:39:06 - bot - INFO - Бот завершает работу...
+2025-11-14 03:39:06 - bot - INFO - ==================================================
+2025-11-14 03:39:06 - bot - CRITICAL - Критическая ошибка при запуске бота: Event loop is closed
+Traceback (most recent call last):
+  File "D:\runner\src\main.py", line 106, in main
+    await dp.start_polling(bot)
+  File "D:\runner\.venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 551, in start_polling
+    await asyncio.gather(*done)
+  File "D:\runner\.venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 340, in _polling
+    user: User = await bot.me()
+                 ^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiogram\client\bot.py", line 370, in me
+    self._me = await self.get_me()
+               ^^^^^^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiogram\client\bot.py", line 1868, in get_me
+    return await self(call, request_timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiogram\client\bot.py", line 498, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiogram\client\session\aiohttp.py", line 181, in make_request
+    async with session.post(
+  File "D:\runner\.venv\Lib\site-packages\aiohttp\client.py", line 1425, in __aenter__
+    self._resp: _RetType = await self._coro
+                           ^^^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiohttp\client.py", line 579, in _request
+    handle = tm.start()
+             ^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiohttp\helpers.py", line 587, in start
+    return self._loop.call_at(when, self.__call__)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 741, in call_at
+    self._check_closed()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 520, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+2025-11-14 03:39:06 - bot - CRITICAL - Непредвиденная ошибка: Event loop is closed
+Traceback (most recent call last):
+  File "D:\runner\src\main.py", line 114, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "D:\runner\src\main.py", line 106, in main
+    await dp.start_polling(bot)
+  File "D:\runner\.venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 551, in start_polling
+    await asyncio.gather(*done)
+  File "D:\runner\.venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 340, in _polling
+    user: User = await bot.me()
+                 ^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiogram\client\bot.py", line 370, in me
+    self._me = await self.get_me()
+               ^^^^^^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiogram\client\bot.py", line 1868, in get_me
+    return await self(call, request_timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiogram\client\bot.py", line 498, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiogram\client\session\aiohttp.py", line 181, in make_request
+    async with session.post(
+  File "D:\runner\.venv\Lib\site-packages\aiohttp\client.py", line 1425, in __aenter__
+    self._resp: _RetType = await self._coro
+                           ^^^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiohttp\client.py", line 579, in _request
+    handle = tm.start()
+             ^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiohttp\helpers.py", line 587, in start
+    return self._loop.call_at(when, self.__call__)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 741, in call_at
+    self._check_closed()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 520, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+2025-11-14 03:39:06 - bot - INFO - Работа бота завершена
+2025-11-14 03:44:03 - bot - INFO - Обработчики сигналов установлены
+2025-11-14 03:44:03 - bot - INFO - Запуск бота...
+2025-11-14 03:44:03 - bot - INFO - ==================================================
+2025-11-14 03:44:03 - bot - INFO - Бот запускается...
+2025-11-14 03:44:03 - bot - INFO - Бот: @PPrunner_bot
+2025-11-14 03:44:03 - bot - INFO - Токен бота: **********r9fl4
+2025-11-14 03:44:03 - bot - INFO - Путь к БД: runners.db
+2025-11-14 03:44:03 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-14 03:44:03 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-14 03:44:03 - bot - INFO - ==================================================
+2025-11-14 03:44:10 - bot - INFO - Пользователь 79669142 запустил бота
+2025-11-14 03:44:10 - bot - INFO - Ответ отправлен пользователю 79669142
+2025-11-14 03:44:15 - bot - ERROR - Ошибка при получении списка ссылок: Telegram server says - Bad Request: can't parse entities: Can't find end of the entity starting at byte offset 140
+Traceback (most recent call last):
+  File "D:\runner\src\handlers\link_generation.py", line 125, in get_links_command
+    await message.answer(links_message, parse_mode="Markdown")
+  File "D:\runner\.venv\Lib\site-packages\aiogram\methods\base.py", line 84, in emit
+    return await bot(self)
+           ^^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiogram\client\bot.py", line 498, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiogram\client\session\aiohttp.py", line 189, in make_request
+    response = self.check_response(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "D:\runner\.venv\Lib\site-packages\aiogram\client\session\base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: can't parse entities: Can't find end of the entity starting at byte offset 140
+2025-11-14 03:48:08 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-14 03:48:08 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-14 03:48:08 - bot - INFO - ==================================================
+2025-11-14 03:48:08 - bot - INFO - Бот завершает работу...
+2025-11-14 03:48:08 - bot - INFO - ==================================================
+2025-11-14 03:48:08 - bot - INFO - Polling остановлен
+2025-11-14 03:48:08 - bot - INFO - Сессия бота закрыта
+2025-11-14 03:48:08 - bot - INFO - Все ресурсы освобождены
+2025-11-14 03:48:08 - bot - INFO - Работа бота завершена
+2025-11-14 03:48:13 - bot - INFO - Обработчики сигналов установлены
+2025-11-14 03:48:13 - bot - INFO - Запуск бота...
+2025-11-14 03:48:13 - bot - INFO - ==================================================
+2025-11-14 03:48:13 - bot - INFO - Бот запускается...
+2025-11-14 03:48:13 - bot - INFO - Бот: @PPrunner_bot
+2025-11-14 03:48:13 - bot - INFO - Токен бота: **********r9fl4
+2025-11-14 03:48:13 - bot - INFO - Путь к БД: runners.db
+2025-11-14 03:48:13 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-14 03:48:13 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-14 03:48:13 - bot - INFO - ==================================================
+2025-11-14 03:48:13 - bot - INFO - Пользователь 79669142 запросил список ссылок
+2025-11-14 03:52:58 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-14 03:52:58 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-14 03:52:58 - bot - INFO - ==================================================
+2025-11-14 03:52:58 - bot - INFO - Бот завершает работу...
+2025-11-14 03:52:58 - bot - INFO - ==================================================
+2025-11-14 03:52:58 - bot - INFO - Polling остановлен
+2025-11-14 03:52:58 - bot - INFO - Сессия бота закрыта
+2025-11-14 03:52:58 - bot - INFO - Все ресурсы освобождены
+2025-11-14 03:52:58 - bot - INFO - Работа бота завершена
+2025-11-14 03:53:02 - bot - INFO - Обработчики сигналов установлены
+2025-11-14 03:53:02 - bot - INFO - Запуск бота...
+2025-11-14 03:53:02 - bot - INFO - ==================================================
+2025-11-14 03:53:02 - bot - INFO - Бот запускается...
+2025-11-14 03:53:02 - bot - INFO - Бот: @PPrunner_bot
+2025-11-14 03:53:02 - bot - INFO - Токен бота: **********r9fl4
+2025-11-14 03:53:02 - bot - INFO - Путь к БД: runners.db
+2025-11-14 03:53:02 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-14 03:53:02 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-14 03:53:02 - bot - INFO - ==================================================
+2025-11-14 03:53:07 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-14 03:53:07 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-14 03:53:07 - bot - INFO - ==================================================
+2025-11-14 03:53:07 - bot - INFO - Бот завершает работу...
+2025-11-14 03:53:07 - bot - INFO - ==================================================
+2025-11-14 03:53:07 - bot - INFO - Polling остановлен
+2025-11-14 03:53:07 - bot - INFO - Сессия бота закрыта
+2025-11-14 03:53:07 - bot - INFO - Все ресурсы освобождены
+2025-11-14 03:53:07 - bot - INFO - Работа бота завершена
+2025-11-14 03:53:13 - bot - INFO - Обработчики сигналов установлены
+2025-11-14 03:53:13 - bot - INFO - Запуск бота...
+2025-11-14 03:53:13 - bot - INFO - ==================================================
+2025-11-14 03:53:13 - bot - INFO - Бот запускается...
+2025-11-14 03:53:13 - bot - INFO - Бот: @PPrunner_bot
+2025-11-14 03:53:13 - bot - INFO - Токен бота: **********r9fl4
+2025-11-14 03:53:13 - bot - INFO - Путь к БД: runners.db
+2025-11-14 03:53:13 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-14 03:53:13 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-14 03:53:13 - bot - INFO - ==================================================
+2025-11-14 03:53:20 - bot - INFO - Пользователь 79669142 запустил бота
+2025-11-14 03:53:20 - bot - INFO - Зарегистрирован новый пользователь: user_id=1, telegram_id=79669142, username=AORyb
+2025-11-14 03:53:20 - bot - INFO - Ответ отправлен пользователю 79669142
+2025-11-14 03:53:31 - bot - INFO - Пользователь 79669142 запустил бота
+2025-11-14 03:53:31 - bot - INFO - Пользователь 79669142 уже зарегистрирован
+2025-11-14 03:53:31 - bot - INFO - Ответ отправлен пользователю 79669142
+2025-11-14 03:54:20 - bot - INFO - Пользователь 79669142 запустил бота
+2025-11-14 03:54:20 - bot - INFO - Зарегистрирован новый пользователь: user_id=2, telegram_id=79669142, username=AORyb
+2025-11-14 03:54:20 - bot - INFO - Ответ отправлен пользователю 79669142
+2025-11-14 03:57:32 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-14 03:57:32 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-14 03:57:32 - bot - INFO - ==================================================
+2025-11-14 03:57:32 - bot - INFO - Бот завершает работу...
+2025-11-14 03:57:32 - bot - INFO - ==================================================
+2025-11-14 03:57:33 - bot - INFO - Polling остановлен
+2025-11-14 03:57:33 - bot - INFO - Сессия бота закрыта
+2025-11-14 03:57:33 - bot - INFO - Все ресурсы освобождены
+2025-11-14 03:57:33 - bot - INFO - Работа бота завершена
+2025-11-14 03:57:37 - bot - INFO - Обработчики сигналов установлены
+2025-11-14 03:57:37 - bot - INFO - Запуск бота...
+2025-11-14 03:57:37 - bot - INFO - ==================================================
+2025-11-14 03:57:37 - bot - INFO - Бот запускается...
+2025-11-14 03:57:37 - bot - INFO - Бот: @PPrunner_bot
+2025-11-14 03:57:37 - bot - INFO - Токен бота: **********r9fl4
+2025-11-14 03:57:37 - bot - INFO - Путь к БД: runners.db
+2025-11-14 03:57:37 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-14 03:57:37 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-14 03:57:37 - bot - INFO - ==================================================
+2025-11-14 03:57:44 - bot - INFO - Пользователь 79669142 перешел по ссылке: NEL6aIzitLSpzSld
+2025-11-14 03:57:44 - bot - ERROR - Ошибка при обработке ссылки NEL6aIzitLSpzSld: CHECK constraint failed: role IN ('admin', 'moderator', 'user')
+Traceback (most recent call last):
+  File "D:\runner\src\handlers\link_generation.py", line 252, in handle_link_click
+    cursor.execute('''
+sqlite3.IntegrityError: CHECK constraint failed: role IN ('admin', 'moderator', 'user')
+2025-11-14 03:57:44 - bot - INFO - Пользователь 79669142 уже зарегистрирован
+2025-11-14 03:58:52 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-14 03:58:52 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-14 03:58:52 - bot - INFO - ==================================================
+2025-11-14 03:58:52 - bot - INFO - Бот завершает работу...
+2025-11-14 03:58:52 - bot - INFO - ==================================================
+2025-11-14 03:58:52 - bot - INFO - Polling остановлен
+2025-11-14 03:58:52 - bot - INFO - Сессия бота закрыта
+2025-11-14 03:58:52 - bot - INFO - Все ресурсы освобождены
+2025-11-14 03:58:52 - bot - INFO - Работа бота завершена
+2025-11-14 03:58:56 - bot - INFO - Обработчики сигналов установлены
+2025-11-14 03:58:56 - bot - INFO - Запуск бота...
+2025-11-14 03:58:56 - bot - INFO - ==================================================
+2025-11-14 03:58:56 - bot - INFO - Бот запускается...
+2025-11-14 03:58:57 - bot - INFO - Бот: @PPrunner_bot
+2025-11-14 03:58:57 - bot - INFO - Токен бота: **********r9fl4
+2025-11-14 03:58:57 - bot - INFO - Путь к БД: runners.db
+2025-11-14 03:58:57 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-14 03:58:57 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-14 03:58:57 - bot - INFO - ==================================================
+2025-11-14 03:59:00 - bot - INFO - Пользователь 79669142 перешел по ссылке: NEL6aIzitLSpzSld
+2025-11-14 03:59:00 - bot - INFO - Участник зарегистрирован: user_id=2, participant_id=1, telegram_id=79669142
+2025-11-14 03:59:15 - bot - INFO - Пользователь 79669142 перешел по ссылке: NEL6aIzitLSpzSld
+2025-11-14 03:59:15 - bot - INFO - Зарегистрирован новый пользователь: user_id=3, telegram_id=79669142, username=AORyb
+2025-11-14 03:59:33 - bot - INFO - Пользователь 79669142 перешел по ссылке: NEL6aIzitLSpzSld
+2025-11-14 03:59:33 - bot - INFO - Участник зарегистрирован: user_id=3, participant_id=1, telegram_id=79669142
+2025-11-14 03:59:56 - bot - INFO - Пользователь 79669142 перешел по ссылке: NEL6aIzitLSpzSld
+2025-11-14 03:59:56 - bot - INFO - Участник зарегистрирован: user_id=4, participant_id=1, telegram_id=79669142
+2025-11-14 13:06:13 - bot - INFO - Пользователь 1147455973 перешел по ссылке: NEL6aIzitLSpzSld
+2025-11-14 13:06:13 - bot - INFO - Зарегистрирован новый пользователь: user_id=5, telegram_id=1147455973, username=frel80
+2025-11-14 21:24:26 - bot - INFO - Обновлена ссылка для participant_id 1: Рыбников Антон
+2025-11-14 21:36:53 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-14 21:36:53 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-14 21:36:53 - bot - INFO - ==================================================
+2025-11-14 21:36:53 - bot - INFO - Бот завершает работу...
+2025-11-14 21:36:53 - bot - INFO - ==================================================
+2025-11-14 21:36:53 - bot - INFO - Polling остановлен
+2025-11-14 21:36:53 - bot - INFO - Сессия бота закрыта
+2025-11-14 21:36:53 - bot - INFO - Все ресурсы освобождены
+2025-11-14 21:36:53 - bot - INFO - Работа бота завершена
+2025-11-14 21:37:04 - bot - INFO - Обработчики сигналов установлены
+2025-11-14 21:37:04 - bot - INFO - Запуск бота...
+2025-11-14 21:37:04 - bot - INFO - ==================================================
+2025-11-14 21:37:04 - bot - INFO - Бот запускается...
+2025-11-14 21:37:04 - bot - INFO - Бот: @PPrunner_bot
+2025-11-14 21:37:04 - bot - INFO - Токен бота: **********r9fl4
+2025-11-14 21:37:04 - bot - INFO - Путь к БД: runners.db
+2025-11-14 21:37:04 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-14 21:37:04 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-14 21:37:04 - bot - INFO - ==================================================
+2025-11-14 21:37:05 - bot - INFO - Пользователь 79669142 запросил список ссылок
+2025-11-14 21:37:07 - bot - INFO - Пользователь 79669142 перешел по ссылке: KexRHifiqmuiozdF
+2025-11-14 21:37:07 - bot - INFO - Пользователь 79669142 уже зарегистрирован
+2025-11-14 21:37:46 - bot - INFO - Пропущен participant_id 1: ссылка уже существует
+2025-11-14 21:38:05 - bot - INFO - Пропущен participant_id 1: ссылка уже существует
+2025-11-14 21:38:15 - bot - INFO - Создана ссылка для participant_id 1: Рыбников Антон
+2025-11-14 21:42:46 - bot - INFO - Создана ссылка для participant_id 1: Рыбников Антон
+2025-11-14 21:43:05 - bot - INFO - Пользователь 79669142 запросил список ссылок
+2025-11-14 21:43:06 - bot - INFO - Пользователь 79669142 перешел по ссылке: LEdGeCQ6Z6M5P7Nb
+2025-11-14 21:43:06 - bot - INFO - Пользователь 79669142 уже зарегистрирован
+2025-11-14 21:43:47 - bot - INFO - Пользователь 79669142 перешел по ссылке: LEdGeCQ6Z6M5P7Nb
+2025-11-14 21:43:47 - bot - INFO - Участник зарегистрирован: user_id=4, participant_id=1, telegram_id=79669142
+2025-11-14 21:55:39 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-14 21:55:39 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-14 21:55:39 - bot - INFO - ==================================================
+2025-11-14 21:55:39 - bot - INFO - Бот завершает работу...
+2025-11-14 21:55:39 - bot - INFO - ==================================================
+2025-11-14 21:55:40 - bot - INFO - Polling остановлен
+2025-11-14 21:55:40 - bot - INFO - Сессия бота закрыта
+2025-11-14 21:55:40 - bot - INFO - Все ресурсы освобождены
+2025-11-14 21:55:40 - bot - INFO - Работа бота завершена
+2025-11-14 21:55:44 - bot - INFO - Обработчики сигналов установлены
+2025-11-14 21:55:44 - bot - INFO - Запуск бота...
+2025-11-14 21:55:44 - bot - INFO - ==================================================
+2025-11-14 21:55:44 - bot - INFO - Бот запускается...
+2025-11-14 21:55:44 - bot - INFO - Бот: @PPrunner_bot
+2025-11-14 21:55:44 - bot - INFO - Токен бота: **********r9fl4
+2025-11-14 21:55:44 - bot - INFO - Путь к БД: runners.db
+2025-11-14 21:55:44 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-14 21:55:44 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-14 21:55:44 - bot - INFO - ==================================================
+2025-11-14 22:04:23 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-14 22:04:23 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-14 22:04:23 - bot - INFO - ==================================================
+2025-11-14 22:04:23 - bot - INFO - Бот завершает работу...
+2025-11-14 22:04:23 - bot - INFO - ==================================================
+2025-11-14 22:04:24 - bot - INFO - Polling остановлен
+2025-11-14 22:04:24 - bot - INFO - Сессия бота закрыта
+2025-11-14 22:04:24 - bot - INFO - Все ресурсы освобождены
+2025-11-14 22:04:24 - bot - INFO - Работа бота завершена
+2025-11-14 22:04:28 - bot - INFO - Обработчики сигналов установлены
+2025-11-14 22:04:28 - bot - INFO - Запуск бота...
+2025-11-14 22:04:28 - bot - INFO - ==================================================
+2025-11-14 22:04:28 - bot - INFO - Бот запускается...
+2025-11-14 22:04:28 - bot - INFO - Бот: @PPrunner_bot
+2025-11-14 22:04:28 - bot - INFO - Токен бота: **********r9fl4
+2025-11-14 22:04:28 - bot - INFO - Путь к БД: runners.db
+2025-11-14 22:04:28 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-14 22:04:28 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-14 22:04:28 - bot - INFO - ==================================================
+2025-11-14 22:07:58 - bot - INFO - Создана ссылка для participant_id 1: Рыбников Антон
+2025-11-14 22:08:01 - bot - INFO - Пользователь 79669142 запросил список ссылок
+2025-11-14 22:08:07 - bot - INFO - Пользователь 79669142 перешел по ссылке: L4YG5hvKGnWA6Swe
+2025-11-14 22:08:07 - bot - INFO - Участник зарегистрирован: user_id=4, participant_id=1, telegram_id=79669142
+2025-11-14 22:30:51 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-14 22:30:51 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-14 22:30:51 - bot - INFO - ==================================================
+2025-11-14 22:30:51 - bot - INFO - Бот завершает работу...
+2025-11-14 22:30:51 - bot - INFO - ==================================================
+2025-11-14 22:30:52 - bot - INFO - Polling остановлен
+2025-11-14 22:30:52 - bot - INFO - Сессия бота закрыта
+2025-11-14 22:30:52 - bot - INFO - Все ресурсы освобождены
+2025-11-14 22:30:52 - bot - INFO - Работа бота завершена
+2025-11-14 22:30:57 - bot - INFO - Обработчики сигналов установлены
+2025-11-14 22:30:57 - bot - INFO - Запуск бота...
+2025-11-14 22:30:57 - bot - INFO - ==================================================
+2025-11-14 22:30:57 - bot - INFO - Бот запускается...
+2025-11-14 22:30:57 - bot - INFO - Бот: @PPrunner_bot
+2025-11-14 22:30:57 - bot - INFO - Токен бота: **********r9fl4
+2025-11-14 22:30:57 - bot - INFO - Путь к БД: runners.db
+2025-11-14 22:30:57 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-14 22:30:57 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-14 22:30:57 - bot - INFO - ==================================================
+2025-11-15 00:08:27 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 00:08:27 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 00:08:27 - bot - INFO - ==================================================
+2025-11-15 00:08:27 - bot - INFO - Бот завершает работу...
+2025-11-15 00:08:27 - bot - INFO - ==================================================
+2025-11-15 00:08:28 - bot - INFO - Polling остановлен
+2025-11-15 00:08:28 - bot - INFO - Сессия бота закрыта
+2025-11-15 00:08:28 - bot - INFO - Все ресурсы освобождены
+2025-11-15 00:08:28 - bot - INFO - Работа бота завершена
+2025-11-15 00:08:32 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 00:08:32 - bot - INFO - Запуск бота...
+2025-11-15 00:08:32 - bot - INFO - ==================================================
+2025-11-15 00:08:32 - bot - INFO - Бот запускается...
+2025-11-15 00:08:32 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 00:08:32 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 00:08:32 - bot - INFO - Путь к БД: runners.db
+2025-11-15 00:08:32 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-15 00:08:32 - bot - INFO - Пользователей в manual_upload: 0
+2025-11-15 00:08:32 - bot - INFO - ==================================================
+2025-11-15 00:22:57 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 00:22:57 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 00:22:57 - bot - INFO - ==================================================
+2025-11-15 00:22:57 - bot - INFO - Бот завершает работу...
+2025-11-15 00:22:57 - bot - INFO - ==================================================
+2025-11-15 00:22:58 - bot - INFO - Polling остановлен
+2025-11-15 00:22:58 - bot - INFO - Сессия бота закрыта
+2025-11-15 00:22:58 - bot - INFO - Все ресурсы освобождены
+2025-11-15 00:22:58 - bot - INFO - Работа бота завершена
+2025-11-15 00:23:08 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 00:23:08 - bot - INFO - Запуск бота...
+2025-11-15 00:23:08 - bot - INFO - ==================================================
+2025-11-15 00:23:08 - bot - INFO - Бот запускается...
+2025-11-15 00:23:09 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 00:23:09 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 00:23:09 - bot - INFO - Путь к БД: runners.db
+2025-11-15 00:23:09 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-15 00:23:09 - bot - INFO - Пользователей в manual_upload: 0
+2025-11-15 00:23:09 - bot - INFO - ==================================================
+2025-11-15 00:42:55 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 00:42:55 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 00:42:55 - bot - INFO - ==================================================
+2025-11-15 00:42:55 - bot - INFO - Бот завершает работу...
+2025-11-15 00:42:55 - bot - INFO - ==================================================
+2025-11-15 00:42:55 - bot - INFO - Polling остановлен
+2025-11-15 00:42:55 - bot - INFO - Сессия бота закрыта
+2025-11-15 00:42:55 - bot - INFO - Все ресурсы освобождены
+2025-11-15 00:42:55 - bot - INFO - Работа бота завершена
+2025-11-15 00:43:00 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 00:43:00 - bot - INFO - Запуск бота...
+2025-11-15 00:43:00 - bot - INFO - ==================================================
+2025-11-15 00:43:00 - bot - INFO - Бот запускается...
+2025-11-15 00:43:00 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 00:43:00 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 00:43:00 - bot - INFO - Путь к БД: runners.db
+2025-11-15 00:43:00 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-15 00:43:00 - bot - INFO - Пользователей в manual_upload: 0
+2025-11-15 00:43:00 - bot - INFO - ==================================================
+2025-11-15 00:49:00 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 00:49:00 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 00:49:00 - bot - INFO - ==================================================
+2025-11-15 00:49:00 - bot - INFO - Бот завершает работу...
+2025-11-15 00:49:00 - bot - INFO - ==================================================
+2025-11-15 00:49:01 - bot - INFO - Polling остановлен
+2025-11-15 00:49:01 - bot - INFO - Сессия бота закрыта
+2025-11-15 00:49:01 - bot - INFO - Все ресурсы освобождены
+2025-11-15 00:49:01 - bot - INFO - Работа бота завершена
+2025-11-15 00:49:05 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 00:49:05 - bot - INFO - Запуск бота...
+2025-11-15 00:49:05 - bot - INFO - ==================================================
+2025-11-15 00:49:05 - bot - INFO - Бот запускается...
+2025-11-15 00:49:05 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 00:49:05 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 00:49:05 - bot - INFO - Путь к БД: runners.db
+2025-11-15 00:49:05 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-15 00:49:05 - bot - INFO - Пользователей в manual_upload: 0
+2025-11-15 00:49:05 - bot - INFO - ==================================================
+2025-11-15 00:58:03 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 00:58:03 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 00:58:03 - bot - INFO - ==================================================
+2025-11-15 00:58:03 - bot - INFO - Бот завершает работу...
+2025-11-15 00:58:03 - bot - INFO - ==================================================
+2025-11-15 00:58:03 - bot - INFO - Polling остановлен
+2025-11-15 00:58:03 - bot - INFO - Сессия бота закрыта
+2025-11-15 00:58:03 - bot - INFO - Все ресурсы освобождены
+2025-11-15 00:58:03 - bot - INFO - Работа бота завершена
+2025-11-15 00:58:08 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 00:58:08 - bot - INFO - Запуск бота...
+2025-11-15 00:58:08 - bot - INFO - ==================================================
+2025-11-15 00:58:08 - bot - INFO - Бот запускается...
+2025-11-15 00:58:09 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 00:58:09 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 00:58:09 - bot - INFO - Путь к БД: runners.db
+2025-11-15 00:58:09 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-15 00:58:09 - bot - INFO - Пользователей в manual_upload: 0
+2025-11-15 00:58:09 - bot - INFO - ==================================================
+2025-11-15 01:10:42 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 01:10:42 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 01:10:42 - bot - INFO - ==================================================
+2025-11-15 01:10:42 - bot - INFO - Бот завершает работу...
+2025-11-15 01:10:42 - bot - INFO - ==================================================
+2025-11-15 01:10:42 - bot - INFO - Polling остановлен
+2025-11-15 01:10:42 - bot - INFO - Сессия бота закрыта
+2025-11-15 01:10:42 - bot - INFO - Все ресурсы освобождены
+2025-11-15 01:10:42 - bot - INFO - Работа бота завершена
+2025-11-15 01:10:47 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 01:10:47 - bot - INFO - Запуск бота...
+2025-11-15 01:10:47 - bot - INFO - ==================================================
+2025-11-15 01:10:47 - bot - INFO - Бот запускается...
+2025-11-15 01:10:47 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 01:10:47 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 01:10:47 - bot - INFO - Путь к БД: runners.db
+2025-11-15 01:10:47 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-15 01:10:47 - bot - INFO - Пользователей в manual_upload: 0
+2025-11-15 01:10:47 - bot - INFO - ==================================================
+2025-11-15 01:16:21 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 01:16:21 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 01:16:21 - bot - INFO - ==================================================
+2025-11-15 01:16:21 - bot - INFO - Бот завершает работу...
+2025-11-15 01:16:21 - bot - INFO - ==================================================
+2025-11-15 01:16:21 - bot - INFO - Polling остановлен
+2025-11-15 01:16:21 - bot - INFO - Сессия бота закрыта
+2025-11-15 01:16:21 - bot - INFO - Все ресурсы освобождены
+2025-11-15 01:16:21 - bot - INFO - Работа бота завершена
+2025-11-15 01:16:26 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 01:16:26 - bot - INFO - Запуск бота...
+2025-11-15 01:16:26 - bot - INFO - ==================================================
+2025-11-15 01:16:26 - bot - INFO - Бот запускается...
+2025-11-15 01:16:27 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 01:16:27 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 01:16:27 - bot - INFO - Путь к БД: runners.db
+2025-11-15 01:16:27 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-15 01:16:27 - bot - INFO - Пользователей в manual_upload: 0
+2025-11-15 01:16:27 - bot - INFO - ==================================================
+2025-11-15 01:22:26 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 01:22:26 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 01:22:26 - bot - INFO - ==================================================
+2025-11-15 01:22:26 - bot - INFO - Бот завершает работу...
+2025-11-15 01:22:26 - bot - INFO - ==================================================
+2025-11-15 01:22:26 - bot - INFO - Polling остановлен
+2025-11-15 01:22:26 - bot - INFO - Сессия бота закрыта
+2025-11-15 01:22:26 - bot - INFO - Все ресурсы освобождены
+2025-11-15 01:22:26 - bot - INFO - Работа бота завершена
+2025-11-15 01:22:31 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 01:22:31 - bot - INFO - Запуск бота...
+2025-11-15 01:22:31 - bot - INFO - ==================================================
+2025-11-15 01:22:31 - bot - INFO - Бот запускается...
+2025-11-15 01:22:32 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 01:22:32 - bot - INFO - 🔧 Настройка обработчиков контента этапов
+2025-11-15 01:22:32 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 01:22:32 - bot - INFO - Путь к БД: runners.db
+2025-11-15 01:22:32 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-15 01:22:32 - bot - INFO - Пользователей в manual_upload: 0
+2025-11-15 01:22:32 - bot - INFO - ==================================================
+2025-11-15 01:22:40 - bot - INFO - 🚀 Команда /add_stage_content от пользователя 79669142
+2025-11-15 01:22:41 - bot - INFO - 📝 Установлено состояние: waiting_for_stage_selection
+2025-11-15 01:22:42 - bot - INFO - 🎯 Обработка выбора этапа: 'Этап 6: Беговая подготовка'
+2025-11-15 01:22:42 - bot - INFO - 🔍 Извлечен stage_id: 6
+2025-11-15 01:22:42 - bot - INFO - ✅ Найден этап: Беговая подготовка
+2025-11-15 01:22:42 - bot - INFO - 📊 Максимальный порядковый номер: 0
+2025-11-15 01:22:42 - bot - INFO - ➡️ Переход в состояние: waiting_for_order_number
+2025-11-15 01:22:43 - bot - INFO - 🔢 Обработка порядкового номера: '1'
+2025-11-15 01:22:43 - bot - INFO - ✅ Установлен order_number: 1
+2025-11-15 01:22:43 - bot - INFO - ➡️ Переход в состояние: waiting_for_message_text
+2025-11-15 01:22:51 - bot - INFO - 💬 Обработка текста сообщения: 'Текст для этапа...'
+2025-11-15 01:22:51 - bot - INFO - ✅ Текст сообщения сохранен, длина: 15 символов
+2025-11-15 01:22:51 - bot - INFO - ➡️ Переход в состояние: waiting_for_image_choice
+2025-11-15 01:22:53 - bot - INFO - 🖼️ Обработка выбора изображения: '✅ Да'
+2025-11-15 01:22:53 - bot - INFO - 📸 has_image установлено в: True
+2025-11-15 01:22:53 - bot - INFO - ➡️ Переход в состояние: waiting_for_image
+2025-11-15 01:23:01 - bot - INFO - 📸 Получено изображение
+2025-11-15 01:23:01 - bot - INFO - ✅ Изображение сохранено, file_id: AgACAgIAAxkBAAOHaRehBWxh_c2bjjsSlUoSaoX35agAAmERaxsGd7lIBRmka33s2AYBAAMCAAN4AAM2BA
+2025-11-15 01:23:01 - bot - INFO - ➡️ Переход в состояние: waiting_for_feedback_choice
+2025-11-15 01:25:47 - bot - INFO - 🚀 Команда /add_stage_content от пользователя 79669142
+2025-11-15 01:25:48 - bot - INFO - 📝 Установлено состояние: waiting_for_stage_selection
+2025-11-15 01:25:49 - bot - INFO - 🎯 Обработка выбора этапа: 'Этап 6: Беговая подготовка'
+2025-11-15 01:25:49 - bot - INFO - 🔍 Извлечен stage_id: 6
+2025-11-15 01:25:49 - bot - INFO - ✅ Найден этап: Беговая подготовка
+2025-11-15 01:25:49 - bot - INFO - 📊 Максимальный порядковый номер: 0
+2025-11-15 01:25:49 - bot - INFO - ➡️ Переход в состояние: waiting_for_order_number
+2025-11-15 01:26:04 - bot - INFO - 🔢 Обработка порядкового номера: 'Загадка, какой формы луна?'
+2025-11-15 01:26:04 - bot - ERROR - ❌ ValueError при обработке порядкового номера: 'Загадка, какой формы луна?'
+2025-11-15 01:26:07 - bot - INFO - 🔢 Обработка порядкового номера: '1'
+2025-11-15 01:26:07 - bot - INFO - ✅ Установлен order_number: 1
+2025-11-15 01:26:07 - bot - INFO - ➡️ Переход в состояние: waiting_for_message_text
+2025-11-15 01:26:12 - bot - INFO - 💬 Обработка текста сообщения: 'Какой формы луна?...'
+2025-11-15 01:26:12 - bot - INFO - ✅ Текст сообщения сохранен, длина: 17 символов
+2025-11-15 01:26:12 - bot - INFO - ➡️ Переход в состояние: waiting_for_image_choice
+2025-11-15 01:29:12 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 01:29:12 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 01:29:12 - bot - INFO - ==================================================
+2025-11-15 01:29:12 - bot - INFO - Бот завершает работу...
+2025-11-15 01:29:12 - bot - INFO - ==================================================
+2025-11-15 01:29:13 - bot - INFO - Polling остановлен
+2025-11-15 01:29:13 - bot - INFO - Сессия бота закрыта
+2025-11-15 01:29:13 - bot - INFO - Все ресурсы освобождены
+2025-11-15 01:29:13 - bot - INFO - Работа бота завершена
+2025-11-15 01:29:17 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 01:29:17 - bot - INFO - Запуск бота...
+2025-11-15 01:29:17 - bot - INFO - ==================================================
+2025-11-15 01:29:17 - bot - INFO - Бот запускается...
+2025-11-15 01:29:18 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 01:29:18 - bot - INFO - 🔧 Настройка обработчиков контента этапов
+2025-11-15 01:29:18 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 01:29:18 - bot - INFO - Путь к БД: runners.db
+2025-11-15 01:29:18 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-15 01:29:18 - bot - INFO - Пользователей в manual_upload: 0
+2025-11-15 01:29:18 - bot - INFO - ==================================================
+2025-11-15 01:29:24 - bot - INFO - 🚀 Команда /add_stage_content от пользователя 79669142
+2025-11-15 01:29:24 - bot - INFO - 📝 Установлено состояние: waiting_for_stage_selection
+2025-11-15 01:29:25 - bot - INFO - 🎯 Обработка выбора этапа: 'Этап 6: Беговая подготовка'
+2025-11-15 01:29:25 - bot - INFO - 🔍 Извлечен stage_id: 6
+2025-11-15 01:29:25 - bot - INFO - ✅ Найден этап: Беговая подготовка
+2025-11-15 01:29:25 - bot - INFO - 📊 Максимальный порядковый номер: 0
+2025-11-15 01:29:25 - bot - INFO - ➡️ Переход в состояние: waiting_for_order_number
+2025-11-15 01:29:27 - bot - INFO - 🔢 Обработка порядкового номера: '1'
+2025-11-15 01:29:27 - bot - INFO - ✅ Установлен order_number: 1
+2025-11-15 01:29:27 - bot - INFO - ➡️ Переход в состояние: waiting_for_message_text
+2025-11-15 01:29:37 - bot - INFO - 💬 Обработка текста сообщения: 'Загадка, какой формы луна?...'
+2025-11-15 01:29:37 - bot - INFO - ✅ Текст сообщения сохранен, длина: 26 символов
+2025-11-15 01:29:37 - bot - INFO - ➡️ Переход в состояние: waiting_for_image_choice
+2025-11-15 01:34:14 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 01:34:14 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 01:34:14 - bot - INFO - ==================================================
+2025-11-15 01:34:14 - bot - INFO - Бот завершает работу...
+2025-11-15 01:34:14 - bot - INFO - ==================================================
+2025-11-15 01:34:14 - bot - INFO - Polling остановлен
+2025-11-15 01:34:14 - bot - INFO - Сессия бота закрыта
+2025-11-15 01:34:14 - bot - INFO - Все ресурсы освобождены
+2025-11-15 01:34:14 - bot - INFO - Работа бота завершена
+2025-11-15 01:34:19 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 01:34:19 - bot - INFO - Запуск бота...
+2025-11-15 01:34:19 - bot - INFO - ==================================================
+2025-11-15 01:34:19 - bot - INFO - Бот запускается...
+2025-11-15 01:34:19 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 01:34:19 - bot - INFO - 🔧 Настройка обработчиков контента этапов
+2025-11-15 01:34:19 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 01:34:19 - bot - INFO - Путь к БД: runners.db
+2025-11-15 01:34:19 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-15 01:34:19 - bot - INFO - Пользователей в manual_upload: 0
+2025-11-15 01:34:19 - bot - INFO - ==================================================
+2025-11-15 01:34:25 - bot - INFO - 🚀 Команда /add_stage_content от пользователя 79669142
+2025-11-15 01:34:25 - bot - INFO - 📝 Установлено состояние: waiting_for_stage_selection
+2025-11-15 01:34:27 - bot - INFO - 🎯 Обработка выбора этапа: 'Этап 6: Беговая подготовка'
+2025-11-15 01:34:27 - bot - INFO - 🔍 Извлечен stage_id: 6
+2025-11-15 01:34:27 - bot - INFO - ✅ Найден этап: Беговая подготовка
+2025-11-15 01:34:27 - bot - INFO - 📊 Максимальный порядковый номер: 0
+2025-11-15 01:34:27 - bot - INFO - ➡️ Переход в состояние: waiting_for_order_number
+2025-11-15 01:34:28 - bot - INFO - 🔢 Обработка порядкового номера: '1'
+2025-11-15 01:34:28 - bot - INFO - ✅ Установлен order_number: 1
+2025-11-15 01:34:28 - bot - INFO - ➡️ Переход в состояние: waiting_for_message_text
+2025-11-15 01:34:37 - bot - INFO - 💬 Обработка текста сообщения: 'Загадка сколько будет 2+2...'
+2025-11-15 01:34:37 - bot - INFO - ✅ Текст сообщения сохранен, длина: 25 символов
+2025-11-15 01:34:37 - bot - INFO - ➡️ Переход в состояние: waiting_for_image_choice
+2025-11-15 01:44:14 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 01:44:14 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 01:44:14 - bot - INFO - ==================================================
+2025-11-15 01:44:14 - bot - INFO - Бот завершает работу...
+2025-11-15 01:44:14 - bot - INFO - ==================================================
+2025-11-15 01:44:15 - bot - INFO - Polling остановлен
+2025-11-15 01:44:15 - bot - INFO - Сессия бота закрыта
+2025-11-15 01:44:15 - bot - INFO - Все ресурсы освобождены
+2025-11-15 01:44:15 - bot - INFO - Работа бота завершена
+2025-11-15 01:44:19 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 01:44:19 - bot - INFO - Запуск бота...
+2025-11-15 01:44:19 - bot - INFO - ==================================================
+2025-11-15 01:44:19 - bot - INFO - Бот запускается...
+2025-11-15 01:44:19 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 01:44:19 - bot - INFO - 🔧 Настройка обработчиков контента этапов
+2025-11-15 01:44:19 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 01:44:19 - bot - INFO - Путь к БД: runners.db
+2025-11-15 01:44:19 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-15 01:44:19 - bot - INFO - Пользователей в manual_upload: 0
+2025-11-15 01:44:19 - bot - INFO - ==================================================
+2025-11-15 01:44:25 - bot - INFO - 🚀 Команда /add_stage_content от пользователя 79669142
+2025-11-15 01:44:26 - bot - INFO - 📝 Установлено состояние: waiting_for_stage_selection
+2025-11-15 01:44:27 - bot - INFO - 🎯 Обработка выбора этапа: 'Этап 6: Беговая подготовка'
+2025-11-15 01:44:27 - bot - INFO - 🔍 Получен stage_id из словаря: 6
+2025-11-15 01:44:27 - bot - INFO - ✅ Найден этап: Беговая подготовка
+2025-11-15 01:44:27 - bot - INFO - 📊 Максимальный порядковый номер: 0
+2025-11-15 01:44:27 - bot - INFO - ➡️ Переход в состояние: waiting_for_order_number
+2025-11-15 01:44:29 - bot - INFO - 🔢 Обработка порядкового номера: '1'
+2025-11-15 01:44:29 - bot - INFO - ✅ Установлен order_number: 1
+2025-11-15 01:44:29 - bot - INFO - ➡️ Переход в состояние: waiting_for_message_text
+2025-11-15 01:44:31 - bot - INFO - 💬 Обработка текста сообщения: 'бла...'
+2025-11-15 01:44:31 - bot - INFO - ✅ Текст сообщения сохранен, длина: 3 символов
+2025-11-15 01:44:31 - bot - INFO - ➡️ Переход в состояние: waiting_for_image_choice
+2025-11-15 01:44:58 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 01:44:58 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 01:44:58 - bot - INFO - ==================================================
+2025-11-15 01:44:58 - bot - INFO - Бот завершает работу...
+2025-11-15 01:44:58 - bot - INFO - ==================================================
+2025-11-15 01:44:58 - bot - INFO - Polling остановлен
+2025-11-15 01:44:58 - bot - INFO - Сессия бота закрыта
+2025-11-15 01:44:58 - bot - INFO - Все ресурсы освобождены
+2025-11-15 01:44:58 - bot - INFO - Работа бота завершена
+2025-11-15 01:45:03 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 01:45:03 - bot - INFO - Запуск бота...
+2025-11-15 01:45:03 - bot - INFO - ==================================================
+2025-11-15 01:45:03 - bot - INFO - Бот запускается...
+2025-11-15 01:45:03 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 01:45:03 - bot - INFO - 🔧 Настройка обработчиков контента этапов
+2025-11-15 01:45:03 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 01:45:03 - bot - INFO - Путь к БД: runners.db
+2025-11-15 01:45:03 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-15 01:45:03 - bot - INFO - Пользователей в manual_upload: 0
+2025-11-15 01:45:03 - bot - INFO - ==================================================
+2025-11-15 01:45:07 - bot - INFO - 🚀 Команда /add_stage_content от пользователя 79669142
+2025-11-15 01:45:07 - bot - INFO - 📝 Установлено состояние: waiting_for_stage_selection
+2025-11-15 01:45:08 - bot - INFO - 🎯 Обработка выбора этапа: 'Этап 6: Беговая подготовка'
+2025-11-15 01:45:08 - bot - INFO - 🔍 Получен stage_id из словаря: 6
+2025-11-15 01:45:08 - bot - INFO - ✅ Найден этап: Беговая подготовка
+2025-11-15 01:45:08 - bot - INFO - 📊 Максимальный порядковый номер: 0
+2025-11-15 01:45:09 - bot - INFO - ➡️ Переход в состояние: waiting_for_order_number
+2025-11-15 01:45:10 - bot - INFO - 🔢 Обработка порядкового номера: '1'
+2025-11-15 01:45:10 - bot - INFO - ✅ Установлен order_number: 1
+2025-11-15 01:45:10 - bot - INFO - ➡️ Переход в состояние: waiting_for_message_text
+2025-11-15 01:45:12 - bot - INFO - 💬 Обработка текста сообщения: 'фыфыв...'
+2025-11-15 01:45:12 - bot - INFO - ✅ Текст сообщения сохранен, длина: 5 символов
+2025-11-15 01:45:12 - bot - INFO - ➡️ Переход в состояние: waiting_for_image_choice
+2025-11-15 01:52:52 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 01:52:52 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 01:52:52 - bot - INFO - ==================================================
+2025-11-15 01:52:52 - bot - INFO - Бот завершает работу...
+2025-11-15 01:52:52 - bot - INFO - ==================================================
+2025-11-15 01:52:53 - bot - INFO - Polling остановлен
+2025-11-15 01:52:53 - bot - INFO - Сессия бота закрыта
+2025-11-15 01:52:53 - bot - INFO - Все ресурсы освобождены
+2025-11-15 01:52:53 - bot - INFO - Работа бота завершена
+2025-11-15 01:52:57 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 01:52:57 - bot - INFO - Запуск бота...
+2025-11-15 01:52:57 - bot - INFO - ==================================================
+2025-11-15 01:52:57 - bot - INFO - Бот запускается...
+2025-11-15 01:52:57 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 01:52:57 - bot - INFO - 🔧 Настройка обработчиков контента этапов
+2025-11-15 01:52:57 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 01:52:57 - bot - INFO - Путь к БД: runners.db
+2025-11-15 01:52:57 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-15 01:52:57 - bot - INFO - Пользователей в manual_upload: 0
+2025-11-15 01:52:57 - bot - INFO - ==================================================
+2025-11-15 01:53:03 - bot - INFO - 🚀 Команда /add_stage_content от пользователя 79669142
+2025-11-15 01:53:03 - bot - INFO - 📝 Установлено состояние: waiting_for_stage_selection
+2025-11-15 01:53:05 - bot - INFO - 🎯 Обработка выбора этапа: 'Добавить в этап 6: Беговая подготовка'
+2025-11-15 02:01:42 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 02:01:42 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 02:01:42 - bot - INFO - ==================================================
+2025-11-15 02:01:42 - bot - INFO - Бот завершает работу...
+2025-11-15 02:01:42 - bot - INFO - ==================================================
+2025-11-15 02:01:43 - bot - INFO - Polling остановлен
+2025-11-15 02:01:43 - bot - INFO - Сессия бота закрыта
+2025-11-15 02:01:43 - bot - INFO - Все ресурсы освобождены
+2025-11-15 02:01:43 - bot - INFO - Работа бота завершена
+2025-11-15 02:01:48 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 02:01:48 - bot - INFO - Запуск бота...
+2025-11-15 02:01:48 - bot - INFO - ==================================================
+2025-11-15 02:01:48 - bot - INFO - Бот запускается...
+2025-11-15 02:01:48 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 02:01:48 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 02:01:48 - bot - INFO - Путь к БД: runners.db
+2025-11-15 02:01:48 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-15 02:01:48 - bot - INFO - Пользователей в manual_upload: 0
+2025-11-15 02:01:48 - bot - INFO - ==================================================
+2025-11-15 02:01:52 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 02:01:52 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 02:01:52 - bot - INFO - ==================================================
+2025-11-15 02:01:52 - bot - INFO - Бот завершает работу...
+2025-11-15 02:01:52 - bot - INFO - ==================================================
+2025-11-15 02:01:52 - bot - INFO - Polling остановлен
+2025-11-15 02:01:52 - bot - INFO - Сессия бота закрыта
+2025-11-15 02:01:52 - bot - INFO - Все ресурсы освобождены
+2025-11-15 02:01:52 - bot - INFO - Работа бота завершена
+2025-11-15 02:09:43 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 02:09:43 - bot - INFO - Запуск бота...
+2025-11-15 02:09:43 - bot - INFO - ==================================================
+2025-11-15 02:09:43 - bot - INFO - Бот запускается...
+2025-11-15 02:09:44 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 02:09:44 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 02:09:44 - bot - INFO - Путь к БД: runners.db
+2025-11-15 02:09:44 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-15 02:09:44 - bot - INFO - Пользователей в manual_upload: 0
+2025-11-15 02:09:44 - bot - INFO - ==================================================
+2025-11-15 02:09:54 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 02:09:54 - bot - INFO - Пользователь 79669142 уже зарегистрирован
+2025-11-15 02:11:21 - bot - INFO - Создана ссылка для participant_id 1: Рыбников Антон
+2025-11-15 02:11:23 - bot - INFO - Пользователь 79669142 запросил список ссылок
+2025-11-15 02:11:25 - bot - INFO - Пользователь 79669142 перешел по ссылке: bgOCr7IowP426I8p
+2025-11-15 02:11:25 - bot - INFO - Участник зарегистрирован: user_id=4, participant_id=1, telegram_id=79669142
+2025-11-15 02:14:07 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 02:14:07 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 02:14:07 - bot - INFO - ==================================================
+2025-11-15 02:14:07 - bot - INFO - Бот завершает работу...
+2025-11-15 02:14:07 - bot - INFO - ==================================================
+2025-11-15 02:14:08 - bot - INFO - Polling остановлен
+2025-11-15 02:14:08 - bot - INFO - Сессия бота закрыта
+2025-11-15 02:14:08 - bot - INFO - Все ресурсы освобождены
+2025-11-15 02:14:08 - bot - INFO - Работа бота завершена
+2025-11-15 02:14:13 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 02:14:13 - bot - INFO - Запуск бота...
+2025-11-15 02:14:13 - bot - INFO - ==================================================
+2025-11-15 02:14:13 - bot - INFO - Бот запускается...
+2025-11-15 02:14:13 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 02:14:13 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 02:14:13 - bot - INFO - Путь к БД: runners.db
+2025-11-15 02:14:13 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-15 02:14:13 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-15 02:14:13 - bot - INFO - ==================================================
+2025-11-15 02:14:14 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 02:20:41 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 02:20:41 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 02:20:41 - bot - INFO - ==================================================
+2025-11-15 02:20:41 - bot - INFO - Бот завершает работу...
+2025-11-15 02:20:41 - bot - INFO - ==================================================
+2025-11-15 02:20:41 - bot - INFO - Polling остановлен
+2025-11-15 02:20:41 - bot - INFO - Сессия бота закрыта
+2025-11-15 02:20:41 - bot - INFO - Все ресурсы освобождены
+2025-11-15 02:20:41 - bot - INFO - Работа бота завершена
+2025-11-15 02:20:46 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 02:20:46 - bot - INFO - Запуск бота...
+2025-11-15 02:20:46 - bot - INFO - ==================================================
+2025-11-15 02:20:46 - bot - INFO - Бот запускается...
+2025-11-15 02:20:46 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 02:20:46 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 02:20:46 - bot - INFO - Путь к БД: runners.db
+2025-11-15 02:20:46 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-15 02:20:46 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-15 02:20:46 - bot - INFO - ==================================================
+2025-11-15 02:20:47 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 02:21:05 - bot - ERROR - Ошибка при отправке картинки: Can't instantiate abstract class InputFile with abstract method read
+2025-11-15 02:22:51 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 02:22:51 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 02:22:51 - bot - INFO - ==================================================
+2025-11-15 02:22:51 - bot - INFO - Бот завершает работу...
+2025-11-15 02:22:51 - bot - INFO - ==================================================
+2025-11-15 02:22:51 - bot - INFO - Polling остановлен
+2025-11-15 02:22:51 - bot - INFO - Сессия бота закрыта
+2025-11-15 02:22:51 - bot - INFO - Все ресурсы освобождены
+2025-11-15 02:22:51 - bot - INFO - Работа бота завершена
+2025-11-15 02:22:58 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 02:22:58 - bot - INFO - Запуск бота...
+2025-11-15 02:22:58 - bot - INFO - ==================================================
+2025-11-15 02:22:58 - bot - INFO - Бот запускается...
+2025-11-15 02:22:58 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 02:22:58 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 02:22:58 - bot - INFO - Путь к БД: runners.db
+2025-11-15 02:22:58 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-15 02:22:58 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-15 02:22:58 - bot - INFO - ==================================================
+2025-11-15 02:23:02 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 02:23:21 - bot - INFO - Картинка успешно отправлена: src/media/start.jpg
+2025-11-15 02:26:22 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 02:26:22 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 02:26:22 - bot - INFO - ==================================================
+2025-11-15 02:26:22 - bot - INFO - Бот завершает работу...
+2025-11-15 02:26:22 - bot - INFO - ==================================================
+2025-11-15 02:26:22 - bot - INFO - Polling остановлен
+2025-11-15 02:26:22 - bot - INFO - Сессия бота закрыта
+2025-11-15 02:26:22 - bot - INFO - Все ресурсы освобождены
+2025-11-15 02:26:22 - bot - INFO - Работа бота завершена
+2025-11-15 02:26:27 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 02:26:27 - bot - INFO - Запуск бота...
+2025-11-15 02:26:27 - bot - INFO - ==================================================
+2025-11-15 02:26:27 - bot - INFO - Бот запускается...
+2025-11-15 02:26:27 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 02:26:27 - bot - CRITICAL - Критическая ошибка при запуске бота: module 'types' has no attribute 'CallbackQuery'
+Traceback (most recent call last):
+  File "D:\runner\src\main.py", line 93, in main
+    await dp.start_polling(bot)
+  File "D:\runner\.venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 526, in start_polling
+    await self.emit_startup(bot=bots[-1], **workflow_data)
+  File "D:\runner\.venv\Lib\site-packages\aiogram\dispatcher\router.py", line 260, in emit_startup
+    await self.startup.trigger(*args, **kwargs)
+  File "D:\runner\.venv\Lib\site-packages\aiogram\dispatcher\event\event.py", line 42, in trigger
+    await handler.call(*args, **kwargs)
+  File "D:\runner\.venv\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "D:\runner\src\main.py", line 46, in on_startup
+    setup_start_handler(dp, shutdown_manager, logger, bot_username)
+  File "D:\runner\src\handlers\start.py", line 161, in setup_start_handler
+    async def handle_start_quest(callback_query: types.CallbackQuery):
+                                                 ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'types' has no attribute 'CallbackQuery'
+2025-11-15 02:26:28 - bot - CRITICAL - Непредвиденная ошибка: module 'types' has no attribute 'CallbackQuery'
+Traceback (most recent call last):
+  File "D:\runner\src\main.py", line 101, in <module>
+    asyncio.run(main())
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "D:\runner\src\main.py", line 93, in main
+    await dp.start_polling(bot)
+  File "D:\runner\.venv\Lib\site-packages\aiogram\dispatcher\dispatcher.py", line 526, in start_polling
+    await self.emit_startup(bot=bots[-1], **workflow_data)
+  File "D:\runner\.venv\Lib\site-packages\aiogram\dispatcher\router.py", line 260, in emit_startup
+    await self.startup.trigger(*args, **kwargs)
+  File "D:\runner\.venv\Lib\site-packages\aiogram\dispatcher\event\event.py", line 42, in trigger
+    await handler.call(*args, **kwargs)
+  File "D:\runner\.venv\Lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "D:\runner\src\main.py", line 46, in on_startup
+    setup_start_handler(dp, shutdown_manager, logger, bot_username)
+  File "D:\runner\src\handlers\start.py", line 161, in setup_start_handler
+    async def handle_start_quest(callback_query: types.CallbackQuery):
+                                                 ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'types' has no attribute 'CallbackQuery'
+2025-11-15 02:26:28 - bot - INFO - Работа бота завершена
+2025-11-15 02:30:13 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 02:30:13 - bot - INFO - Запуск бота...
+2025-11-15 02:30:13 - bot - INFO - ==================================================
+2025-11-15 02:30:13 - bot - INFO - Бот запускается...
+2025-11-15 02:30:13 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 02:30:13 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 02:30:13 - bot - INFO - Путь к БД: runners.db
+2025-11-15 02:30:13 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-15 02:30:13 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-15 02:30:13 - bot - INFO - ==================================================
+2025-11-15 02:30:13 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 02:30:13 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 02:30:32 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-15 02:30:32 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-15 02:30:38 - bot - INFO - Пользователь 79669142 начал квест
+2025-11-15 02:37:27 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 02:37:27 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 02:37:27 - bot - INFO - ==================================================
+2025-11-15 02:37:27 - bot - INFO - Бот завершает работу...
+2025-11-15 02:37:27 - bot - INFO - ==================================================
+2025-11-15 02:37:28 - bot - INFO - Polling остановлен
+2025-11-15 02:37:28 - bot - INFO - Сессия бота закрыта
+2025-11-15 02:37:28 - bot - INFO - Все ресурсы освобождены
+2025-11-15 02:37:28 - bot - INFO - Работа бота завершена
+2025-11-15 02:37:35 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 02:37:35 - bot - INFO - Запуск бота...
+2025-11-15 02:37:35 - bot - INFO - ==================================================
+2025-11-15 02:37:35 - bot - INFO - Бот запускается...
+2025-11-15 02:37:35 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 02:37:35 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 02:37:35 - bot - INFO - Путь к БД: runners.db
+2025-11-15 02:37:35 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-15 02:37:35 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-15 02:37:35 - bot - INFO - ==================================================
+2025-11-15 02:37:37 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 02:37:56 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-15 02:40:27 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 02:40:27 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 02:40:27 - bot - INFO - ==================================================
+2025-11-15 02:40:27 - bot - INFO - Бот завершает работу...
+2025-11-15 02:40:27 - bot - INFO - ==================================================
+2025-11-15 02:40:27 - bot - INFO - Polling остановлен
+2025-11-15 02:40:27 - bot - INFO - Сессия бота закрыта
+2025-11-15 02:40:27 - bot - INFO - Все ресурсы освобождены
+2025-11-15 02:40:27 - bot - INFO - Работа бота завершена
+2025-11-15 02:40:34 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 02:40:34 - bot - INFO - Запуск бота...
+2025-11-15 02:40:34 - bot - INFO - ==================================================
+2025-11-15 02:40:34 - bot - INFO - Бот запускается...
+2025-11-15 02:40:34 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 02:40:34 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-15 02:40:34 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-15 02:40:34 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 02:40:34 - bot - INFO - Путь к БД: runners.db
+2025-11-15 02:40:34 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'stage_content', 'user_data', 'verification', 'main']
+2025-11-15 02:40:34 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role']
+2025-11-15 02:40:34 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-15 02:40:34 - bot - INFO - ==================================================
+2025-11-15 02:40:43 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 02:41:02 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-15 02:41:04 - bot - ERROR - Ошибка при записи начала квеста в БД: no such column: quest_started
+2025-11-15 02:41:04 - bot - INFO - Пользователь 79669142 начал квест
+2025-11-15 02:46:00 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 02:46:00 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 02:46:00 - bot - INFO - ==================================================
+2025-11-15 02:46:00 - bot - INFO - Бот завершает работу...
+2025-11-15 02:46:00 - bot - INFO - ==================================================
+2025-11-15 02:46:00 - bot - INFO - Polling остановлен
+2025-11-15 02:46:00 - bot - INFO - Сессия бота закрыта
+2025-11-15 02:46:00 - bot - INFO - Все ресурсы освобождены
+2025-11-15 02:46:00 - bot - INFO - Работа бота завершена
+2025-11-15 02:46:06 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 02:46:06 - bot - INFO - Запуск бота...
+2025-11-15 02:46:06 - bot - INFO - ==================================================
+2025-11-15 02:46:06 - bot - INFO - Бот запускается...
+2025-11-15 02:46:06 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 02:46:06 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-15 02:46:06 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-15 02:46:06 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 02:46:06 - bot - INFO - Путь к БД: runners.db
+2025-11-15 02:46:06 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'verification', 'main', 'stage_content', 'user_data']
+2025-11-15 02:46:06 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role']
+2025-11-15 02:46:06 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-15 02:46:06 - bot - INFO - ==================================================
+2025-11-15 02:46:22 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 02:46:22 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 02:46:22 - bot - INFO - ==================================================
+2025-11-15 02:46:22 - bot - INFO - Бот завершает работу...
+2025-11-15 02:46:22 - bot - INFO - ==================================================
+2025-11-15 02:46:22 - bot - INFO - Polling остановлен
+2025-11-15 02:46:22 - bot - INFO - Сессия бота закрыта
+2025-11-15 02:46:22 - bot - INFO - Все ресурсы освобождены
+2025-11-15 02:46:22 - bot - INFO - Работа бота завершена
+2025-11-15 02:46:31 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 02:46:31 - bot - INFO - Запуск бота...
+2025-11-15 02:46:31 - bot - INFO - ==================================================
+2025-11-15 02:46:31 - bot - INFO - Бот запускается...
+2025-11-15 02:46:31 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 02:46:31 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-15 02:46:31 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-15 02:46:31 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 02:46:31 - bot - INFO - Путь к БД: runners.db
+2025-11-15 02:46:31 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'verification', 'main', 'stage_content', 'user_data']
+2025-11-15 02:46:31 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role']
+2025-11-15 02:46:31 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-15 02:46:31 - bot - INFO - ==================================================
+2025-11-15 02:47:02 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 02:47:21 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-15 02:47:24 - bot - ERROR - Ошибка при записи начала квеста в БД: no such column: quest_started
+2025-11-15 02:47:24 - bot - INFO - Пользователь 79669142 начал квест
+2025-11-15 02:49:07 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 02:49:07 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 02:49:07 - bot - INFO - ==================================================
+2025-11-15 02:49:07 - bot - INFO - Бот завершает работу...
+2025-11-15 02:49:07 - bot - INFO - ==================================================
+2025-11-15 02:49:07 - bot - INFO - Polling остановлен
+2025-11-15 02:49:07 - bot - INFO - Сессия бота закрыта
+2025-11-15 02:49:07 - bot - INFO - Все ресурсы освобождены
+2025-11-15 02:49:07 - bot - INFO - Работа бота завершена
+2025-11-15 02:49:12 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 02:49:12 - bot - INFO - Запуск бота...
+2025-11-15 02:49:12 - bot - INFO - ==================================================
+2025-11-15 02:49:12 - bot - INFO - Бот запускается...
+2025-11-15 02:49:13 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 02:49:13 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-15 02:49:13 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-15 02:49:13 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 02:49:13 - bot - INFO - Путь к БД: runners.db
+2025-11-15 02:49:13 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'verification', 'main', 'stage_content', 'user_data']
+2025-11-15 02:49:13 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role']
+2025-11-15 02:49:13 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-15 02:49:13 - bot - INFO - ==================================================
+2025-11-15 02:49:27 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 02:49:27 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 02:49:27 - bot - INFO - ==================================================
+2025-11-15 02:49:27 - bot - INFO - Бот завершает работу...
+2025-11-15 02:49:27 - bot - INFO - ==================================================
+2025-11-15 02:49:27 - bot - INFO - Polling остановлен
+2025-11-15 02:49:27 - bot - INFO - Сессия бота закрыта
+2025-11-15 02:49:27 - bot - INFO - Все ресурсы освобождены
+2025-11-15 02:49:27 - bot - INFO - Работа бота завершена
+2025-11-15 02:49:34 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 02:49:34 - bot - INFO - Запуск бота...
+2025-11-15 02:49:34 - bot - INFO - ==================================================
+2025-11-15 02:49:34 - bot - INFO - Бот запускается...
+2025-11-15 02:49:34 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 02:49:34 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-15 02:49:34 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-15 02:49:34 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 02:49:34 - bot - INFO - Путь к БД: runners.db
+2025-11-15 02:49:34 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'verification', 'main', 'stage_content', 'user_data']
+2025-11-15 02:49:34 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role']
+2025-11-15 02:49:34 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-15 02:49:34 - bot - INFO - ==================================================
+2025-11-15 02:50:33 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 02:50:33 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 02:50:33 - bot - INFO - ==================================================
+2025-11-15 02:50:33 - bot - INFO - Бот завершает работу...
+2025-11-15 02:50:33 - bot - INFO - ==================================================
+2025-11-15 02:50:34 - bot - INFO - Polling остановлен
+2025-11-15 02:50:34 - bot - INFO - Сессия бота закрыта
+2025-11-15 02:50:34 - bot - INFO - Все ресурсы освобождены
+2025-11-15 02:50:34 - bot - INFO - Работа бота завершена
+2025-11-15 02:50:40 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 02:50:40 - bot - INFO - Запуск бота...
+2025-11-15 02:50:40 - bot - INFO - ==================================================
+2025-11-15 02:50:40 - bot - INFO - Бот запускается...
+2025-11-15 02:50:41 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 02:50:41 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-15 02:50:41 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-15 02:50:41 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 02:50:41 - bot - INFO - Путь к БД: runners.db
+2025-11-15 02:50:41 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-15 02:50:41 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-15 02:50:41 - bot - INFO - Пользователей в manual_upload: 0
+2025-11-15 02:50:41 - bot - INFO - ==================================================
+2025-11-15 02:52:05 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 02:52:10 - bot - INFO - Зарегистрирован новый пользователь: user_id=1, telegram_id=79669142, username=AORyb
+2025-11-15 02:52:34 - bot - INFO - Создана ссылка для participant_id 1: Рыбников Антон
+2025-11-15 02:52:36 - bot - INFO - Пользователь 79669142 запросил список ссылок
+2025-11-15 02:52:38 - bot - INFO - Пользователь 79669142 перешел по ссылке: sHqJ7q2qc0e7CzDu
+2025-11-15 02:52:38 - bot - INFO - Участник зарегистрирован: user_id=1, participant_id=1, telegram_id=79669142
+2025-11-15 02:52:57 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-15 02:53:00 - bot - INFO - Записано начало квеста для пользователя 79669142 (user_id: 1) в таблицу user_data
+2025-11-15 02:53:00 - bot - INFO - Пользователь 79669142 начал квест
+2025-11-15 02:57:25 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 02:57:25 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 02:57:25 - bot - INFO - ==================================================
+2025-11-15 02:57:25 - bot - INFO - Бот завершает работу...
+2025-11-15 02:57:25 - bot - INFO - ==================================================
+2025-11-15 02:57:26 - bot - INFO - Polling остановлен
+2025-11-15 02:57:26 - bot - INFO - Сессия бота закрыта
+2025-11-15 02:57:26 - bot - INFO - Все ресурсы освобождены
+2025-11-15 02:57:26 - bot - INFO - Работа бота завершена
+2025-11-15 03:04:10 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 03:04:10 - bot - INFO - Запуск бота...
+2025-11-15 03:04:10 - bot - INFO - ==================================================
+2025-11-15 03:04:10 - bot - INFO - Бот запускается...
+2025-11-15 03:04:10 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 03:04:10 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-15 03:04:10 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-15 03:04:10 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 03:04:10 - bot - INFO - Путь к БД: runners.db
+2025-11-15 03:04:10 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-15 03:04:10 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-15 03:04:10 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-15 03:04:10 - bot - INFO - ==================================================
+2025-11-15 03:04:23 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-15 03:04:23 - bot - INFO - Пользователь 79669142 (stage_id: 1) начал квест
+2025-11-15 03:05:58 - bot - ERROR - Ошибка при записи начала квеста в БД: database is locked
+2025-11-15 03:06:13 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 03:06:31 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-15 03:06:36 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-15 03:06:36 - bot - INFO - Пользователь 79669142 (stage_id: 2) начал квест
+2025-11-15 03:07:18 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 03:07:37 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-15 03:07:39 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-15 03:07:39 - bot - INFO - Пользователь 79669142 (stage_id: 2) начал квест
+2025-11-15 03:13:40 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 03:13:40 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 03:13:40 - bot - INFO - ==================================================
+2025-11-15 03:13:40 - bot - INFO - Бот завершает работу...
+2025-11-15 03:13:40 - bot - INFO - ==================================================
+2025-11-15 03:13:41 - bot - INFO - Polling остановлен
+2025-11-15 03:13:41 - bot - INFO - Сессия бота закрыта
+2025-11-15 03:13:41 - bot - INFO - Все ресурсы освобождены
+2025-11-15 03:13:41 - bot - INFO - Работа бота завершена
+2025-11-15 03:13:45 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 03:13:45 - bot - INFO - Запуск бота...
+2025-11-15 03:13:45 - bot - INFO - ==================================================
+2025-11-15 03:13:45 - bot - INFO - Бот запускается...
+2025-11-15 03:13:46 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 03:13:46 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-15 03:13:46 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-15 03:13:46 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 03:13:46 - bot - INFO - Путь к БД: runners.db
+2025-11-15 03:13:46 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-15 03:13:46 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-15 03:13:46 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-15 03:13:46 - bot - INFO - ==================================================
+2025-11-15 03:13:53 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 03:14:12 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-15 03:14:15 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-15 03:14:15 - bot - INFO - Пользователь 79669142 (stage_id: 2) начал квест
+2025-11-15 03:14:23 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 03:14:23 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 03:14:23 - bot - INFO - ==================================================
+2025-11-15 03:14:23 - bot - INFO - Бот завершает работу...
+2025-11-15 03:14:23 - bot - INFO - ==================================================
+2025-11-15 03:14:23 - bot - INFO - Polling остановлен
+2025-11-15 03:14:23 - bot - INFO - Сессия бота закрыта
+2025-11-15 03:14:23 - bot - INFO - Все ресурсы освобождены
+2025-11-15 03:14:23 - bot - INFO - Работа бота завершена
+2025-11-15 03:28:26 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 03:28:26 - bot - INFO - Запуск бота...
+2025-11-15 03:28:26 - bot - INFO - ==================================================
+2025-11-15 03:28:26 - bot - INFO - Бот запускается...
+2025-11-15 03:28:26 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 03:28:26 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-15 03:28:26 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-15 03:28:26 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 03:28:26 - bot - INFO - Путь к БД: runners.db
+2025-11-15 03:28:26 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-15 03:28:26 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-15 03:28:26 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-15 03:28:26 - bot - INFO - ==================================================
+2025-11-15 03:28:37 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 03:28:56 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-15 03:28:57 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-15 03:28:57 - bot - INFO - Пользователь 79669142 (stage_id: 1) начал квест
+2025-11-15 03:33:55 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 03:33:55 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 03:33:55 - bot - INFO - ==================================================
+2025-11-15 03:33:55 - bot - INFO - Бот завершает работу...
+2025-11-15 03:33:55 - bot - INFO - ==================================================
+2025-11-15 03:33:55 - bot - INFO - Polling остановлен
+2025-11-15 03:33:55 - bot - INFO - Сессия бота закрыта
+2025-11-15 03:33:55 - bot - INFO - Все ресурсы освобождены
+2025-11-15 03:33:55 - bot - INFO - Работа бота завершена
+2025-11-15 03:34:00 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 03:34:00 - bot - INFO - Запуск бота...
+2025-11-15 03:34:00 - bot - INFO - ==================================================
+2025-11-15 03:34:00 - bot - INFO - Бот запускается...
+2025-11-15 03:34:01 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 03:34:01 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-15 03:34:01 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-15 03:34:01 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 03:34:01 - bot - INFO - Путь к БД: runners.db
+2025-11-15 03:34:01 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-15 03:34:01 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-15 03:34:01 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-15 03:34:01 - bot - INFO - ==================================================
+2025-11-15 03:34:13 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 03:34:32 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-15 03:34:35 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-15 03:34:35 - bot - INFO - Пользователь 79669142 (stage_id: 1) начал квест
+2025-11-15 03:34:50 - bot - INFO - Сохранено изображение для пользователя 79669142: src/media/stage_1\79669142_1297302.jpg
+2025-11-15 03:35:50 - bot - ERROR - Ошибка при обработке ответа stage_1: near "ORDER": syntax error
+2025-11-15 03:36:05 - bot - ERROR - Ошибка при обработке ответа stage_1: near "ORDER": syntax error
+2025-11-15 03:38:27 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 03:38:27 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 03:38:27 - bot - INFO - ==================================================
+2025-11-15 03:38:27 - bot - INFO - Бот завершает работу...
+2025-11-15 03:38:27 - bot - INFO - ==================================================
+2025-11-15 03:38:27 - bot - INFO - Polling остановлен
+2025-11-15 03:38:27 - bot - INFO - Сессия бота закрыта
+2025-11-15 03:38:27 - bot - INFO - Все ресурсы освобождены
+2025-11-15 03:38:27 - bot - INFO - Работа бота завершена
+2025-11-15 03:38:32 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 03:38:32 - bot - INFO - Запуск бота...
+2025-11-15 03:38:32 - bot - INFO - ==================================================
+2025-11-15 03:38:32 - bot - INFO - Бот запускается...
+2025-11-15 03:38:33 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 03:38:33 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-15 03:38:33 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-15 03:38:33 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 03:38:33 - bot - INFO - Путь к БД: runners.db
+2025-11-15 03:38:33 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-15 03:38:33 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-15 03:38:33 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-15 03:38:33 - bot - INFO - ==================================================
+2025-11-15 03:38:38 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 03:38:57 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-15 03:39:00 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-15 03:39:00 - bot - INFO - Пользователь 79669142 (stage_id: 1) начал квест
+2025-11-15 03:39:16 - bot - INFO - Сохранено изображение для пользователя 79669142: src/media/stage_1\79669142_1297568.jpg
+2025-11-15 14:20:04 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 14:20:04 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 14:20:04 - bot - INFO - ==================================================
+2025-11-15 14:20:04 - bot - INFO - Бот завершает работу...
+2025-11-15 14:20:04 - bot - INFO - ==================================================
+2025-11-15 14:20:05 - bot - INFO - Polling остановлен
+2025-11-15 14:20:05 - bot - INFO - Сессия бота закрыта
+2025-11-15 14:20:05 - bot - INFO - Все ресурсы освобождены
+2025-11-15 14:20:05 - bot - INFO - Работа бота завершена
+2025-11-15 14:25:57 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 14:25:57 - bot - INFO - Запуск бота...
+2025-11-15 14:25:57 - bot - INFO - ==================================================
+2025-11-15 14:25:57 - bot - INFO - Бот запускается...
+2025-11-15 14:25:58 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 14:25:58 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-15 14:25:58 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-15 14:25:58 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 14:25:58 - bot - INFO - Путь к БД: runners.db
+2025-11-15 14:25:58 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-15 14:25:58 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-15 14:25:58 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-15 14:25:58 - bot - INFO - ==================================================
+2025-11-15 14:26:46 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 14:27:05 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-15 14:27:08 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-15 14:27:08 - bot - INFO - Пользователь 79669142 (stage_id: 1) начал квест
+2025-11-15 14:27:25 - bot - INFO - Сохранено изображение для пользователя 79669142: src/media/stage_1\79669142_1336457.jpg
+2025-11-15 14:27:30 - bot - ERROR - Ошибка при отправке видео: Can't instantiate abstract class InputFile with abstract method read
+2025-11-15 14:29:59 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 14:29:59 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 14:29:59 - bot - INFO - ==================================================
+2025-11-15 14:29:59 - bot - INFO - Бот завершает работу...
+2025-11-15 14:29:59 - bot - INFO - ==================================================
+2025-11-15 14:30:00 - bot - INFO - Polling остановлен
+2025-11-15 14:30:00 - bot - INFO - Сессия бота закрыта
+2025-11-15 14:30:00 - bot - INFO - Все ресурсы освобождены
+2025-11-15 14:30:00 - bot - INFO - Работа бота завершена
+2025-11-15 14:30:04 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 14:30:04 - bot - INFO - Запуск бота...
+2025-11-15 14:30:04 - bot - INFO - ==================================================
+2025-11-15 14:30:04 - bot - INFO - Бот запускается...
+2025-11-15 14:30:04 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 14:30:04 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-15 14:30:04 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-15 14:30:04 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 14:30:04 - bot - INFO - Путь к БД: runners.db
+2025-11-15 14:30:04 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-15 14:30:04 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-15 14:30:04 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-15 14:30:04 - bot - INFO - ==================================================
+2025-11-15 14:30:17 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 14:30:36 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-15 14:30:42 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-15 14:30:42 - bot - INFO - Пользователь 79669142 (stage_id: 1) начал квест
+2025-11-15 14:31:07 - bot - INFO - Сохранено изображение для пользователя 79669142: src/media/stage_1\79669142_1336679.jpg
+2025-11-15 14:36:19 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 14:36:37 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-15 14:37:54 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-15 14:37:54 - bot - INFO - Пользователь 79669142 (stage_id: 1) начал квест
+2025-11-15 14:43:06 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 14:43:06 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 14:43:06 - bot - INFO - ==================================================
+2025-11-15 14:43:06 - bot - INFO - Бот завершает работу...
+2025-11-15 14:43:06 - bot - INFO - ==================================================
+2025-11-15 14:43:06 - bot - INFO - Polling остановлен
+2025-11-15 14:43:06 - bot - INFO - Сессия бота закрыта
+2025-11-15 14:43:06 - bot - INFO - Все ресурсы освобождены
+2025-11-15 14:43:06 - bot - INFO - Работа бота завершена
+2025-11-15 14:43:12 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 14:43:12 - bot - INFO - Запуск бота...
+2025-11-15 14:43:12 - bot - INFO - ==================================================
+2025-11-15 14:43:12 - bot - INFO - Бот запускается...
+2025-11-15 14:43:12 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 14:43:12 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-15 14:43:12 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-15 14:43:12 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 14:43:12 - bot - INFO - Путь к БД: runners.db
+2025-11-15 14:43:12 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-15 14:43:12 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-15 14:43:12 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-15 14:43:12 - bot - INFO - ==================================================
+2025-11-15 14:43:19 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 14:43:38 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-15 14:43:40 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-15 14:43:40 - bot - INFO - Пользователь 79669142 (stage_id: 1) начал квест
+2025-11-15 14:50:19 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 14:50:19 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 14:50:19 - bot - INFO - ==================================================
+2025-11-15 14:50:19 - bot - INFO - Бот завершает работу...
+2025-11-15 14:50:19 - bot - INFO - ==================================================
+2025-11-15 14:50:19 - bot - INFO - Polling остановлен
+2025-11-15 14:50:19 - bot - INFO - Сессия бота закрыта
+2025-11-15 14:50:19 - bot - INFO - Все ресурсы освобождены
+2025-11-15 14:50:19 - bot - INFO - Работа бота завершена
+2025-11-15 14:50:24 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 14:50:24 - bot - INFO - Запуск бота...
+2025-11-15 14:50:24 - bot - INFO - ==================================================
+2025-11-15 14:50:24 - bot - INFO - Бот запускается...
+2025-11-15 14:50:24 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 14:50:24 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-15 14:50:24 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-15 14:50:24 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 14:50:24 - bot - INFO - Путь к БД: runners.db
+2025-11-15 14:50:24 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-15 14:50:24 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-15 14:50:24 - bot - INFO - Пользователей в manual_upload: 1
+2025-11-15 14:50:24 - bot - INFO - ==================================================
+2025-11-15 14:50:35 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 14:50:54 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-15 14:50:55 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-15 14:50:55 - bot - INFO - Пользователь 79669142 (stage_id: 1) начал квест
+2025-11-15 14:53:54 - bot - INFO - Сохранено изображение для пользователя 79669142: src/media/stage_1\79669142_1338047.jpg
+2025-11-15 14:55:00 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 14:55:19 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-15 15:12:37 - bot - INFO - Пропущен participant_id 1: ссылка уже существует
+2025-11-15 15:12:50 - bot - INFO - Пропущен participant_id 1: ссылка уже существует
+2025-11-15 15:12:50 - bot - INFO - Создана ссылка для participant_id 2: Иванов Иван
+2025-11-15 15:12:52 - bot - INFO - Пользователь 79669142 запросил список ссылок
+2025-11-15 15:13:20 - bot - INFO - Пользователь 1147455973 перешел по ссылке: RTLhIwLSUTiF7tRi
+2025-11-15 15:13:20 - bot - INFO - Участник зарегистрирован: user_id=2, participant_id=2, telegram_id=1147455973
+2025-11-15 15:13:39 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-15 15:14:05 - bot - INFO - Записано начало квеста для пользователя 1147455973
+2025-11-15 15:14:05 - bot - INFO - Пользователь 1147455973 (stage_id: 1) начал квест
+2025-11-15 15:15:51 - bot - INFO - Сохранено изображение для пользователя 1147455973: src/media/stage_1\1147455973_1339363.jpg
+2025-11-15 15:17:26 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 15:17:45 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-15 15:20:49 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-15 15:20:49 - bot - INFO - Пользователь 79669142 (stage_id: 1) начал квест
+2025-11-15 15:21:29 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 15:21:48 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-15 15:34:32 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 15:34:51 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-15 15:34:54 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-15 15:34:54 - bot - INFO - Пользователь 79669142 (stage_id: 2) начал квест
+2025-11-15 15:34:54 - bot - ERROR - Ошибка при обработке начала квеста: handle_stage_2_quest() takes 1 positional argument but 2 were given
+2025-11-15 15:36:03 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 15:36:14 - bot - INFO - Пользователь 764400696 перешел по ссылке: RTLhIwLSUTiF7tRi
+2025-11-15 15:36:14 - bot - INFO - Зарегистрирован новый пользователь: user_id=3, telegram_id=764400696, username=Tatiana_Zhuchkova
+2025-11-15 15:36:22 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-15 15:36:25 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-15 15:36:25 - bot - INFO - Пользователь 79669142 (stage_id: 2) начал квест
+2025-11-15 15:36:25 - bot - ERROR - Ошибка при обработке начала квеста: handle_stage_2_quest() takes 1 positional argument but 2 were given
+2025-11-15 15:36:41 - bot - INFO - Пользователь 764400696 перешел по ссылке: RTLhIwLSUTiF7tRi
+2025-11-15 15:36:41 - bot - INFO - Пользователь 764400696 уже зарегистрирован
+2025-11-15 15:41:57 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-15 15:41:57 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-15 15:41:57 - bot - INFO - ==================================================
+2025-11-15 15:41:57 - bot - INFO - Бот завершает работу...
+2025-11-15 15:41:57 - bot - INFO - ==================================================
+2025-11-15 15:41:58 - bot - INFO - Polling остановлен
+2025-11-15 15:41:58 - bot - INFO - Сессия бота закрыта
+2025-11-15 15:41:58 - bot - INFO - Все ресурсы освобождены
+2025-11-15 15:41:58 - bot - INFO - Работа бота завершена
+2025-11-15 15:42:04 - bot - INFO - Обработчики сигналов установлены
+2025-11-15 15:42:04 - bot - INFO - Запуск бота...
+2025-11-15 15:42:04 - bot - INFO - ==================================================
+2025-11-15 15:42:04 - bot - INFO - Бот запускается...
+2025-11-15 15:42:04 - bot - INFO - Бот: @PPrunner_bot
+2025-11-15 15:42:04 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-15 15:42:04 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-15 15:42:04 - bot - INFO - Токен бота: **********r9fl4
+2025-11-15 15:42:04 - bot - INFO - Путь к БД: runners.db
+2025-11-15 15:42:04 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-15 15:42:04 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-15 15:42:04 - bot - INFO - Пользователей в manual_upload: 2
+2025-11-15 15:42:04 - bot - INFO - ==================================================
+2025-11-15 15:42:04 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-15 15:42:23 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-15 15:42:36 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-15 15:42:36 - bot - INFO - Пользователь 79669142 (stage_id: 2) начал квест
+2025-11-15 15:44:28 - bot - INFO - Сохранено изображение для пользователя 79669142: src/media/stage_2\79669142_1341080.jpg
+2025-11-15 15:48:15 - bot - INFO - Пропущен participant_id 1: ссылка уже существует
+2025-11-15 15:48:15 - bot - INFO - Пропущен participant_id 2: ссылка уже существует
+2025-11-15 15:48:20 - bot - INFO - Пропущен participant_id 1: ссылка уже существует
+2025-11-15 15:48:20 - bot - INFO - Пропущен participant_id 2: ссылка уже существует
+2025-11-15 15:48:20 - bot - INFO - Создана ссылка для participant_id 3: Zhuchkova Tatiana
+2025-11-15 15:48:21 - bot - INFO - Пользователь 79669142 запросил список ссылок
+2025-11-15 16:06:11 - bot - INFO - Пользователь 764400696 перешел по ссылке: 1YvN79jGkCTCXiqB
+2025-11-15 16:06:11 - bot - INFO - Участник зарегистрирован: user_id=3, participant_id=3, telegram_id=764400696
+2025-11-15 16:06:31 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-15 16:07:31 - bot - INFO - Записано начало квеста для пользователя 764400696
+2025-11-15 16:07:31 - bot - INFO - Пользователь 764400696 (stage_id: 1) начал квест
+2025-11-15 16:09:15 - bot - INFO - Сохранено изображение для пользователя 764400696: src/media/stage_1\764400696_1342567.jpg
+2025-11-16 10:09:04 - bot - INFO - Пользователь 764400696 запустил бота без ссылки
+2025-11-16 10:09:24 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-16 10:09:36 - bot - INFO - Записано начало квеста для пользователя 764400696
+2025-11-16 10:09:36 - bot - INFO - Пользователь 764400696 (stage_id: 1) начал квест
+2025-11-16 11:16:08 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-16 11:16:08 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-16 11:16:08 - bot - INFO - ==================================================
+2025-11-16 11:16:08 - bot - INFO - Бот завершает работу...
+2025-11-16 11:16:08 - bot - INFO - ==================================================
+2025-11-16 11:16:08 - bot - INFO - Polling остановлен
+2025-11-16 11:16:08 - bot - INFO - Сессия бота закрыта
+2025-11-16 11:16:08 - bot - INFO - Все ресурсы освобождены
+2025-11-16 11:16:08 - bot - INFO - Работа бота завершена
+2025-11-16 11:16:40 - bot - INFO - Обработчики сигналов установлены
+2025-11-16 11:16:40 - bot - INFO - Запуск бота...
+2025-11-16 11:16:40 - bot - INFO - ==================================================
+2025-11-16 11:16:40 - bot - INFO - Бот запускается...
+2025-11-16 11:16:40 - bot - INFO - Бот: @PPrunner_bot
+2025-11-16 11:16:41 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-16 11:16:41 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-16 11:16:41 - bot - INFO - Токен бота: **********r9fl4
+2025-11-16 11:16:41 - bot - INFO - Путь к БД: runners.db
+2025-11-16 11:16:41 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-16 11:16:41 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-16 11:16:41 - bot - INFO - Пользователей в manual_upload: 3
+2025-11-16 11:16:41 - bot - INFO - ==================================================
+2025-11-16 11:16:52 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-16 11:17:11 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-16 11:17:15 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-16 11:17:15 - bot - INFO - Пользователь 79669142 (stage_id: 2) начал квест
+2025-11-16 11:17:49 - bot - INFO - Сохранено изображение для пользователя 79669142: src/media/stage_2\79669142_1411481.jpg
+2025-11-16 11:29:58 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-16 11:29:58 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-16 11:29:58 - bot - INFO - ==================================================
+2025-11-16 11:29:58 - bot - INFO - Бот завершает работу...
+2025-11-16 11:29:58 - bot - INFO - ==================================================
+2025-11-16 11:29:58 - bot - INFO - Polling остановлен
+2025-11-16 11:29:58 - bot - INFO - Сессия бота закрыта
+2025-11-16 11:29:58 - bot - INFO - Все ресурсы освобождены
+2025-11-16 11:29:58 - bot - INFO - Работа бота завершена
+2025-11-16 11:30:31 - bot - INFO - Обработчики сигналов установлены
+2025-11-16 11:30:31 - bot - INFO - Запуск бота...
+2025-11-16 11:30:31 - bot - INFO - ==================================================
+2025-11-16 11:30:31 - bot - INFO - Бот запускается...
+2025-11-16 11:30:32 - bot - INFO - Бот: @PPrunner_bot
+2025-11-16 11:30:32 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-16 11:30:32 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-16 11:30:32 - bot - INFO - Токен бота: **********r9fl4
+2025-11-16 11:30:32 - bot - INFO - Путь к БД: runners.db
+2025-11-16 11:30:32 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-16 11:30:32 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-16 11:30:32 - bot - INFO - Пользователей в manual_upload: 3
+2025-11-16 11:30:32 - bot - INFO - ==================================================
+2025-11-16 11:30:34 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-16 11:30:53 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-16 11:31:00 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-16 11:31:00 - bot - INFO - Пользователь 79669142 (stage_id: 2) начал квест
+2025-11-16 11:31:25 - bot - INFO - Сохранено изображение для пользователя 79669142: src/media/stage_2\79669142_1412297.jpg
+2025-11-16 11:31:54 - bot - ERROR - Ошибка при обработке ответа stage_2: Telegram server says - Bad Request: can't parse entities: Can't find end of the entity starting at byte offset 35
+2025-11-16 11:36:46 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-16 11:36:46 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-16 11:36:46 - bot - INFO - ==================================================
+2025-11-16 11:36:46 - bot - INFO - Бот завершает работу...
+2025-11-16 11:36:46 - bot - INFO - ==================================================
+2025-11-16 11:36:46 - bot - INFO - Polling остановлен
+2025-11-16 11:36:46 - bot - INFO - Сессия бота закрыта
+2025-11-16 11:36:46 - bot - INFO - Все ресурсы освобождены
+2025-11-16 11:36:46 - bot - INFO - Работа бота завершена
+2025-11-16 11:37:14 - bot - INFO - Обработчики сигналов установлены
+2025-11-16 11:37:14 - bot - INFO - Запуск бота...
+2025-11-16 11:37:14 - bot - INFO - ==================================================
+2025-11-16 11:37:14 - bot - INFO - Бот запускается...
+2025-11-16 11:37:15 - bot - INFO - Бот: @PPrunner_bot
+2025-11-16 11:37:15 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-16 11:37:15 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-16 11:37:15 - bot - INFO - Токен бота: **********r9fl4
+2025-11-16 11:37:15 - bot - INFO - Путь к БД: runners.db
+2025-11-16 11:37:15 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-16 11:37:15 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-16 11:37:15 - bot - INFO - Пользователей в manual_upload: 3
+2025-11-16 11:37:15 - bot - INFO - ==================================================
+2025-11-16 11:37:28 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-16 11:37:46 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-16 11:37:49 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-16 11:37:49 - bot - INFO - Пользователь 79669142 (stage_id: 2) начал квест
+2025-11-16 11:38:17 - bot - INFO - Сохранено изображение для пользователя 79669142: src/media/stage_2\79669142_1412709.jpg
+2025-11-16 16:16:24 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-16 16:16:24 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-16 16:16:24 - bot - INFO - ==================================================
+2025-11-16 16:16:24 - bot - INFO - Бот завершает работу...
+2025-11-16 16:16:24 - bot - INFO - ==================================================
+2025-11-16 16:16:24 - bot - INFO - Polling остановлен
+2025-11-16 16:16:24 - bot - INFO - Сессия бота закрыта
+2025-11-16 16:16:24 - bot - INFO - Все ресурсы освобождены
+2025-11-16 16:16:24 - bot - INFO - Работа бота завершена
+2025-11-16 16:17:04 - bot - INFO - Обработчики сигналов установлены
+2025-11-16 16:17:04 - bot - INFO - Запуск бота...
+2025-11-16 16:17:04 - bot - INFO - ==================================================
+2025-11-16 16:17:04 - bot - INFO - Бот запускается...
+2025-11-16 16:17:04 - bot - INFO - Бот: @PPrunner_bot
+2025-11-16 16:17:04 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-16 16:17:04 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-16 16:17:04 - bot - INFO - Токен бота: **********r9fl4
+2025-11-16 16:17:04 - bot - INFO - Путь к БД: runners.db
+2025-11-16 16:17:04 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-16 16:17:04 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-16 16:17:04 - bot - INFO - Пользователей в manual_upload: 3
+2025-11-16 16:17:04 - bot - INFO - ==================================================
+2025-11-16 16:17:39 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-16 16:17:59 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-16 16:18:06 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-16 16:18:06 - bot - INFO - Пользователь 79669142 (stage_id: 3) начал квест
+2025-11-16 16:19:02 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-16 16:19:02 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-16 16:19:02 - bot - INFO - ==================================================
+2025-11-16 16:19:02 - bot - INFO - Бот завершает работу...
+2025-11-16 16:19:02 - bot - INFO - ==================================================
+2025-11-16 16:19:02 - bot - INFO - Polling остановлен
+2025-11-16 16:19:02 - bot - INFO - Сессия бота закрыта
+2025-11-16 16:19:02 - bot - INFO - Все ресурсы освобождены
+2025-11-16 16:19:02 - bot - INFO - Работа бота завершена
+2025-11-16 16:19:06 - bot - INFO - Обработчики сигналов установлены
+2025-11-16 16:19:06 - bot - INFO - Запуск бота...
+2025-11-16 16:19:06 - bot - INFO - ==================================================
+2025-11-16 16:19:06 - bot - INFO - Бот запускается...
+2025-11-16 16:19:07 - bot - INFO - Бот: @PPrunner_bot
+2025-11-16 16:19:07 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-16 16:19:07 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-16 16:19:07 - bot - INFO - Токен бота: **********r9fl4
+2025-11-16 16:19:07 - bot - INFO - Путь к БД: runners.db
+2025-11-16 16:19:07 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-16 16:19:07 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-16 16:19:07 - bot - INFO - Пользователей в manual_upload: 3
+2025-11-16 16:19:07 - bot - INFO - ==================================================
+2025-11-16 16:19:12 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-16 16:19:31 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-16 16:19:57 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-16 16:19:57 - bot - INFO - Пользователь 79669142 (stage_id: 3) начал квест
+2025-11-16 16:20:27 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-16 16:20:27 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-16 16:20:27 - bot - INFO - ==================================================
+2025-11-16 16:20:27 - bot - INFO - Бот завершает работу...
+2025-11-16 16:20:27 - bot - INFO - ==================================================
+2025-11-16 16:20:27 - bot - INFO - Polling остановлен
+2025-11-16 16:20:27 - bot - INFO - Сессия бота закрыта
+2025-11-16 16:20:27 - bot - INFO - Все ресурсы освобождены
+2025-11-16 16:20:27 - bot - INFO - Работа бота завершена
+2025-11-16 16:20:31 - bot - INFO - Обработчики сигналов установлены
+2025-11-16 16:20:31 - bot - INFO - Запуск бота...
+2025-11-16 16:20:31 - bot - INFO - ==================================================
+2025-11-16 16:20:31 - bot - INFO - Бот запускается...
+2025-11-16 16:20:31 - bot - INFO - Бот: @PPrunner_bot
+2025-11-16 16:20:31 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-16 16:20:31 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-16 16:20:31 - bot - INFO - Токен бота: **********r9fl4
+2025-11-16 16:20:31 - bot - INFO - Путь к БД: runners.db
+2025-11-16 16:20:31 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-16 16:20:31 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-16 16:20:31 - bot - INFO - Пользователей в manual_upload: 3
+2025-11-16 16:20:31 - bot - INFO - ==================================================
+2025-11-16 16:20:42 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-16 16:20:42 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-16 16:20:42 - bot - INFO - ==================================================
+2025-11-16 16:20:42 - bot - INFO - Бот завершает работу...
+2025-11-16 16:20:42 - bot - INFO - ==================================================
+2025-11-16 16:20:42 - bot - INFO - Polling остановлен
+2025-11-16 16:20:42 - bot - INFO - Сессия бота закрыта
+2025-11-16 16:20:42 - bot - INFO - Все ресурсы освобождены
+2025-11-16 16:20:42 - bot - INFO - Работа бота завершена
+2025-11-16 16:20:46 - bot - INFO - Обработчики сигналов установлены
+2025-11-16 16:20:46 - bot - INFO - Запуск бота...
+2025-11-16 16:20:46 - bot - INFO - ==================================================
+2025-11-16 16:20:46 - bot - INFO - Бот запускается...
+2025-11-16 16:20:46 - bot - INFO - Бот: @PPrunner_bot
+2025-11-16 16:20:46 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-16 16:20:46 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-16 16:20:46 - bot - INFO - Токен бота: **********r9fl4
+2025-11-16 16:20:46 - bot - INFO - Путь к БД: runners.db
+2025-11-16 16:20:46 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-16 16:20:46 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-16 16:20:46 - bot - INFO - Пользователей в manual_upload: 3
+2025-11-16 16:20:46 - bot - INFO - ==================================================
+2025-11-16 16:20:50 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-16 16:21:10 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-16 16:21:20 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-16 16:21:20 - bot - INFO - Пользователь 79669142 (stage_id: 3) начал квест
+2025-11-16 16:23:18 - bot - INFO - Сохранено изображение для пользователя 79669142: src/media/stage_3\79669142_1429811.jpg
+2025-11-16 16:24:10 - bot - WARNING - Видео файл не найден: src/media/3_success.mp4
+2025-11-16 16:36:08 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-16 16:36:08 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-16 16:36:08 - bot - INFO - ==================================================
+2025-11-16 16:36:08 - bot - INFO - Бот завершает работу...
+2025-11-16 16:36:08 - bot - INFO - ==================================================
+2025-11-16 16:36:09 - bot - INFO - Polling остановлен
+2025-11-16 16:36:09 - bot - INFO - Сессия бота закрыта
+2025-11-16 16:36:09 - bot - INFO - Все ресурсы освобождены
+2025-11-16 16:36:09 - bot - INFO - Работа бота завершена
+2025-11-16 16:36:40 - bot - INFO - Обработчики сигналов установлены
+2025-11-16 16:36:40 - bot - INFO - Запуск бота...
+2025-11-16 16:36:40 - bot - INFO - ==================================================
+2025-11-16 16:36:40 - bot - INFO - Бот запускается...
+2025-11-16 16:36:40 - bot - INFO - Бот: @PPrunner_bot
+2025-11-16 16:36:40 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-16 16:36:40 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-16 16:36:40 - bot - INFO - Токен бота: **********r9fl4
+2025-11-16 16:36:40 - bot - INFO - Путь к БД: runners.db
+2025-11-16 16:36:40 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-16 16:36:40 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-16 16:36:40 - bot - INFO - Пользователей в manual_upload: 3
+2025-11-16 16:36:40 - bot - INFO - ==================================================
+2025-11-16 16:37:08 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-16 16:37:27 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-16 16:37:31 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-16 16:37:31 - bot - INFO - Пользователь 79669142 (stage_id: 4) начал квест
+2025-11-16 16:38:27 - bot - INFO - Сохранено изображение для пользователя 79669142: src/media/stage_4\79669142_1430719.jpg
+2025-11-16 16:39:44 - bot - ERROR - Ошибка при обработке ответа stage_4: Telegram server says - Bad Request: can't parse entities: Can't find end of the entity starting at byte offset 76
+2025-11-16 16:42:47 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-16 16:42:47 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-16 16:42:47 - bot - INFO - ==================================================
+2025-11-16 16:42:47 - bot - INFO - Бот завершает работу...
+2025-11-16 16:42:47 - bot - INFO - ==================================================
+2025-11-16 16:42:47 - bot - INFO - Polling остановлен
+2025-11-16 16:42:47 - bot - INFO - Сессия бота закрыта
+2025-11-16 16:42:47 - bot - INFO - Все ресурсы освобождены
+2025-11-16 16:42:47 - bot - INFO - Работа бота завершена
+2025-11-16 16:43:23 - bot - INFO - Обработчики сигналов установлены
+2025-11-16 16:43:23 - bot - INFO - Запуск бота...
+2025-11-16 16:43:23 - bot - INFO - ==================================================
+2025-11-16 16:43:23 - bot - INFO - Бот запускается...
+2025-11-16 16:43:23 - bot - INFO - Бот: @PPrunner_bot
+2025-11-16 16:43:24 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-16 16:43:24 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-16 16:43:24 - bot - INFO - Токен бота: **********r9fl4
+2025-11-16 16:43:24 - bot - INFO - Путь к БД: runners.db
+2025-11-16 16:43:24 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-16 16:43:24 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-16 16:43:24 - bot - INFO - Пользователей в manual_upload: 3
+2025-11-16 16:43:24 - bot - INFO - ==================================================
+2025-11-16 16:43:29 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-16 16:43:48 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-16 16:43:56 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-16 16:43:56 - bot - INFO - Пользователь 79669142 (stage_id: 4) начал квест
+2025-11-16 16:44:23 - bot - INFO - Сохранено изображение для пользователя 79669142: src/media/stage_4\79669142_1431076.jpg
+2025-11-16 16:44:38 - bot - ERROR - Ошибка при обработке ответа stage_4: Telegram server says - Bad Request: can't parse entities: Can't find end of the entity starting at byte offset 76
+2025-11-16 16:44:44 - bot - ERROR - Ошибка при обработке ответа stage_4: Telegram server says - Bad Request: can't parse entities: Can't find end of the entity starting at byte offset 76
+2025-11-16 16:47:52 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-16 16:47:52 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-16 16:47:52 - bot - INFO - ==================================================
+2025-11-16 16:47:52 - bot - INFO - Бот завершает работу...
+2025-11-16 16:47:52 - bot - INFO - ==================================================
+2025-11-16 16:47:53 - bot - INFO - Polling остановлен
+2025-11-16 16:47:53 - bot - INFO - Сессия бота закрыта
+2025-11-16 16:47:53 - bot - INFO - Все ресурсы освобождены
+2025-11-16 16:47:53 - bot - INFO - Работа бота завершена
+2025-11-16 16:47:58 - bot - INFO - Обработчики сигналов установлены
+2025-11-16 16:47:58 - bot - INFO - Запуск бота...
+2025-11-16 16:47:58 - bot - INFO - ==================================================
+2025-11-16 16:47:58 - bot - INFO - Бот запускается...
+2025-11-16 16:47:59 - bot - INFO - Бот: @PPrunner_bot
+2025-11-16 16:47:59 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-16 16:47:59 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-16 16:47:59 - bot - INFO - Токен бота: **********r9fl4
+2025-11-16 16:47:59 - bot - INFO - Путь к БД: runners.db
+2025-11-16 16:47:59 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-16 16:47:59 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-16 16:47:59 - bot - INFO - Пользователей в manual_upload: 3
+2025-11-16 16:47:59 - bot - INFO - ==================================================
+2025-11-16 16:48:14 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-16 16:48:33 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-16 16:48:36 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-16 16:48:36 - bot - INFO - Пользователь 79669142 (stage_id: 4) начал квест
+2025-11-16 16:49:03 - bot - INFO - Сохранено изображение для пользователя 79669142: src/media/stage_4\79669142_1431356.jpg
+2025-11-16 17:08:52 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-16 17:08:52 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-16 17:08:52 - bot - INFO - ==================================================
+2025-11-16 17:08:52 - bot - INFO - Бот завершает работу...
+2025-11-16 17:08:52 - bot - INFO - ==================================================
+2025-11-16 17:08:52 - bot - INFO - Polling остановлен
+2025-11-16 17:08:52 - bot - INFO - Сессия бота закрыта
+2025-11-16 17:08:52 - bot - INFO - Все ресурсы освобождены
+2025-11-16 17:08:52 - bot - INFO - Работа бота завершена
+2025-11-16 17:08:57 - bot - INFO - Обработчики сигналов установлены
+2025-11-16 17:08:57 - bot - INFO - Запуск бота...
+2025-11-16 17:08:57 - bot - INFO - ==================================================
+2025-11-16 17:08:57 - bot - INFO - Бот запускается...
+2025-11-16 17:08:57 - bot - INFO - Бот: @PPrunner_bot
+2025-11-16 17:08:57 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-16 17:08:57 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-16 17:08:57 - bot - INFO - Токен бота: **********r9fl4
+2025-11-16 17:08:57 - bot - INFO - Путь к БД: runners.db
+2025-11-16 17:08:57 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-16 17:08:57 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-16 17:08:57 - bot - INFO - Пользователей в manual_upload: 3
+2025-11-16 17:08:57 - bot - INFO - ==================================================
+2025-11-16 17:09:20 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-16 17:09:39 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-16 17:10:00 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-16 17:10:00 - bot - INFO - Пользователь 79669142 (stage_id: 1) начал квест
+2025-11-16 17:11:02 - bot - INFO - Сохранено изображение для пользователя 79669142: src/media/stage_1\79669142_1432675.jpg
+2025-11-16 17:16:16 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-16 17:16:16 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-16 17:16:16 - bot - INFO - ==================================================
+2025-11-16 17:16:16 - bot - INFO - Бот завершает работу...
+2025-11-16 17:16:16 - bot - INFO - ==================================================
+2025-11-16 17:16:16 - bot - INFO - Polling остановлен
+2025-11-16 17:16:16 - bot - INFO - Сессия бота закрыта
+2025-11-16 17:16:16 - bot - INFO - Все ресурсы освобождены
+2025-11-16 17:16:16 - bot - INFO - Работа бота завершена
+2025-11-16 17:16:21 - bot - INFO - Обработчики сигналов установлены
+2025-11-16 17:16:21 - bot - INFO - Запуск бота...
+2025-11-16 17:16:21 - bot - INFO - ==================================================
+2025-11-16 17:16:21 - bot - INFO - Бот запускается...
+2025-11-16 17:16:22 - bot - INFO - Бот: @PPrunner_bot
+2025-11-16 17:16:22 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-16 17:16:22 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-16 17:16:22 - bot - INFO - Токен бота: **********r9fl4
+2025-11-16 17:16:22 - bot - INFO - Путь к БД: runners.db
+2025-11-16 17:16:22 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-16 17:16:22 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-16 17:16:22 - bot - INFO - Пользователей в manual_upload: 3
+2025-11-16 17:16:22 - bot - INFO - ==================================================
+2025-11-16 17:16:50 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-16 17:16:50 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-16 17:16:50 - bot - INFO - ==================================================
+2025-11-16 17:16:50 - bot - INFO - Бот завершает работу...
+2025-11-16 17:16:50 - bot - INFO - ==================================================
+2025-11-16 17:16:50 - bot - INFO - Polling остановлен
+2025-11-16 17:16:50 - bot - INFO - Сессия бота закрыта
+2025-11-16 17:16:50 - bot - INFO - Все ресурсы освобождены
+2025-11-16 17:16:50 - bot - INFO - Работа бота завершена
+2025-11-16 17:16:56 - bot - INFO - Обработчики сигналов установлены
+2025-11-16 17:16:56 - bot - INFO - Запуск бота...
+2025-11-16 17:16:56 - bot - INFO - ==================================================
+2025-11-16 17:16:56 - bot - INFO - Бот запускается...
+2025-11-16 17:16:56 - bot - INFO - Бот: @PPrunner_bot
+2025-11-16 17:16:56 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-16 17:16:56 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-16 17:16:56 - bot - INFO - Токен бота: **********r9fl4
+2025-11-16 17:16:56 - bot - INFO - Путь к БД: runners.db
+2025-11-16 17:16:56 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-16 17:16:56 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-16 17:16:56 - bot - INFO - Пользователей в manual_upload: 3
+2025-11-16 17:16:56 - bot - INFO - ==================================================
+2025-11-16 17:16:57 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-16 17:17:16 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-16 17:17:20 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-16 17:17:20 - bot - INFO - Пользователь 79669142 (stage_id: 2) начал квест
+2025-11-16 17:17:51 - bot - INFO - Сохранено изображение для пользователя 79669142: src/media/stage_2\79669142_1433084.jpg
+2025-11-16 17:40:58 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-16 17:40:58 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-16 17:40:58 - bot - INFO - ==================================================
+2025-11-16 17:40:58 - bot - INFO - Бот завершает работу...
+2025-11-16 17:40:58 - bot - INFO - ==================================================
+2025-11-16 17:40:59 - bot - INFO - Polling остановлен
+2025-11-16 17:40:59 - bot - INFO - Сессия бота закрыта
+2025-11-16 17:40:59 - bot - INFO - Все ресурсы освобождены
+2025-11-16 17:40:59 - bot - INFO - Работа бота завершена
+2025-11-16 17:41:23 - bot - INFO - Обработчики сигналов установлены
+2025-11-16 17:41:23 - bot - INFO - Запуск бота...
+2025-11-16 17:41:23 - bot - INFO - ==================================================
+2025-11-16 17:41:23 - bot - INFO - Бот запускается...
+2025-11-16 17:41:23 - bot - INFO - Бот: @PPrunner_bot
+2025-11-16 17:41:23 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-16 17:41:23 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-16 17:41:23 - bot - INFO - Токен бота: **********r9fl4
+2025-11-16 17:41:23 - bot - INFO - Путь к БД: runners.db
+2025-11-16 17:41:23 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-16 17:41:23 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-16 17:41:23 - bot - INFO - Пользователей в manual_upload: 3
+2025-11-16 17:41:23 - bot - INFO - ==================================================
+2025-11-16 17:41:32 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-16 17:41:51 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-16 17:42:02 - bot - ERROR - Ошибка при записи начала квеста в БД: database is locked
+2025-11-16 17:42:30 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-16 17:42:49 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-16 17:42:53 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-16 17:42:53 - bot - INFO - Пользователь 79669142 (stage_id: 4) начал квест
+2025-11-16 17:43:30 - bot - INFO - Сохранено изображение для пользователя 79669142: src/media/stage_4\79669142_1434623.jpg
+2025-11-16 18:47:01 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-16 18:47:01 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-16 18:47:01 - bot - INFO - ==================================================
+2025-11-16 18:47:01 - bot - INFO - Бот завершает работу...
+2025-11-16 18:47:01 - bot - INFO - ==================================================
+2025-11-16 18:47:01 - bot - INFO - Polling остановлен
+2025-11-16 18:47:01 - bot - INFO - Сессия бота закрыта
+2025-11-16 18:47:01 - bot - INFO - Все ресурсы освобождены
+2025-11-16 18:47:01 - bot - INFO - Работа бота завершена
+2025-11-16 18:47:43 - bot - INFO - Обработчики сигналов установлены
+2025-11-16 18:47:43 - bot - INFO - Запуск бота...
+2025-11-16 18:47:43 - bot - INFO - ==================================================
+2025-11-16 18:47:43 - bot - INFO - Бот запускается...
+2025-11-16 18:47:44 - bot - INFO - Бот: @PPrunner_bot
+2025-11-16 18:47:44 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-16 18:47:44 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-16 18:47:44 - bot - INFO - Токен бота: **********r9fl4
+2025-11-16 18:47:44 - bot - INFO - Путь к БД: runners.db
+2025-11-16 18:47:44 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-16 18:47:44 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-16 18:47:44 - bot - INFO - Пользователей в manual_upload: 3
+2025-11-16 18:47:44 - bot - INFO - ==================================================
+2025-11-16 18:48:21 - bot - INFO - Пользователь 79669142 запустил бота без ссылки
+2025-11-16 18:48:40 - bot - INFO - Картинка с кнопкой успешно отправлена: src/media/start.jpg
+2025-11-16 18:48:44 - bot - INFO - Записано начало квеста для пользователя 79669142
+2025-11-16 18:48:44 - bot - INFO - Пользователь 79669142 (stage_id: 1) начал квест
+2025-11-16 18:49:42 - bot - INFO - Сохранено изображение для пользователя 79669142: src/media/stage_1\79669142_1438594.jpg
+2025-11-16 19:09:47 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-16 19:09:47 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-16 19:09:47 - bot - INFO - ==================================================
+2025-11-16 19:09:47 - bot - INFO - Бот завершает работу...
+2025-11-16 19:09:47 - bot - INFO - ==================================================
+2025-11-16 19:09:47 - bot - INFO - Polling остановлен
+2025-11-16 19:09:47 - bot - INFO - Сессия бота закрыта
+2025-11-16 19:09:47 - bot - INFO - Все ресурсы освобождены
+2025-11-16 19:09:47 - bot - INFO - Работа бота завершена
+2025-11-16 21:18:51 - bot - INFO - Обработчики сигналов установлены
+2025-11-16 21:18:51 - bot - INFO - Запуск бота...
+2025-11-16 21:18:51 - bot - INFO - ==================================================
+2025-11-16 21:18:51 - bot - INFO - Бот запускается...
+2025-11-16 21:18:51 - bot - INFO - Бот: @PPrunner_bot
+2025-11-16 21:18:51 - bot - INFO - ✅ RussiaRunning handlers registered
+2025-11-16 21:18:51 - bot - INFO - ✅ Все обработчики успешно зарегистрированы
+2025-11-16 21:18:51 - bot - INFO - ✅ Обработчик квеста зарегистрирован
+2025-11-16 21:18:51 - bot - INFO - Токен бота: **********r9fl4
+2025-11-16 21:18:51 - bot - INFO - Путь к БД: runners.db
+2025-11-16 21:18:51 - bot - INFO - Доступные таблицы в БД: ['stages', 'sqlite_sequence', 'manual_upload', 'link_generation', 'main', 'stage_content', 'user_data', 'verification']
+2025-11-16 21:18:51 - bot - INFO - Колонки в таблице main: ['user_id', 'participant_id', 'telegram_id', 'telegram_username', 'role', 'quest_started', 'quest_started_at']
+2025-11-16 21:18:51 - bot - INFO - Пользователей в manual_upload: 3
+2025-11-16 21:18:51 - bot - INFO - ==================================================
+2025-11-16 21:28:10 - bot - INFO - Получен сигнал 2, завершаем работу...
+2025-11-16 21:28:10 - bot - INFO - Инициировано корректное завершение работы...
+2025-11-16 21:28:10 - bot - INFO - ==================================================
+2025-11-16 21:28:10 - bot - INFO - Бот завершает работу...
+2025-11-16 21:28:10 - bot - INFO - ==================================================
+2025-11-16 21:28:10 - bot - INFO - Polling остановлен
+2025-11-16 21:28:10 - bot - INFO - Сессия бота закрыта
+2025-11-16 21:28:10 - bot - INFO - Все ресурсы освобождены
+2025-11-16 21:28:10 - bot - INFO - Работа бота завершена

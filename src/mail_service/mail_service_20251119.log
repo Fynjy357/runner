@@ -1,0 +1,75 @@
+2025-11-19 12:22:41,390 - mail_service_main - INFO - ✅ Сервис рассылки инициализирован
+2025-11-19 12:23:23,802 - mail_service_main - INFO - 🧪 Отправляем тестовое письмо на AORybnikov@gmail.com...
+2025-11-19 12:23:23,875 - email_sender - ERROR - ❌ Ошибка отправки на AORybnikov@gmail.com: [SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1006)
+2025-11-19 12:27:56,690 - mail_service_main - INFO - 🧪 Отправляем тестовое письмо на AORybnikov@gmail.com...
+2025-11-19 12:27:56,774 - email_sender - ERROR - ❌ Ошибка отправки на AORybnikov@gmail.com: [SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1006)
+2025-11-19 12:28:10,050 - mail_service_main - INFO - ✅ Сервис рассылки инициализирован
+2025-11-19 12:28:13,592 - mail_service_main - INFO - 🧪 Отправляем тестовое письмо на AORybnikov@gmail.com...
+2025-11-19 12:28:14,802 - email_sender - INFO - ✅ Письмо отправлено: AORybnikov@gmail.com
+2025-11-19 12:30:28,115 - mail_service_main - INFO - ⚡ Запускаем немедленную рассылку: completion
+2025-11-19 12:30:28,116 - email_sender - INFO - 📧 Начинаем рассылку для 2 получателей
+2025-11-19 12:30:28,748 - email_sender - ERROR - ❌ Ошибка отправки на AOR: {'AOR': (501, b'5.1.3 Bad recipient address syntax 1763544628-SUS2VqDL0iE0-cV1ziRYE')}
+2025-11-19 12:30:28,749 - email_sender - ERROR - ❌ Ошибка отправки: AOR
+2025-11-19 12:30:29,583 - email_sender - INFO - ✅ Письмо отправлено: AORybnikov@gmail.com
+2025-11-19 12:30:29,584 - email_sender - INFO - ✅ Отправлено 1/2: AORybnikov@gmail.com
+2025-11-19 12:30:29,584 - email_sender - INFO - 📊 Результат рассылки: {'total': 2, 'sent': 1, 'failed': 1, 'failed_emails': ['AOR'], 'template': 'completion'}
+2025-11-19 12:30:53,176 - mail_service_main - INFO - ⚡ Запускаем немедленную рассылку: welcome
+2025-11-19 12:30:53,177 - email_sender - INFO - 📧 Начинаем рассылку для 2 получателей
+2025-11-19 12:30:53,473 - email_sender - ERROR - ❌ Ошибка отправки на AOR: {'AOR': (501, b'5.1.3 Bad recipient address syntax 1763544653-rUSjnhELjqM0-iXQ4H49G')}
+2025-11-19 12:30:53,475 - email_sender - ERROR - ❌ Ошибка отправки: AOR
+2025-11-19 12:30:54,114 - email_sender - INFO - ✅ Письмо отправлено: AORybnikov@gmail.com
+2025-11-19 12:30:54,115 - email_sender - INFO - ✅ Отправлено 1/2: AORybnikov@gmail.com
+2025-11-19 12:30:54,116 - email_sender - INFO - 📊 Результат рассылки: {'total': 2, 'sent': 1, 'failed': 1, 'failed_emails': ['AOR'], 'template': 'welcome'}
+2025-11-19 12:45:25,053 - mail_service_main - INFO - ✅ Сервис рассылки инициализирован
+2025-11-19 12:45:30,755 - mail_service_main - INFO - ⚡ Запускаем немедленную рассылку: universal_link
+2025-11-19 12:45:30,757 - email_sender - ERROR - ❌ Нет получателей для рассылки (status = 1 в link_generation)
+2025-11-19 12:45:39,694 - mail_service_main - INFO - ⚡ Запускаем немедленную рассылку: universal_link
+2025-11-19 12:45:39,696 - email_sender - ERROR - ❌ Нет получателей для рассылки (status = 1 в link_generation)
+2025-11-19 12:46:18,025 - mail_service_main - INFO - ⚡ Запускаем немедленную рассылку: universal_link
+2025-11-19 12:46:18,027 - email_sender - INFO - 📧 Начинаем рассылку для 1 получателей
+2025-11-19 12:46:18,593 - email_sender - INFO - ✅ Письмо отправлено: AORybnikov@gmail.com
+2025-11-19 12:46:18,594 - email_sender - INFO - ✅ Статус обновлен для participant_id 2
+2025-11-19 12:46:18,595 - email_sender - INFO - ✅ Отправлено 1/1: AORybnikov@gmail.com
+2025-11-19 12:46:18,595 - email_sender - INFO - 📊 Результат рассылки: {'total': 1, 'sent': 1, 'failed': 0, 'failed_emails': [], 'template': 'universal_link'}
+2025-11-19 13:00:17,143 - mail_service_main - INFO - ✅ Сервис рассылки инициализирован
+2025-11-19 13:00:26,926 - mail_service_main - INFO - ⚡ Запускаем немедленную рассылку: universal_link
+2025-11-19 13:00:26,929 - email_sender - INFO - 📧 Начинаем рассылку для 1 получателей
+2025-11-19 13:00:32,639 - email_sender - ERROR - ❌ Ошибка отправки на AORybnikov@gmail.com: (451, b'4.3.0 Try again later 1763546433-R0T5WT1LKuQ0-Gs2dRm4G')
+2025-11-19 13:00:32,640 - email_sender - ERROR - ❌ Ошибка отправки: AORybnikov@gmail.com
+2025-11-19 13:00:32,641 - email_sender - INFO - 📊 Результат рассылки: {'total': 1, 'sent': 0, 'failed': 1, 'failed_emails': ['AORybnikov@gmail.com'], 'template': 'universal_link'}
+2025-11-19 13:01:36,939 - mail_service_main - INFO - ✅ Сервис рассылки инициализирован
+2025-11-19 13:01:39,619 - mail_service_main - INFO - ⚡ Запускаем немедленную рассылку: universal_link
+2025-11-19 13:01:39,621 - email_sender - INFO - 📧 Начинаем рассылку для 1 получателей
+2025-11-19 13:01:46,727 - email_sender - ERROR - ❌ Ошибка отправки на AORybnikov@gmail.com: (451, b'4.3.0 Try again later 1763546507-e1Tq0U1LOKo0-wBttocS7')
+2025-11-19 13:01:46,727 - email_sender - ERROR - ❌ Ошибка отправки: AORybnikov@gmail.com
+2025-11-19 13:01:46,727 - email_sender - INFO - 📊 Результат рассылки: {'total': 1, 'sent': 0, 'failed': 1, 'failed_emails': ['AORybnikov@gmail.com'], 'template': 'universal_link'}
+2025-11-19 13:03:05,892 - mail_service_main - INFO - ✅ Сервис рассылки инициализирован
+2025-11-19 13:03:08,266 - mail_service_main - INFO - ⚡ Запускаем немедленную рассылку: universal_link
+2025-11-19 13:03:08,267 - email_sender - INFO - 📧 Начинаем рассылку для 1 получателей
+2025-11-19 13:03:13,438 - email_sender - INFO - ✅ Письмо отправлено: AORybnikov@gmail.com
+2025-11-19 13:03:13,439 - email_sender - INFO - ✅ Статус обновлен для participant_id 2
+2025-11-19 13:03:13,439 - email_sender - INFO - ✅ Отправлено 1/1: AORybnikov@gmail.com
+2025-11-19 13:03:13,440 - email_sender - INFO - 📊 Результат рассылки: {'total': 1, 'sent': 1, 'failed': 0, 'failed_emails': [], 'template': 'universal_link'}
+2025-11-19 13:09:27,753 - mail_service_main - INFO - ✅ Сервис рассылки инициализирован
+2025-11-19 13:09:30,067 - mail_service_main - INFO - ⚡ Запускаем немедленную рассылку: universal_link
+2025-11-19 13:09:30,070 - email_sender - INFO - 📧 Начинаем рассылку для 1 получателей
+2025-11-19 13:09:30,070 - email_sender - INFO - 📨 Отправка 1/1: AORybnikov@gmail.com
+2025-11-19 13:09:30,989 - email_sender - INFO - ✅ Письмо отправлено: AORybnikov@gmail.com
+2025-11-19 13:09:30,992 - email_sender - INFO - ✅ Отправлено 1/1
+2025-11-19 13:09:30,992 - email_sender - INFO - 📊 Результат рассылки: {'total': 1, 'sent': 1, 'failed': 0, 'failed_emails': [], 'template': 'universal_link'}
+2025-11-19 13:11:08,290 - mail_service_main - INFO - ✅ Сервис рассылки инициализирован
+2025-11-19 13:11:09,820 - mail_service_main - INFO - ⚡ Запускаем немедленную рассылку: universal_link
+2025-11-19 13:11:09,823 - email_sender - INFO - 📧 Начинаем рассылку для 1 получателей
+2025-11-19 13:11:09,823 - email_sender - INFO - 📨 Отправка 1/1: oprybnikov@gmail.com
+2025-11-19 13:11:10,727 - email_sender - INFO - ✅ Письмо отправлено: oprybnikov@gmail.com
+2025-11-19 13:11:10,731 - email_sender - INFO - ✅ Отправлено 1/1
+2025-11-19 13:11:10,731 - email_sender - INFO - 📊 Результат рассылки: {'total': 1, 'sent': 1, 'failed': 0, 'failed_emails': [], 'template': 'universal_link'}
+2025-11-19 16:23:30,505 - mail_service_main - INFO - ✅ Сервис рассылки инициализирован
+2025-11-19 16:23:38,062 - mail_service_main - INFO - ⚡ Запускаем немедленную рассылку: universal_link
+2025-11-19 16:23:38,063 - mail_service.email_sender - INFO - ℹ️ Нет получателей для рассылки (status = 1 и прошло >20 часов с mailing_date)
+2025-11-19 16:24:00,451 - mail_service_main - INFO - ⚡ Запускаем немедленную рассылку: universal_link
+2025-11-19 16:24:00,458 - mail_service.email_sender - INFO - 📧 Начинаем рассылку для 1 получателей
+2025-11-19 16:24:00,458 - mail_service.email_sender - INFO - 📨 Отправка 1/1: oprybnikov@gmail.com
+2025-11-19 16:24:02,042 - mail_service.email_sender - INFO - ✅ Письмо отправлено: oprybnikov@gmail.com
+2025-11-19 16:24:02,053 - mail_service.email_sender - INFO - ✅ Отправлено 1/1: oprybnikov@gmail.com
+2025-11-19 16:24:02,054 - mail_service.email_sender - INFO - 📊 Результат рассылки: {'total': 1, 'sent': 1, 'failed': 0, 'failed_emails': [], 'template': 'universal_link'}

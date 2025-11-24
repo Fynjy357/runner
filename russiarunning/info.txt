@@ -1,0 +1,15 @@
+Для быстрой проверки
+python check_session.py
+
+
+Для работы с API:
+from russia_running_api import RussiaRunningAPI
+
+# Автоматически загрузит сохраненную сессию
+api = RussiaRunningAPI()
+api.load_session()
+
+# Получаем данные
+profile = api.get_profile()
+events = api.get_events() 
+orders = api.get_orders()

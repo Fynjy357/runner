@@ -2,179 +2,72 @@
 import asyncio
 import os
 import subprocess
-import logging
 import json
+from pathlib import Path
+from concurrent.futures import ThreadPoolExecutor
+import threading
 
-def get_video_info(input_path: str) -> dict:
-    """Получает информацию о видео файле с помощью FFprobe"""
-    try:
-        ffprobe_command = [
-            'ffprobe',
-            '-v', 'quiet',
-            '-print_format', 'json',
-            '-show_format',
-            '-show_streams',
-            input_path
-        ]
-        
-        result = subprocess.run(
-            ffprobe_command,
-            capture_output=True,
-            text=True,
-            timeout=30
-        )
-        
-        if result.returncode == 0:
-            return json.loads(result.stdout)
-        else:
-            logging.error(f"❌ Ошибка FFprobe: {result.stderr}")
-            return {}
-    except Exception as e:
-        logging.error(f"❌ Ошибка получения информации о видео: {e}")
-        return {}
+# Импортируем наш логгер
+from .logger import setup_logging
 
-def optimize_hevc_vertical_video(input_path: str, output_path: str = None) -> str:
-    """
-    Специальная оптимизация для HEVC вертикальных видео (1080x1920)
-    Решает проблемы с aspect ratio на iOS устройствах
-    """
-    if output_path is None:
-        base_name = os.path.basename(input_path)
-        output_path = os.path.join(os.path.dirname(input_path), f"optimized_{base_name}")
+# Создаем логгер для этого модуля
+logger = setup_logging()
+
+def get_media_path() -> Path:
+    """Получает путь к медиа директории"""
+    project_root = Path(__file__).parent.parent.parent
+    media_path = project_root / "src" / "media"
     
-    try:
-        if not os.path.exists(input_path):
-            logging.error(f"❌ Входной видео файл не найден: {input_path}")
-            return input_path
-        
-        logging.info(f"🚀 Оптимизация HEVC вертикального видео: {input_path}")
-        
-        # ✅ СПЕЦИАЛЬНЫЕ НАСТРОЙКИ ДЛЯ ВЕРТИКАЛЬНЫХ HEVC ВИДЕО
-        ffmpeg_command = [
-            'ffmpeg',
-            '-i', input_path,
-            
-            # ✅ КОНВЕРТАЦИЯ ИЗ HEVC В H.264 (iOS совместимый)
-            '-c:v', 'libx264',
-            '-profile:v', 'high',           # High profile для лучшего качества
-            '-level', '4.2',                # Уровень для 1080p видео
-            '-pix_fmt', 'yuv420p',
-            
-            # ✅ СОХРАНЕНИЕ ВЕРТИКАЛЬНОГО ASPECT RATIO
-            '-vf', 'scale=1080:1920:flags=lanczos,setdar=9/16',
-            # Явно указываем размеры и aspect ratio
-            
-            # ✅ ОПТИМАЛЬНОЕ КАЧЕСТВО ДЛЯ ВЕРТИКАЛЬНОГО ВИДЕО
-            '-crf', '22',                   # Хороший баланс качество/размер
-            '-preset', 'medium',
-            '-maxrate', '2500k',
-            '-bufsize', '5000k',
-            
-            # ✅ АУДИО
-            '-c:a', 'aac',
-            '-b:a', '192k',
-            '-ac', '2',
-            
-            # ✅ МЕТАДАННЫЕ ДЛЯ iOS
-            '-movflags', '+faststart',
-            '-f', 'mp4',
-            
-            # ✅ ДОПОЛНИТЕЛЬНЫЕ ФЛАГИ ДЛЯ СОВМЕСТИМОСТИ
-            '-x264-params', 'scenecut=0:open_gop=0:min-keyint=25:keyint=50',
-            
-            '-y',
-            output_path
-        ]
-        
-        logging.info(f"🔧 Команда для HEVC вертикального видео: {' '.join(ffmpeg_command)}")
-        
-        result = subprocess.run(
-            ffmpeg_command,
-            capture_output=True,
-            text=True,
-            timeout=300
-        )
-        
-        if result.returncode == 0:
-            if os.path.exists(output_path):
-                file_size = os.path.getsize(output_path)
-                optimized_info = get_video_info(output_path)
-                
-                if optimized_info.get('streams'):
-                    for stream in optimized_info['streams']:
-                        if stream.get('codec_type') == 'video':
-                            width = stream.get('width', 0)
-                            height = stream.get('height', 0)
-                            dar = stream.get('display_aspect_ratio', 'N/A')
-                            logging.info(f"✅ HEVC видео оптимизировано: {width}x{height} (DAR: {dar})")
-                            logging.info(f"💾 Размер файла: {file_size} bytes")
-                            break
-                
-                return output_path
-            else:
-                logging.error(f"❌ Оптимизированный файл не создан: {output_path}")
-                return input_path
-        else:
-            logging.error(f"❌ Ошибка оптимизации HEVC: {result.stderr}")
-            return input_path
-            
-    except Exception as e:
-        logging.error(f"❌ Ошибка при оптимизации HEVC видео {input_path}: {e}")
-        return input_path
-
-def optimize_video_for_telegram(input_path: str, output_path: str = None) -> str:
-    """
-    Умная оптимизация видео с автоматическим определением типа
-    """
-    if output_path is None:
-        base_name = os.path.basename(input_path)
-        output_path = os.path.join(os.path.dirname(input_path), f"optimized_{base_name}")
+    logger.info(f"📁 Медиа путь: {media_path}")
     
+    if not media_path.exists():
+        logger.error(f"❌ Папка media не существует: {media_path}")
+        media_path.mkdir(parents=True, exist_ok=True)
+        logger.info(f"✅ Создана папка media: {media_path}")
+    
+    return media_path
+
+def get_video_path(video_filename: str) -> str:
+    """
+    Получает полный путь к видео файлу
+    """
+    media_path = get_media_path()
+    video_path = media_path / video_filename
+    
+    if video_path.exists():
+        logger.info(f"✅ Видео файл найден: {video_path}")
+        return str(video_path)
+    else:
+        logger.error(f"❌ Видео файл не найден: {video_path}")
+        return None
+
+def is_ffmpeg_available() -> bool:
+    """Проверяет доступность FFmpeg в системе"""
     try:
-        if not os.path.exists(input_path):
-            logging.error(f"❌ Входной видео файл не найден: {input_path}")
-            return input_path
-        
-        # Анализируем исходное видео
-        video_info = get_video_info(input_path)
-        is_hevc = False
-        is_vertical = False
-        original_width = 0
-        original_height = 0
-        
-        if video_info.get('streams'):
-            for stream in video_info['streams']:
-                if stream.get('codec_type') == 'video':
-                    codec = stream.get('codec_name', '')
-                    width = stream.get('width', 0)
-                    height = stream.get('height', 0)
-                    dar = stream.get('display_aspect_ratio', '')
-                    
-                    is_hevc = codec.lower() in ['hevc', 'h265']
-                    is_vertical = height > width
-                    original_width = width
-                    original_height = height
-                    
-                    logging.info(f"📊 Анализ видео: {codec}, {width}x{height}, DAR: {dar}")
-                    break
-        
-        # ✅ ВЫБИРАЕМ ПРАВИЛЬНЫЙ МЕТОД ОПТИМИЗАЦИИ
-        if is_hevc and is_vertical and original_height == 1920:
-            logging.info("🎯 Обнаружено HEVC вертикальное видео 1080x1920 - применяем специальную оптимизацию")
-            return optimize_hevc_vertical_video(input_path, output_path)
+        result = subprocess.run(
+            ['ffmpeg', '-version'], 
+            capture_output=True, 
+            text=True, 
+            timeout=10
+        )
+        available = result.returncode == 0
+        if available:
+            logger.info("✅ FFmpeg доступен в системе")
         else:
-            # Стандартная оптимизация для других видео
-            logging.info("🔧 Применяем стандартную оптимизацию")
-            return optimize_standard_video(input_path, output_path)
-            
-    except Exception as e:
-        logging.error(f"❌ Ошибка при анализе видео {input_path}: {e}")
-        return input_path
+            logger.warning("⚠️ FFmpeg не доступен")
+        return available
+    except (FileNotFoundError, subprocess.CalledProcessError, subprocess.TimeoutExpired) as e:
+        logger.warning(f"⚠️ FFmpeg не доступен: {e}")
+        return False
 
 def optimize_standard_video(input_path: str, output_path: str = None) -> str:
     """
     Стандартная оптимизация для обычных видео
     """
+    if not input_path or not os.path.exists(input_path):
+        logger.error(f"❌ Входной видео файл не найден для оптимизации: {input_path}")
+        return input_path
+    
     if output_path is None:
         base_name = os.path.basename(input_path)
         output_path = os.path.join(os.path.dirname(input_path), f"optimized_{base_name}")
@@ -192,11 +85,11 @@ def optimize_standard_video(input_path: str, output_path: str = None) -> str:
             '-c:a', 'aac',
             '-b:a', '128k',
             '-movflags', '+faststart',
-            '-vf', 'scale=trunc(iw/2)*2:trunc(ih/2)*2:flags=lanczos',
             '-y',
             output_path
         ]
         
+        logger.info(f"🔄 Запускаем оптимизацию: {os.path.basename(input_path)}")
         result = subprocess.run(
             ffmpeg_command,
             capture_output=True,
@@ -205,108 +98,201 @@ def optimize_standard_video(input_path: str, output_path: str = None) -> str:
         )
         
         if result.returncode == 0 and os.path.exists(output_path):
-            logging.info(f"✅ Стандартное видео оптимизировано: {input_path}")
+            # Проверяем размер оптимизированного файла
+            original_size = os.path.getsize(input_path)
+            optimized_size = os.path.getsize(output_path)
+            compression_ratio = (1 - optimized_size / original_size) * 100
+            
+            logger.info(f"✅ Видео оптимизировано: {os.path.basename(input_path)} -> {os.path.basename(output_path)}")
+            logger.info(f"📊 Сжатие: {original_size/1024/1024:.1f}MB → {optimized_size/1024/1024:.1f}MB ({compression_ratio:.1f}%)")
             return output_path
         else:
-            logging.error(f"❌ Ошибка стандартной оптимизации: {result.stderr}")
+            logger.error(f"❌ Ошибка оптимизации: {result.stderr}")
             return input_path
             
-    except Exception as e:
-        logging.error(f"❌ Ошибка при стандартной оптимизации {input_path}: {e}")
+    except subprocess.TimeoutExpired:
+        logger.error(f"❌ Таймаут оптимизации видео: {os.path.basename(input_path)}")
         return input_path
+    except Exception as e:
+        logger.error(f"❌ Ошибка при оптимизации {os.path.basename(input_path)}: {e}")
+        return input_path
+
+def pre_optimize_all_videos():
+    """Предварительно оптимизирует все видео при запуске в фоновом режиме"""
+    
+    def optimize_in_background():
+        """Фоновая оптимизация"""
+        logger.info("🎬 Начинаем фоновую оптимизацию видео...")
+        
+        if not is_ffmpeg_available():
+            logger.warning("⚠️ FFmpeg недоступен - пропускаем предварительную оптимизацию")
+            return
+        
+        media_path = get_media_path()
+        video_extensions = ['.mp4', '.avi', '.mov', '.mkv']
+        
+        def optimize_single_video(file_path):
+            """Оптимизирует один видео файл"""
+            try:
+                file_name = os.path.basename(file_path)
+                
+                # ✅ ВАЖНО: Пропускаем уже оптимизированные файлы!
+                if file_name.startswith('optimized_'):
+                    logger.info(f"⏭️ Пропускаем уже оптимизированный файл: {file_name}")
+                    return file_path
+                
+                if any(file_path.endswith(ext) for ext in video_extensions):
+                    # Создаем имя для оптимизированной версии
+                    optimized_name = f"optimized_{file_name}"
+                    optimized_path = os.path.join(os.path.dirname(file_path), optimized_name)
+                    
+                    # Оптимизируем только если файл еще не существует
+                    if not os.path.exists(optimized_path):
+                        logger.info(f"🔄 Предварительная оптимизация: {file_name}")
+                        result = optimize_standard_video(file_path, optimized_path)
+                        if result != file_path:
+                            logger.info(f"✅ Предварительно оптимизирован: {file_name}")
+                        else:
+                            logger.warning(f"⚠️ Не удалось оптимизировать: {file_name}")
+                    else:
+                        logger.info(f"ℹ️ Оптимизированная версия уже существует: {optimized_name}")
+                return file_path
+            except Exception as e:
+                logger.error(f"❌ Ошибка при предварительной оптимизации {os.path.basename(file_path)}: {e}")
+                return file_path
+        
+        # Собираем все видео файлы (ИСКЛЮЧАЯ уже оптимизированные)
+        video_files = []
+        for file_name in os.listdir(media_path):
+            file_path = os.path.join(media_path, file_name)
+            
+            # ✅ ВАЖНО: Пропускаем уже оптимизированные файлы
+            if file_name.startswith('optimized_'):
+                continue
+                
+            if (os.path.isfile(file_path) and 
+                any(file_name.lower().endswith(ext) for ext in video_extensions)):
+                video_files.append(file_path)
+        
+        if video_files:
+            logger.info(f"🎬 Найдено {len(video_files)} оригинальных видео файлов для оптимизации:")
+            for video in video_files:
+                logger.info(f"   📹 {os.path.basename(video)}")
+            
+            logger.info("🔄 Начинаем многопоточную оптимизацию...")
+            
+            # Оптимизируем в несколько потоков
+            with ThreadPoolExecutor(max_workers=2) as executor:
+                results = list(executor.map(optimize_single_video, video_files))
+            
+            # Подсчитываем результаты
+            optimized_count = sum(1 for result in results if result and "optimized" in result)
+            logger.info(f"✅ Предварительная оптимизация завершена. Обработано: {len(video_files)} файлов")
+        else:
+            logger.info("ℹ️ Оригинальные видео файлы для оптимизации не найдены")
+            
+            # Показываем существующие оптимизированные файлы
+            optimized_files = [f for f in os.listdir(media_path) if f.startswith('optimized_')]
+            if optimized_files:
+                logger.info(f"ℹ️ Найдено {len(optimized_files)} уже оптимизированных файлов:")
+                for opt_file in optimized_files[:5]:  # Показываем первые 5
+                    logger.info(f"   ✅ {opt_file}")
+                if len(optimized_files) > 5:
+                    logger.info(f"   ... и еще {len(optimized_files) - 5} файлов")
+    
+    # Запускаем в фоновом потоке
+    background_thread = threading.Thread(
+        target=optimize_in_background, 
+        daemon=True,
+        name="VideoOptimizer"
+    )
+    background_thread.start()
+    logger.info("🚀 Запущен фоновый процесс предварительной оптимизации видео")
+
+def get_optimized_video_path(original_path: str) -> str:
+    """
+    Возвращает путь к оптимизированной версии видео, если она существует
+    """
+    if not original_path or not os.path.exists(original_path):
+        return original_path
+    
+    base_name = os.path.basename(original_path)
+    
+    # ✅ ВАЖНО: Если файл уже оптимизирован, используем его
+    if base_name.startswith('optimized_'):
+        logger.info(f"✅ Файл уже оптимизирован: {base_name}")
+        return original_path
+    
+    optimized_name = f"optimized_{base_name}"
+    optimized_path = os.path.join(os.path.dirname(original_path), optimized_name)
+    
+    if os.path.exists(optimized_path):
+        logger.info(f"✅ Используем предварительно оптимизированную версию: {optimized_name}")
+        return optimized_path
+    else:
+        logger.info(f"ℹ️ Оптимизированная версия не найдена, используем оригинал: {base_name}")
+        return original_path
 
 async def send_optimized_video(message, video_filename: str, caption: str = ""):
     """
-    Отправляет оптимизированное видео с улучшенной обработкой для iOS
+    Отправляет оптимизированное видео (использует предварительно созданные версии)
     """
-    from pathlib import Path
     from aiogram.types import FSInputFile
     
-    PROJECT_ROOT = Path(__file__).parent.parent
-    MEDIA_PATH = PROJECT_ROOT / "media"
-    
-    def get_media_file(filename: str) -> str:
-        file_path = MEDIA_PATH / filename
-        if not file_path.exists():
-            logging.error(f"❌ Медиа файл не найден: {file_path}")
-        return str(file_path)
-    
     try:
-        video_path = get_media_file(video_filename)
+        # ✅ Находим файл
+        video_path = get_video_path(video_filename)
         
-        if not os.path.exists(video_path):
-            logging.warning(f"❌ Видео файл не найден: {video_path}")
+        if not video_path:
+            logger.error(f"❌ Видео файл не найден: {video_filename}")
             if caption:
                 await message.answer(caption, parse_mode="Markdown")
             await message.answer("📹 *Видео временно недоступно*", parse_mode="Markdown")
             return False
         
-        logging.info(f"🎬 Обработка видео: {video_filename}")
+        logger.info(f"🎬 Отправляем видео: {video_filename}")
         
-        # ✅ УМНАЯ ОПТИМИЗАЦИЯ
-        optimized_path = optimize_video_for_telegram(video_path)
+        # ✅ ИСПОЛЬЗУЕМ ПРЕДВАРИТЕЛЬНО ОПТИМИЗИРОВАННУЮ ВЕРСИЮ
+        final_video_path = get_optimized_video_path(video_path)
         
-        # Детальный анализ результата
-        if optimized_path != video_path:
-            result_info = get_video_info(optimized_path)
-            if result_info.get('streams'):
-                for stream in result_info['streams']:
-                    if stream.get('codec_type') == 'video':
-                        width = stream.get('width', 0)
-                        height = stream.get('height', 0)
-                        codec = stream.get('codec_name', '')
-                        dar = stream.get('display_aspect_ratio', 'N/A')
-                        logging.info(f"📐 Результат оптимизации: {codec}, {width}x{height}, DAR: {dar}")
-                        break
-        
-        # Отправка видео
-        video = FSInputFile(optimized_path)
+        # ✅ ОТПРАВКА ВИДЕО
+        video = FSInputFile(final_video_path)
         
         try:
-            # Для вертикальных видео указываем правильные параметры
-            if '1080x1920' in str(optimized_path) or 'vertical' in str(optimized_path).lower():
-                await message.answer_video(
-                    video,
-                    caption=caption,
-                    parse_mode="Markdown",
-                    supports_streaming=True,
-                    width=1080,
-                    height=1920
-                )
-            else:
-                await message.answer_video(
-                    video,
-                    caption=caption,
-                    parse_mode="Markdown",
-                    supports_streaming=True
-                )
-            
-            success = True
-            logging.info(f"✅ Видео отправлено: {video_filename}")
-            
-        except Exception as video_error:
-            logging.warning(f"⚠️ Отправка как видео не удалась: {video_error}")
-            await message.answer_document(
+            await message.answer_video(
                 video,
                 caption=caption,
-                parse_mode="Markdown"
+                parse_mode="Markdown",
+                supports_streaming=True
             )
+            
             success = True
-            logging.info(f"✅ Видео отправлено как документ: {video_filename}")
-        
-        # Очистка временного файла
-        if optimized_path != video_path and os.path.exists(optimized_path):
+            logger.info(f"✅ Видео успешно отправлено: {video_filename}")
+            
+        except Exception as video_error:
+            logger.warning(f"⚠️ Отправка как видео не удалась: {video_error}")
+            # Пробуем отправить как документ
             try:
-                os.remove(optimized_path)
-                logging.info(f"🗑️ Временный файл удален: {optimized_path}")
-            except Exception as e:
-                logging.warning(f"⚠️ Не удалось удалить временный файл: {e}")
+                await message.answer_document(
+                    video,
+                    caption=caption,
+                    parse_mode="Markdown"
+                )
+                success = True
+                logger.info(f"✅ Видео отправлено как документ: {video_filename}")
+            except Exception as doc_error:
+                logger.error(f"❌ Ошибка отправки как документ: {doc_error}")
+                success = False
         
-        await asyncio.sleep(3)
+        await asyncio.sleep(1)
         return success
             
     except Exception as e:
-        logging.error(f"❌ Ошибка при отправке видео {video_filename}: {e}")
+        logger.error(f"❌ Критическая ошибка при отправке видео {video_filename}: {e}")
         if caption:
             await message.answer(caption, parse_mode="Markdown")
         return False
+
+# Автоматически запускаем предварительную оптимизацию при импорте
+logger.info("📦 Импортирован модуль video_optimizer - запускаем предварительную оптимизацию")
+pre_optimize_all_videos()

@@ -67,7 +67,7 @@ def setup_start_handler(dp, shutdown_manager, logger: logging.Logger, bot_userna
             logger.error(f"Ошибка при регистрации пользователя {telegram_id}: {e}", exc_info=True)
             return False
 
-    async def send_welcome_sequence(message: Message, user_name: str = None):
+    async def send_welcome_sequence(message: Message, user_name: str = None, user_stage_id: int = None):
         """Отправка приветственной последовательности с таймаутами"""
         
         # Первое сообщение с приветствием
@@ -86,12 +86,12 @@ def setup_start_handler(dp, shutdown_manager, logger: logging.Logger, bot_userna
         
         # Второе сообщение с детективной историей
         story_text = (
-            "🔍 *Спортивно-новогодний комитет сталкивается с чрезвычайной ситуацией, угрожающей проведению Новогодних торжеств.*\n\n"
-            "Из уникальной коллекции советских елочных игрушек стали бесследно пропадать бесценные реликвии…\n"
-            "*Первой исчезла — раритетная ёлочная игрушка «Дед Мороз со Снегурочкой».*\n\n"
-            "🚨 *Неслыханная диверсия!*"
-        )
-        
+                "🔍 *Спортивно-новогодний комитет сталкивается с чрезвычайной ситуацией, угрожающей проведению Новогодних торжеств.*\n\n"
+                "Из уникальной коллекции советских елочных игрушек стали бесследно пропадать бесценные реликвии…\n"
+                "*Первой исчезла — раритетная ёлочная игрушка «Дед Мороз со Снегурочкой».*\n\n"
+                "🚨 *Неслыханная диверсия!*"
+            )
+            
         await message.bot.send_chat_action(message.chat.id, "typing")
         await asyncio.sleep(3)  # Имитация печати
         await message.answer(story_text, parse_mode="Markdown")
@@ -112,7 +112,23 @@ def setup_start_handler(dp, shutdown_manager, logger: logging.Logger, bot_userna
         await message.bot.send_chat_action(message.chat.id, "typing")
         await asyncio.sleep(3)  # Имитация печати
         
-        # Отправляем картинку с подписью и кнопкой
+        # ✅ ДОБАВЛЯЕМ: Создаем клавиатуру с кнопками в зависимости от этапа
+        keyboard_buttons = []
+        
+        # Если пользователь на этапе 2, 3 или 4 - добавляем кнопку "познакомиться со всей историей"
+        if user_stage_id and user_stage_id in [2, 3, 4]:
+            keyboard_buttons.append(
+                [InlineKeyboardButton(text="📖 ПОЗНАКОМИТЬСЯ СО ВСЕЙ ИСТОРИЕЙ", callback_data="view_history")]
+            )
+        
+        # Всегда добавляем кнопку "начать квест"
+        keyboard_buttons.append(
+            [InlineKeyboardButton(text="🚀 НАЧАТЬ КВЕСТ", callback_data="start_quest")]
+        )
+        
+        keyboard = InlineKeyboardMarkup(inline_keyboard=keyboard_buttons)
+        
+        # Отправляем картинку с подписью и кнопками
         try:
             # Путь к картинке относительно корня проекта
             image_path = "media/start.jpg"
@@ -120,23 +136,11 @@ def setup_start_handler(dp, shutdown_manager, logger: logging.Logger, bot_userna
             # Проверяем существование файла
             if not os.path.exists(image_path):
                 logger.warning(f"Картинка не найдена по пути: {image_path}")
-                # Если картинки нет, отправляем только текст с кнопкой
-                keyboard = InlineKeyboardMarkup(
-                    inline_keyboard=[
-                        [InlineKeyboardButton(text="🚀 НАЧАТЬ КВЕСТ", callback_data="start_quest")]
-                    ]
-                )
+                # Если картинки нет, отправляем только текст с кнопками
                 await message.answer(mission_text, parse_mode="Markdown", reply_markup=keyboard)
                 return
             
-            # Создаем клавиатуру с кнопкой "начать квест"
-            keyboard = InlineKeyboardMarkup(
-                inline_keyboard=[
-                    [InlineKeyboardButton(text="🚀 НАЧАТЬ КВЕСТ", callback_data="start_quest")]
-                ]
-            )
-            
-            # Создаем FSInputFile и отправляем картинку с кнопкой
+            # Создаем FSInputFile и отправляем картинку с кнопками
             photo = FSInputFile(image_path)
             await message.answer_photo(
                 photo=photo,
@@ -144,17 +148,32 @@ def setup_start_handler(dp, shutdown_manager, logger: logging.Logger, bot_userna
                 parse_mode="Markdown",
                 reply_markup=keyboard
             )
-            logger.info(f"Картинка с кнопкой успешно отправлена: {image_path}")
+            logger.info(f"Картинка с кнопками успешно отправлена: {image_path}")
             
         except Exception as e:
             logger.error(f"Ошибка при отправке картинки: {e}")
-            # Если картинка не загрузилась, отправляем только текст с кнопкой
-            keyboard = InlineKeyboardMarkup(
-                inline_keyboard=[
-                    [InlineKeyboardButton(text="🚀 НАЧАТЬ КВЕСТ", callback_data="start_quest")]
-                ]
-            )
+            # Если картинка не загрузилась, отправляем только текст с кнопками
             await message.answer(mission_text, parse_mode="Markdown", reply_markup=keyboard)
+
+    async def get_user_stage_id(telegram_id: int):
+        """Получить stage_id пользователя из manual_upload через main"""
+        try:
+            with db.get_connection() as conn:
+                cursor = conn.cursor()
+                
+                cursor.execute('''
+                    SELECT mu.stage_id 
+                    FROM main m
+                    JOIN manual_upload mu ON m.participant_id = mu.participant_id
+                    WHERE m.telegram_id = ?
+                ''', (telegram_id,))
+                
+                result = cursor.fetchone()
+                return result[0] if result else None
+                
+        except Exception as e:
+            logger.error(f"Ошибка при получении stage_id пользователя {telegram_id}: {e}")
+            return None
 
     @dp.message(CommandStart())
     async def handle_start(message: Message):
@@ -183,8 +202,11 @@ def setup_start_handler(dp, shutdown_manager, logger: logging.Logger, bot_userna
                     # После успешной регистрации получаем Имя и Отчество пользователя
                     user_name = await get_user_name_patronymic(message.from_user.id)
                     
-                    # Отправляем приветственную последовательность
-                    await send_welcome_sequence(message, user_name)
+                    # ✅ ДОБАВЛЯЕМ: Получаем stage_id пользователя
+                    user_stage_id = await get_user_stage_id(message.from_user.id)
+                    
+                    # Отправляем приветственную последовательность с stage_id
+                    await send_welcome_sequence(message, user_name, user_stage_id)
                     
                 else:
                     # Если ссылка невалидна, регистрируем как обычного пользователя
@@ -210,8 +232,11 @@ def setup_start_handler(dp, shutdown_manager, logger: logging.Logger, bot_userna
                 user_name = await get_user_name_patronymic(message.from_user.id)
                 
                 if user_name:
+                    # ✅ ДОБАВЛЯЕМ: Получаем stage_id пользователя
+                    user_stage_id = await get_user_stage_id(message.from_user.id)
+                    
                     # Пользователь уже зарегистрирован как участник - показываем приветствие
-                    await send_welcome_sequence(message, user_name)
+                    await send_welcome_sequence(message, user_name, user_stage_id)
                 else:
                     # Регистрируем как обычного пользователя
                     telegram_username = message.from_user.username

@@ -166,7 +166,7 @@ async def analyze_user_image_and_save_results(telegram_id: int, user_id: int, im
             else:
                 await message.answer(
                     "❌ *Не удалось сохранить данные пробежки.*\n"
-                    "Попробуйте отправить другой скриншот, где будут видны пройдиная дистанция и дата пробежки.",
+                    "Попробуйте отправить другой скриншот, где будут видны пройденные дистанция и дата.",
                     parse_mode="Markdown"
                 )
                 return
@@ -174,7 +174,7 @@ async def analyze_user_image_and_save_results(telegram_id: int, user_id: int, im
         else:
             await message.answer(
                 "❌ *Не удалось распознать данные пробежки.*\n"
-                "Попробуйте отправить другой скриншот, где будут видны пройдиная дистанция и дата пробежки.",
+                "Попробуйте отправить другой скриншот, где будут видны пройденные дистанция и дата.",
                 parse_mode="Markdown"
             )
             return

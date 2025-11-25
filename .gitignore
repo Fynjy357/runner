@@ -46,3 +46,25 @@ Thumbs.db
 
 
 rr_session.json
+
+# FFmpeg binaries (should be installed separately)
+ffmpeg/
+
+# Media files (large files - do not commit to Git)
+src/media/
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.jpg
+*.jpeg
+*.png
+
+# Log files
+src/logs/
+*.log
+mail_service_*.log
+
+# Excel files with data
+*.xls
+*.xlsx

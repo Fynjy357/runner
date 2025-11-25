@@ -382,7 +382,6 @@ async def handle_stage_4_riddle_answer(message: Message, state: FSMContext):
             await send_optimized_video(
                 message,
                 "9_logo.mp4",
-                "🎬 *ФИНАЛЬНОЕ ВИДЕО КВЕСТА*"
             )
             
             # Финальное сообщение

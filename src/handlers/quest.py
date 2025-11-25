@@ -1,7 +1,7 @@
 # quest.py
 import asyncio
 import logging
-from aiogram.types import CallbackQuery
+from aiogram.types import CallbackQuery, Message, InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram import F
 from aiogram.fsm.context import FSMContext
 from database import db
@@ -12,6 +12,9 @@ from .stage_2 import handle_stage_2_quest, setup_stage_2_handlers
 from .stage_3 import handle_stage_3_quest, setup_stage_3_handlers
 from .stage_4 import handle_stage_4_quest, setup_stage_4_handlers
 from .stage_5 import handle_stage_5_quest, setup_stage_5_handlers
+
+# Импортируем функцию для получения истории
+from .common_intro import get_stage_history
 
 def setup_quest_handler(dp, logger: logging.Logger):
     """Настройка обработчиков квеста"""
@@ -66,7 +69,6 @@ def setup_quest_handler(dp, logger: logging.Logger):
                     (telegram_id,)
                 )
                 result = cursor.fetchone()
-                # ✅ ИСПРАВЛЕНИЕ: Преобразуем в int
                 if result and result[0] is not None:
                     return int(result[0])
                 return 1
@@ -98,6 +100,113 @@ def setup_quest_handler(dp, logger: logging.Logger):
             logger.error(f"Ошибка продолжения квеста с этапа {current_stage}: {e}")
             await handle_stage_1_quest(callback_query, state)
 
+    async def send_stage_history_sequence(message: Message, stage_numbers: list):
+        """Отправляет историю этапов по порядку"""
+        from utils.video_optimizer import send_optimized_video
+        
+        for stage_num in stage_numbers:
+            history = get_stage_history(stage_num)
+            if history:
+                # Отправляем видео этапа
+                await send_optimized_video(
+                    message,
+                    history['video'],
+                    history['title']
+                )
+                await asyncio.sleep(2)
+                
+                # Отправляем историю этапа
+                await message.answer(history['story'], parse_mode="Markdown")
+                await asyncio.sleep(3)
+        
+        # После отправки всех историй показываем кнопку "начать квест"
+        keyboard = InlineKeyboardMarkup(
+            inline_keyboard=[
+                [InlineKeyboardButton(text="🚀 НАЧАТЬ КВЕСТ", callback_data="start_quest")]
+            ]
+        )
+        
+        await message.answer(
+            "📖 *Вы ознакомились со всей историей!*\n\n"
+            "Теперь готовы начать квест?",
+            parse_mode="Markdown",
+            reply_markup=keyboard
+        )
+
+    async def handle_history_request(callback_query: CallbackQuery, state: FSMContext):
+        """Обработка нажатия кнопки 'познакомиться со всей историей'"""
+        try:
+            await callback_query.answer()
+            
+            telegram_id = callback_query.from_user.id
+            
+            # Получаем stage_id пользователя
+            stage_id = await get_user_stage_id(telegram_id)
+            
+            if stage_id is None:
+                await callback_query.message.answer("❌ Не удалось определить ваш этап.")
+                return
+            
+            # Определяем какие истории показывать в зависимости от текущего этапа
+            if stage_id == 2:
+                # Показываем только историю этапа 1
+                stages_to_show = [1]
+                await callback_query.message.answer("📖 *Знакомимся с историей этапа 1...*", parse_mode="Markdown")
+                
+            elif stage_id == 3:
+                # Показываем историю этапов 1 и 2
+                stages_to_show = [1, 2]
+                await callback_query.message.answer("📖 *Знакомимся с историей предыдущих этапов...*", parse_mode="Markdown")
+                
+            elif stage_id == 4:
+                # Показываем историю этапов 1, 2 и 3
+                stages_to_show = [1, 2, 3]
+                await callback_query.message.answer("📖 *Знакомимся с полной историей квеста...*", parse_mode="Markdown")
+                
+            else:
+                # Для этапов 1 и 5 кнопка не должна отображаться, но на всякий случай
+                await callback_query.message.answer("ℹ️ История недоступна для вашего этапа.")
+                return
+            
+            # Отправляем последовательность историй
+            await send_stage_history_sequence(callback_query.message, stages_to_show)
+            
+        except Exception as e:
+            logger.error(f"Ошибка при обработке запроса истории: {e}")
+            await callback_query.message.answer("❌ Ошибка при загрузке истории. Попробуйте позже.")
+
+    # Временная простая версия для тестирования
+    async def send_simple_video(message, video_filename: str, caption: str = ""):
+        """Простая отправка видео без оптимизации"""
+        from aiogram.types import FSInputFile
+        from pathlib import Path
+        
+        try:
+            project_root = Path(__file__).parent.parent
+            video_path = project_root / "media" / video_filename
+            
+            if not video_path.exists():
+                logging.error(f"❌ Файл не найден: {video_path}")
+                if caption:
+                    await message.answer(caption, parse_mode="Markdown")
+                return False
+            
+            video = FSInputFile(video_path)
+            await message.answer_video(
+                video,
+                caption=caption,
+                parse_mode="Markdown",
+                supports_streaming=True
+            )
+            logging.info(f"✅ Видео отправлено: {video_filename}")
+            return True
+            
+        except Exception as e:
+            logging.error(f"❌ Ошибка отправки видео: {e}")
+            if caption:
+                await message.answer(caption, parse_mode="Markdown")
+            return False
+
     async def handle_start_quest(callback_query: CallbackQuery, state: FSMContext):
         """Обработка нажатия кнопки 'начать квест'"""
         try:
@@ -112,11 +221,11 @@ def setup_quest_handler(dp, logger: logging.Logger):
             await callback_query.message.delete()
             
             # Удаляем предыдущие сообщения
-            for i in range(1, 4):
-                try:
-                    await callback_query.bot.delete_message(chat_id, message_id - i)
-                except Exception:
-                    pass
+            # for i in range(1, 4):
+            #     try:
+            #         await callback_query.bot.delete_message(chat_id, message_id - i)
+            #     except Exception:
+            #         pass
             
             # Получаем stage_id пользователя
             stage_id = await get_user_stage_id(telegram_id)
@@ -168,8 +277,10 @@ def setup_quest_handler(dp, logger: logging.Logger):
             logger.error(f"Ошибка при обработке начала квеста: {e}")
             await callback_query.message.answer("❌ Произошла ошибка при начале квеста. Попробуйте позже.")
 
-    # Регистрируем обработчик
+
+    # Регистрируем обработчики
     dp.callback_query.register(handle_start_quest, F.data == "start_quest")
+    dp.callback_query.register(handle_history_request, F.data == "view_history")
     
     # Регистрируем обработчики для этапа 1
     setup_stage_1_handlers(dp)

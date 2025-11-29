@@ -102,22 +102,15 @@ def setup_quest_handler(dp, logger: logging.Logger):
 
     async def send_stage_history_sequence(message: Message, stage_numbers: list):
         """Отправляет историю этапов по порядку"""
-        from utils.video_optimizer import send_optimized_video
+        from .common_intro import send_stage_history_video
         
         for stage_num in stage_numbers:
-            history = get_stage_history(stage_num)
-            if history:
-                # Отправляем видео этапа
-                await send_optimized_video(
-                    message,
-                    history['video'],
-                    history['title']
-                )
-                await asyncio.sleep(2)
-                
-                # Отправляем историю этапа
-                await message.answer(history['story'], parse_mode="Markdown")
-                await asyncio.sleep(3)
+            # ✅ ИСПОЛЬЗУЕМ ГОТОВУЮ ФУНКЦИЮ, КОТОРАЯ ОТПРАВЛЯЕТ ОБА ВИДЕО
+            success = await send_stage_history_video(message, stage_num)
+            if success:
+                await asyncio.sleep(3)  # Пауза между этапами
+            else:
+                await message.answer(f"❌ Не удалось загрузить историю этапа {stage_num}")
         
         # После отправки всех историй показываем кнопку "начать квест"
         keyboard = InlineKeyboardMarkup(

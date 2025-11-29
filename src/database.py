@@ -104,7 +104,7 @@ class Database:
                     )
                 ''')
                 
-                # Таблица 8: Участники розыгрыша (НОВАЯ ТАБЛИЦА)
+                # Таблица 8: Участники розыгрыша
                 cursor.execute('''
                     CREATE TABLE IF NOT EXISTS raffle_participants (
                         raffle_participant_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -114,6 +114,21 @@ class Database:
                         raffle_id INTEGER,
                         FOREIGN KEY (telegram_id) REFERENCES main(telegram_id),
                         UNIQUE(telegram_id, raffle_id)
+                    )
+                ''')
+                
+                # ✅ ТАБЛИЦА 9: Адреса пользователей (УПРОЩЕННАЯ ВЕРСИЯ)
+                cursor.execute('''
+                    CREATE TABLE IF NOT EXISTS user_addresses (
+                        address_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        telegram_id INTEGER NOT NULL,
+                        telegram_username TEXT,
+                        stage INTEGER NOT NULL DEFAULT 1,
+                        address TEXT NOT NULL,
+                        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                        FOREIGN KEY (telegram_id) REFERENCES main(telegram_id),
+                        UNIQUE(telegram_id, stage)
                     )
                 ''')
                 
@@ -142,11 +157,161 @@ class Database:
             "CREATE INDEX IF NOT EXISTS idx_verification_date ON verification(run_date)",
             "CREATE INDEX IF NOT EXISTS idx_raffle_participants_telegram ON raffle_participants(telegram_id)",
             "CREATE INDEX IF NOT EXISTS idx_raffle_participants_date ON raffle_participants(participation_date)",
-            "CREATE INDEX IF NOT EXISTS idx_raffle_participants_raffle ON raffle_participants(raffle_id)"
+            "CREATE INDEX IF NOT EXISTS idx_raffle_participants_raffle ON raffle_participants(raffle_id)",
+            # ✅ ИНДЕКСЫ ДЛЯ ТАБЛИЦЫ АДРЕСОВ
+            "CREATE INDEX IF NOT EXISTS idx_user_addresses_telegram ON user_addresses(telegram_id)",
+            "CREATE INDEX IF NOT EXISTS idx_user_addresses_stage ON user_addresses(stage)"
         ]
         
         for index_sql in indexes:
             cursor.execute(index_sql)
+
+    # ✅ МЕТОДЫ ДЛЯ РАБОТЫ С АДРЕСАМИ ПОЛЬЗОВАТЕЛЕЙ
+
+    def save_user_address(self, telegram_id: int, telegram_username: str, address: str, stage: int = 1) -> bool:
+        """Сохранение или обновление адреса пользователя"""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                
+                cursor.execute('''
+                    INSERT OR REPLACE INTO user_addresses 
+                    (telegram_id, telegram_username, stage, address, updated_at)
+                    VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
+                ''', (telegram_id, telegram_username, stage, address))
+                
+                conn.commit()
+                logging.info(f"Адрес сохранен для пользователя {telegram_id} (этап {stage})")
+                return True
+                
+        except sqlite3.Error as e:
+            logging.error(f"Ошибка сохранения адреса пользователя {telegram_id}: {e}")
+            return False
+
+    def get_user_address(self, telegram_id: int, stage: int = None):
+        """Получение адреса пользователя"""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                
+                if stage:
+                    cursor.execute('''
+                        SELECT address_id, telegram_id, telegram_username, stage, address, created_at, updated_at
+                        FROM user_addresses 
+                        WHERE telegram_id = ? AND stage = ?
+                    ''', (telegram_id, stage))
+                else:
+                    cursor.execute('''
+                        SELECT address_id, telegram_id, telegram_username, stage, address, created_at, updated_at
+                        FROM user_addresses 
+                        WHERE telegram_id = ?
+                        ORDER BY stage DESC
+                        LIMIT 1
+                    ''', (telegram_id,))
+                
+                result = cursor.fetchone()
+                if result:
+                    return {
+                        'address_id': result[0],
+                        'telegram_id': result[1],
+                        'telegram_username': result[2],
+                        'stage': result[3],
+                        'address': result[4],
+                        'created_at': result[5],
+                        'updated_at': result[6]
+                    }
+                return None
+                
+        except sqlite3.Error as e:
+            logging.error(f"Ошибка получения адреса пользователя {telegram_id}: {e}")
+            return None
+
+    def update_user_address(self, telegram_id: int, address: str, stage: int = 1) -> bool:
+        """Обновление адреса пользователя"""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                
+                cursor.execute('''
+                    UPDATE user_addresses 
+                    SET address = ?, updated_at = CURRENT_TIMESTAMP
+                    WHERE telegram_id = ? AND stage = ?
+                ''', (address, telegram_id, stage))
+                
+                conn.commit()
+                if cursor.rowcount > 0:
+                    logging.info(f"Адрес обновлен для пользователя {telegram_id} (этап {stage})")
+                    return True
+                else:
+                    logging.warning(f"Адрес не найден для обновления: пользователь {telegram_id}, этап {stage}")
+                    return False
+                
+        except sqlite3.Error as e:
+            logging.error(f"Ошибка обновления адреса пользователя {telegram_id}: {e}")
+            return False
+
+    def delete_user_address(self, telegram_id: int, stage: int = None) -> bool:
+        """Удаление адреса пользователя"""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                
+                if stage:
+                    cursor.execute('''
+                        DELETE FROM user_addresses 
+                        WHERE telegram_id = ? AND stage = ?
+                    ''', (telegram_id, stage))
+                else:
+                    cursor.execute('''
+                        DELETE FROM user_addresses 
+                        WHERE telegram_id = ?
+                    ''', (telegram_id,))
+                
+                conn.commit()
+                logging.info(f"Адрес(а) удален(ы) для пользователя {telegram_id}")
+                return True
+                
+        except sqlite3.Error as e:
+            logging.error(f"Ошибка удаления адреса пользователя {telegram_id}: {e}")
+            return False
+
+    def export_addresses_to_csv(self, stage: int = None):
+        """Экспорт адресов в CSV-формат (возвращает строку)"""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                
+                if stage:
+                    cursor.execute('''
+                        SELECT telegram_id, telegram_username, stage, address, created_at
+                        FROM user_addresses 
+                        WHERE stage = ?
+                        ORDER BY created_at DESC
+                    ''', (stage,))
+                else:
+                    cursor.execute('''
+                        SELECT telegram_id, telegram_username, stage, address, created_at
+                        FROM user_addresses 
+                        ORDER BY stage, created_at DESC
+                    ''')
+                
+                results = cursor.fetchall()
+                
+                if not results:
+                    return "Нет данных для экспорта"
+                
+                # Заголовки CSV
+                csv_data = "telegram_id;telegram_username;stage;address;created_at\n"
+                
+                for result in results:
+                    telegram_id, telegram_username, stage, address, created_at = result
+                    csv_data += f"{telegram_id};{telegram_username or ''};{stage};{address};{created_at}\n"
+                
+                return csv_data
+                
+        except sqlite3.Error as e:
+            logging.error(f"Ошибка экспорта адресов в CSV: {e}")
+            return f"Ошибка экспорта: {e}"
 
     # МЕТОДЫ ДЛЯ РАБОТЫ С РОЗЫГРЫШЕМ
 
@@ -244,7 +409,6 @@ class Database:
             logging.error(f"Ошибка получения количества участников: {e}")
             return 0
 
-        
     def delete_all_raffle_participants(self) -> bool:
         """Удаление всех участников розыгрыша"""
         try:
@@ -262,8 +426,6 @@ class Database:
     def get_connection(self):
         """Получение соединения с базой данных"""
         return sqlite3.connect(self.db_path)
-    
-    
 
 # Создаем глобальный экземпляр базы данных
 db = Database()

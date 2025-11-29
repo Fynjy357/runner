@@ -29,7 +29,7 @@ class EmailTemplates:
         first_name = recipient.get('first_name', '')
         last_name = recipient.get('last_name', '')
         universal_link = recipient.get('universal_link', '#')
-        stage_name = recipient.get('stage_name', 'новогодний квест')  # Название этапа из таблицы stages
+        stage_name = recipient.get('stage_name', 'новогодний квест')
         
         # Формируем обращение
         if first_name and last_name:
@@ -39,7 +39,7 @@ class EmailTemplates:
         else:
             greeting = "Уважаемый участник"
         
-        subject = f"🎄 Добро пожаловать в Новогодний Квест, {first_name or 'Участник'}!"
+        subject = f"🎄 Добро пожаловать в Новогодний Квест. {stage_name}!"
         
         # HTML версия
         html_content = f"""
@@ -47,6 +47,7 @@ class EmailTemplates:
         <html>
         <head>
             <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <style>
                 body {{
                     font-family: 'Arial', sans-serif;
@@ -55,35 +56,78 @@ class EmailTemplates:
                     max-width: 600px;
                     margin: 0 auto;
                     padding: 20px;
+                    background-color: #f8f9fa;
                 }}
-                .header {{
-                    text-align: center;
-                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                    color: white;
-                    padding: 30px 20px;
-                    border-radius: 10px;
-                    margin-bottom: 30px;
+                .container {{
+                    background: white;
+                    border-radius: 15px;
+                    overflow: hidden;
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
                 }}
-                .button {{
-                    display: inline-block;
-                    background: #0088cc;
-                    color: white;
-                    padding: 15px 30px;
-                    text-decoration: none;
-                    border-radius: 25px;
+                .header-img {{
+                    width: 100%;
+                    height: auto;
+                    display: block;
+                    border-bottom: 4px solid #ff6b6b;
+                }}
+                .content {{
+                    padding: 30px;
+                }}
+                .greeting {{
+                    font-size: 24px;
                     font-weight: bold;
+                    color: #2c3e50;
+                    margin-bottom: 20px;
+                    text-align: left;
+                }}
+                .stage-info {{
+                    background: linear-gradient(135deg, #667eea, #764ba2);
+                    color: white;
+                    padding: 15px;
+                    border-radius: 10px;
                     margin: 20px 0;
                     text-align: center;
+                    font-weight: bold;
+                    font-size: 18px;
+                }}
+                .button {{
+                    display: block;
+                    background: linear-gradient(135deg, #667eea, #764ba2);
+                    color: white !important;
+                    padding: 18px 30px;
+                    text-decoration: none;
+                    border-radius: 30px;
+                    font-weight: bold;
+                    margin: 25px auto;
+                    text-align: center;
+                    font-size: 18px;
+                    width: 80%;
+                    max-width: 300px;
+                    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+                    transition: transform 0.3s ease;
+                }}
+                .button:hover {{
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
                 }}
                 .steps {{
                     background: #f8f9fa;
-                    padding: 20px;
+                    padding: 25px;
                     border-radius: 10px;
-                    margin: 20px 0;
+                    margin: 25px 0;
+                    border-left: 5px solid #667eea;
                 }}
                 .step {{
-                    margin: 10px 0;
-                    padding-left: 20px;
+                    margin: 12px 0;
+                    padding-left: 25px;
+                    position: relative;
+                }}
+                .step:before {{
+                    content: "✓";
+                    position: absolute;
+                    left: 0;
+                    color: #27ae60;
+                    font-weight: bold;
                 }}
                 .footer {{
                     text-align: center;
@@ -94,90 +138,118 @@ class EmailTemplates:
                 }}
                 .highlight {{
                     background: #fff3cd;
-                    padding: 15px;
-                    border-radius: 5px;
-                    margin: 15px 0;
+                    padding: 20px;
+                    border-radius: 10px;
+                    margin: 20px 0;
+                    border: 2px solid #ffeaa7;
                 }}
                 .telegram-help {{
                     background: #e7f3ff;
-                    padding: 15px;
+                    padding: 20px;
                     border-radius: 10px;
-                    margin: 20px 0;
+                    margin: 25px 0;
+                    border: 2px solid #a5d8ff;
                 }}
-                .stage-info {{
-                    background: linear-gradient(135deg, #667eea, #764ba2);
-                    color: white;
+                .link-box {{
+                    background: #f8f9fa;
                     padding: 15px;
-                    border-radius: 10px;
-                    margin: 20px 0;
-                    text-align: center;
-                    font-weight: bold;
+                    border-radius: 8px;
+                    margin: 15px 0;
+                    border: 1px dashed #667eea;
+                    word-break: break-all;
+                    font-family: 'Courier New', monospace;
+                    font-size: 14px;
+                }}
+                @media (max-width: 480px) {{
+                    .content {{
+                        padding: 20px;
+                    }}
+                    .greeting {{
+                        font-size: 20px;
+                    }}
+                    .button {{
+                        width: 90%;
+                        padding: 15px 20px;
+                        font-size: 16px;
+                    }}
                 }}
             </style>
         </head>
         <body>
-            <div class="header">
-                <h1>🎄 Добро пожаловать в новогоднее приключение!</h1>
-            </div>
-
-            <p><strong>Здравствуйте, {first_name or 'Участник'}!</strong></p>
-
-            <p>Добро пожаловать в наше уникальное событие! Благодарим, что выбрали именно наш старт!🎉</p>
-            
-            <p>Теперь Вы стали частью чего-то поистине волшебного — это не просто забег, а настоящее приключение, которое запомнится надолго!</p>
-
-            <div style="text-align: center;">
-                <h3>🚀 Ваше уникальное приключение начинается в нашем Telegram боте. Нажмите на кнопку ниже, чтобы перейти к квесту:</h3>
+            <div class="container">
+                <!-- Адаптивная картинка в шапке -->
+                <img src="cid:header_image" alt="🎄 Новогоднее Приключение" class="header-img">
                 
-                <div class="stage-info">
-                    🎯 Этап: <strong>{stage_name}</strong>
+                <div class="content">
+                    <div class="greeting">
+                        Здравствуйте, {first_name or 'Участник'}! 🎅
+                    </div>
+
+                    <p>Добро пожаловать в уникальное событие! Благодарим, что выбрали именно наш старт! 🎉</p>
+                    
+                    <p>Теперь Вы стали частью чего-то поистине волшебного — это не просто забег, а настоящее приключение, которое запомнится надолго!</p>
+
+                    <div class="stage-info">
+                        🎯 Этап: <strong>{stage_name}</strong>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <h3 style="color: #2c3e50; margin-bottom: 20px;">🚀 Ваше уникальное приключение начинается в нашем Telegram боте</h3>
+                        
+                        <a href="{universal_link}" class="button" style="color: white !important; text-decoration: none;">
+                            📱 Начать Квест в Telegram!
+                        </a>
+                    </div>
+
+                    <div class="steps">
+                        <h4 style="color: #667eea; margin-top: 0;">📋 Как начать квест:</h4>
+                        <div class="step">Нажмите на кнопку выше или скопируйте ссылку ниже</div>
+                        <div class="step">Откроется Telegram с нашим ботом</div>
+                        <div class="step">Нажмите кнопку "START" или "Запустить"</div>
+                        <div class="step">Следуйте инструкциям бота и получайте задания</div>
+                    </div>
+
+                    <div class="highlight">
+                        <p style="margin-top: 0;"><strong>🔗 Ваша персональная ссылка для доступа к "{stage_name}":</strong></p>
+                        <div class="link-box">
+                            {universal_link}
+                        </div>
+                        <p style="margin-bottom: 0; font-size: 14px; color: #666;">
+                            ⚠️ Будьте внимательны, ссылка одноразовая!
+                        </p>
+                    </div>
+
+                    <div class="telegram-help">
+                        <h4 style="color: #0088cc; margin-top: 0;">📱 У вас нет Telegram?</h4>
+                        <p>Скачайте приложение Telegram из App Store или Google Play, затем перейдите по ссылке выше.</p>
+                        <p><strong>💬 Нужна помощь?</strong> Если у вас возникнут вопросы или потребуется помощь, не стесняйтесь обращаться к нашей команде поддержки.</p>
+                    </div>
+
+                    <p style="text-align: center; font-size: 18px; font-weight: bold;">
+                        Желаем незабываемых эмоций на старте! ✨
+                    </p>
+
+                    <div class="footer">
+                        <p style="font-size: 16px; color: #667eea; font-weight: bold;">
+                            С любовью, команда «Стартани»! ❤️
+                        </p>
+                        <p style="font-size: 12px; color: #999;">
+                            Это автоматическое письмо, пожалуйста, не отвечайте на него.
+                        </p>
+                    </div>
                 </div>
-                
-                <a href="{universal_link}" class="button">
-                    📱 Начать Квест в Telegram!
-                </a>
-            </div>
-
-            <div class="steps">
-                <h4>📋 Как начать квест:</h4>
-                <div class="step">1. Нажмите на синюю кнопку выше или скопируйте ссылку ниже</div>
-                <div class="step">2. Откроется Telegram с нашим ботом</div>
-                <div class="step">3. Нажмите кнопку "START" или "Запустить"</div>
-                <div class="step">4. Следуйте инструкциям бота и получайте задания</div>
-            </div>
-
-            <div class="highlight">
-                <p><strong>🔗 Ваша персональная ссылка для доступа к "{stage_name}":</strong></p>
-                <p style="word-break: break-all; font-family: monospace; background: #f8f9fa; padding: 10px; border-radius: 5px;">
-                    {universal_link}
-                </p>
-            </div>
-
-            <div class="telegram-help">
-                <h4>📱 У вас нет Telegram?</h4>
-                <p>Скачайте приложение Telegram из App Store или Google Play, затем перейдите по ссылке выше.</p>
-                <p><strong>💬 Нужна помощь?</strong> Если у вас возникнут вопросы или потребуется помощь, не стесняйтесь обращаться к нашей команде поддержки.</p>
-            </div>
-
-            <p><strong>Желаем незабываемых эмоций на старте!</strong></p>
-
-            <div class="footer">
-                <p>С любовью, команда «Стартани»! ❤️</p>
-                <p style="font-size: 12px; color: #999;">
-                    Это автоматическое письмо, пожалуйста, не отвечайте на него.
-                </p>
             </div>
         </body>
         </html>
         """
         
-        # Текстовая версия
+        # Текстовая версия остается без изменений
         text_content = f"""
         Добро пожаловать в новогоднее приключение!
 
         Здравствуйте, {first_name or 'Участник'}!
 
-        Добро пожаловать в наше уникальное событие! Благодарим, что выбрали именно наш старт!
+        Добро пожаловать в уникальное событие! Благодарим, что выбрали именно наш старт! 🎉
 
         Теперь Вы стали частью чего-то поистине волшебного — это не просто забег, а настоящее приключение, которое запомнится надолго!
 
@@ -212,6 +284,8 @@ class EmailTemplates:
         """
         
         return subject, html_content, text_content
+
+
     
     def welcome_template(self, recipient: Dict[str, Any]) -> Tuple[str, str, str]:
         """Стандартный приветственный шаблон (запасной)"""

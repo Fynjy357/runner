@@ -7,9 +7,12 @@ import smtplib
 import logging
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from email.mime.image import MIMEImage
 from typing import List, Dict, Any, Optional
 import time
 from datetime import datetime
+import os
+from pathlib import Path
 
 # Используем абсолютные импорты
 from .config import SMTPConfig
@@ -22,7 +25,38 @@ class EmailSender:
     def __init__(self, config: SMTPConfig):
         self.config = config
         self.templates = EmailTemplates()
-        
+    
+    def attach_header_image(self, message: MIMEMultipart) -> bool:
+        """Прикрепляет картинку header.jpg к письму"""
+        try:
+            # Путь к картинке относительно src/mail_service
+            current_dir = Path(__file__).parent  # src/mail_service
+            image_path = current_dir.parent / "media" / "header.jpg"  # src/media/header.jpg
+            
+            logger.info(f"🔍 Ищем картинку по пути: {image_path}")
+            
+            if image_path.exists():
+                with open(image_path, 'rb') as img_file:
+                    img_data = img_file.read()
+                
+                image = MIMEImage(img_data)
+                image.add_header('Content-ID', '<header_image>')
+                image.add_header('Content-Disposition', 'inline', filename='header.jpg')
+                message.attach(image)
+                logger.info("✅ Картинка header.jpg прикреплена к письму")
+                return True
+            else:
+                logger.error(f"❌ Файл картинки не найден: {image_path}")
+                # Создаем список файлов в папке media для отладки
+                media_dir = current_dir.parent / "media"
+                if media_dir.exists():
+                    files = list(media_dir.iterdir())
+                    logger.info(f"📁 Файлы в папке media: {[f.name for f in files]}")
+                return False
+        except Exception as e:
+            logger.error(f"❌ Ошибка при прикреплении картинки: {e}")
+            return False
+    
     def test_connection(self) -> bool:
         """Тестирование SMTP соединения"""
         try:
@@ -53,22 +87,29 @@ class EmailSender:
     
     def send_email(self, to_email: str, subject: str, html_content: str, 
                   text_content: str = "", recipient_data: Dict[str, Any] = None) -> bool:
-        """Отправка одного email"""
+        """Отправка одного email с поддержкой картинок"""
         try:
-            # Создаем сообщение
-            msg = MIMEMultipart('alternative')
+            # Создаем сообщение с поддержкой вложений
+            msg = MIMEMultipart('related')  # Важно: 'related' для встроенных изображений
             msg['Subject'] = subject
             msg['From'] = self.config.email
             msg['To'] = to_email
             
+            # Создаем альтернативную часть для текста и HTML
+            alternative_part = MIMEMultipart('alternative')
+            msg.attach(alternative_part)
+            
             # Добавляем текстовую версию
             if text_content:
                 text_part = MIMEText(text_content, 'plain', 'utf-8')
-                msg.attach(text_part)
+                alternative_part.attach(text_part)
             
             # Добавляем HTML версию
             html_part = MIMEText(html_content, 'html', 'utf-8')
-            msg.attach(html_part)
+            alternative_part.attach(html_part)
+            
+            # Прикрепляем картинку шапки
+            self.attach_header_image(msg)
             
             # Подключаемся к серверу
             if self.config.use_tls:
@@ -99,17 +140,21 @@ class EmailSender:
             return False
     
     def send_test_email(self, test_email: str) -> bool:
-        """Отправка тестового письма"""
+        """Отправка тестового письма с картинкой"""
         try:
             subject = "🧪 Тестовое письмо - Новогодний Квест"
             
             html_content = f"""
             <html>
-                <body>
-                    <h1>🎄 Тестовое письмо</h1>
-                    <p>Это тестовое письмо от системы рассылки Новогоднего Квеста.</p>
-                    <p>Если вы получили это письмо, значит SMTP настройки работают корректно!</p>
-                    <p><strong>Время отправки:</strong> {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
+                <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                    <img src="cid:header_image" alt="🎄 Новогоднее Приключение" style="width: 100%; height: auto;">
+                    <div style="padding: 20px;">
+                        <h1>🎄 Тестовое письмо</h1>
+                        <p>Это тестовое письмо от системы рассылки Новогоднего Квеста.</p>
+                        <p>Если вы получили это письмо и видите картинку выше, значит SMTP настройки работают корректно!</p>
+                        <p><strong>Время отправки:</strong> {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
+                        <p><strong>Картинка в шапке:</strong> ✅ Прикреплена и отображается</p>
+                    </div>
                 </body>
             </html>
             """
@@ -117,6 +162,8 @@ class EmailSender:
             text_content = f"""Тестовое письмо от системы рассылки Новогоднего Квеста.
             
             Время отправки: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+            
+            Это письмо содержит HTML версию с картинкой в шапке.
             """
             
             return self.send_email(test_email, subject, html_content, text_content)

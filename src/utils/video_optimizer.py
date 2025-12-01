@@ -1,17 +1,42 @@
 # src/utils/video_optimizer.py
 import asyncio
 import os
+import sys
 import subprocess
 import json
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
 import threading
 
+
 # Импортируем наш логгер
 from .logger import setup_logging
 
 # Создаем логгер для этого модуля
 logger = setup_logging()
+
+# ✅ ДОБАВЛЯЕМ FFMPEG В PATH (ПОСЛЕ ИНИЦИАЛИЗАЦИИ ЛОГГЕРА)
+project_root = Path(__file__).parent.parent.parent
+ffmpeg_bin_path = project_root / "ffmpeg" / "bin"
+
+logger.info(f"🔍 Проверяем путь к FFmpeg: {ffmpeg_bin_path}")
+
+if ffmpeg_bin_path.exists():
+    if str(ffmpeg_bin_path) not in os.environ['PATH']:
+        os.environ['PATH'] = str(ffmpeg_bin_path) + os.pathsep + os.environ['PATH']
+        logger.info(f"✅ Добавлен FFmpeg в PATH: {ffmpeg_bin_path}")
+    
+    # Проверяем наличие ffmpeg.exe
+    ffmpeg_exe = ffmpeg_bin_path / "ffmpeg.exe"
+    if ffmpeg_exe.exists():
+        logger.info(f"✅ FFmpeg.exe найден: {ffmpeg_exe}")
+    else:
+        logger.error(f"❌ FFmpeg.exe не найден в: {ffmpeg_bin_path}")
+        # Показываем что есть в папке
+        files = list(ffmpeg_bin_path.glob("*"))
+        logger.info(f"📁 Файлы в папке bin: {[f.name for f in files]}")
+else:
+    logger.error(f"❌ Папка FFmpeg не найдена: {ffmpeg_bin_path}")
 
 def get_media_path() -> Path:
     """Получает путь к медиа директории"""

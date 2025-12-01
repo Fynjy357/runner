@@ -118,7 +118,7 @@ def setup_start_handler(dp, shutdown_manager, logger: logging.Logger, bot_userna
         # Если пользователь на этапе 2, 3 или 4 - добавляем кнопку "познакомиться со всей историей"
         if user_stage_id and user_stage_id in [2, 3, 4]:
             keyboard_buttons.append(
-                [InlineKeyboardButton(text="📖 ПОЗНАКОМИТЬСЯ СО ВСЕЙ ИСТОРИЕЙ", callback_data="view_history")]
+                [InlineKeyboardButton(text="📖 ПОСМОТРЕТЬ ПРЕДЫСТОРИЮ", callback_data="view_history")]
             )
         
         # Всегда добавляем кнопку "начать квест"

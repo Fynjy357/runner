@@ -13,7 +13,7 @@ from aiogram.fsm.storage.base import StorageKey
 from database import db
 import logging
 from datetime import datetime
-from utils.video_optimizer import send_optimized_video
+from utils.video_optimizer import get_media_path, send_optimized_video
 
 # ✅ ПРАВИЛЬНЫЕ ПУТИ ДЛЯ ВАШЕЙ СТРУКТУРЫ
 PROJECT_ROOT = Path(__file__).parent.parent  # src/handlers -> src
@@ -150,7 +150,6 @@ async def send_moderator_notification(telegram_id: int, username: str, image_pat
             logging.error("❌ Модераторы не найдены в БД")
             return
         
-        # Создаем клавиатуру для модератора
         keyboard = InlineKeyboardMarkup(
             inline_keyboard=[
                 [
@@ -160,24 +159,25 @@ async def send_moderator_notification(telegram_id: int, username: str, image_pat
             ]
         )
         
+        # ✅ ИСПРАВЛЕНИЕ: Убираем Markdown разметку
+        caption = (
+            "🚨 ПРОБЛЕМА С РАСПОЗНАВАНИЕМ СКРИНШОТА - ЭТАП 2\n\n"
+            f"👤 Пользователь: @{username or 'без username'}\n"
+            f"🆔 ID: {telegram_id}\n"
+            f"🔄 Неудачных попыток: {attempts}\n\n"
+            f"📸 Скриншот пользователя:"
+        )
+        
         # Отправляем уведомление всем модераторам
         for moderator_id in moderator_ids:
             try:
-                # Отправляем фото скриншота
                 photo = FSInputFile(image_path)
-                caption = (
-                    f"🚨 *ПРОБЛЕМА С РАСПОЗНАВАНИЕМ СКРИНШОТА - ЭТАП 2*\n\n"
-                    f"👤 Пользователь: @{username or 'без username'}\n"
-                    f"🆔 ID: {telegram_id}\n"
-                    f"🔄 Неудачных попыток: {attempts}\n\n"
-                    f"📸 *Скриншот пользователя:*"
-                )
                 
                 await message.bot.send_photo(
                     chat_id=moderator_id,
                     photo=photo,
                     caption=caption,
-                    parse_mode="Markdown",
+                    parse_mode=None,  # ✅ ИСПРАВЛЕНИЕ: Отключаем разметку
                     reply_markup=keyboard
                 )
                 logging.info(f"✅ Уведомление отправлено модератору {moderator_id} для этапа 2")
@@ -187,6 +187,7 @@ async def send_moderator_notification(telegram_id: int, username: str, image_pat
                 
     except Exception as e:
         logging.error(f"❌ Ошибка в функции отправки уведомления модератору: {e}")
+
 
 async def analyze_user_image_and_save_results(telegram_id: int, user_id: int, image_path: str, message: Message, state: FSMContext):
     """Анализирует изображение пользователя и сохраняет результаты в verification"""
@@ -293,10 +294,9 @@ async def handle_recognition_failure(telegram_id: int, user_id: int, image_path:
             parse_mode="Markdown"
         )
 
-async def send_moderator_approved_quest(bot, telegram_id: int):
+async def send_moderator_approved_quest(bot, telegram_id: int, storage):
     """Отправляет продолжение квеста после одобрения модератором"""
     try:
-        # ✅ Продолжаем квест автоматически
         await asyncio.sleep(1)
         
         message5 = "🎉 *Ура! Ты – на складе!*"
@@ -321,15 +321,36 @@ async def send_moderator_approved_quest(bot, telegram_id: int):
         )
         await asyncio.sleep(2)
         
-        # ✅ Отправляем оптимизированное видео БЕЗ подписи
+        # ✅ ИСПРАВЛЕНИЕ: Отправляем видео напрямую через bot
         try:
-            await send_optimized_video(
-                bot, 
-                telegram_id,
-                "4_logo.mp4"
-            )
+            from aiogram.types import FSInputFile
+            
+            # Получаем путь к видео
+            media_path = get_media_path()
+            video_path = media_path / "4_logo.mp4"
+            
+            if video_path.exists():
+                video = FSInputFile(video_path)
+                await bot.send_video(
+                    chat_id=telegram_id,
+                    video=video,
+                    supports_streaming=True
+                )
+                logging.info(f"✅ Видео отправлено пользователю {telegram_id}")
+            else:
+                logging.error(f"❌ Видео файл не найден: {video_path}")
+                await bot.send_message(
+                    chat_id=telegram_id,
+                    text="🎬 *Продолжаем историю...*",
+                    parse_mode="Markdown"
+                )
         except Exception as video_error:
-            logging.error(f"Ошибка отправки видео: {video_error}")
+            logging.error(f"❌ Ошибка отправки видео: {video_error}")
+            await bot.send_message(
+                chat_id=telegram_id,
+                text="🎬 *Продолжаем историю...*",
+                parse_mode="Markdown"
+            )
         
         await asyncio.sleep(2)
         
@@ -346,10 +367,73 @@ async def send_moderator_approved_quest(bot, telegram_id: int):
             parse_mode="Markdown"
         )
         
+        # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Устанавливаем правильное состояние для пользователя
+        try:
+            from aiogram.fsm.storage.base import StorageKey
+            from aiogram.fsm.context import FSMContext
+            
+            # Создаем ключ для пользователя
+            user_key = StorageKey(
+                chat_id=telegram_id, 
+                user_id=telegram_id, 
+                bot_id=bot.id
+            )
+            
+            # ✅ ИСПРАВЛЕНИЕ: Используем переданный storage вместо bot.storage
+            user_state = FSMContext(storage=storage, key=user_key)
+            
+            # ✅ ПРОВЕРЯЕМ: Получаем данные пользователя
+            is_stage_5_user = await check_if_stage_5_user(telegram_id)
+            
+            # ✅ УСТАНАВЛИВАЕМ ПРАВИЛЬНОЕ СОСТОЯНИЕ И ДАННЫЕ
+            await user_state.set_state(Stage2States.waiting_for_riddle_answer)
+            await user_state.set_data({
+                'telegram_id': telegram_id,
+                'is_stage_5_user': is_stage_5_user,
+                'attempts_left': 3,
+                'recognition_attempts': 0,
+                'moderator_approved': True
+            })
+            
+            logging.info(f"✅ Установлено состояние waiting_for_riddle_answer для пользователя {telegram_id}")
+            
+        except Exception as state_error:
+            logging.error(f"❌ Ошибка установки состояния для пользователя {telegram_id}: {state_error}")
+        
         logging.info(f"✅ Квест продолжен для пользователя {telegram_id} после одобрения модератора (этап 2)")
         
     except Exception as e:
         logging.error(f"Ошибка при отправке квеста после одобрения модератора (этап 2): {e}")
+
+
+
+
+async def clear_user_state_completely(bot, telegram_id: int):
+    """Полностью очищает состояние пользователя"""
+    try:
+        # ✅ ИСПРАВЛЕНИЕ: Простая очистка через новый FSMContext
+        from aiogram.fsm.storage.base import StorageKey
+        from aiogram.fsm.context import FSMContext
+        
+        # Создаем ключ для пользователя
+        user_key = StorageKey(
+            chat_id=telegram_id, 
+            user_id=telegram_id, 
+            bot_id=bot.id
+        )
+        
+        # Создаем FSMContext для пользователя
+        user_state = FSMContext(storage=bot.storage, key=user_key)
+        
+        # Очищаем состояние
+        await user_state.clear()
+        
+        logging.info(f"✅ Состояние пользователя {telegram_id} полностью очищено")
+        return True
+    except Exception as e:
+        logging.error(f"❌ Ошибка полной очистки состояния пользователя {telegram_id}: {e}")
+        return False
+
 
 async def force_update_user_state(storage, telegram_id: int, target_state):
     """Принудительное обновление состояния пользователя"""
@@ -433,24 +517,19 @@ async def handle_moderator_approve_2(callback_query: CallbackQuery, state: FSMCo
             await callback_query.answer("❌ У вас нет прав для этого действия", show_alert=True)
             return
         
-        # ✅ Получаем сохраненные данные пользователя
-        user_data = await state.get_data()
-        user_id = user_data.get('user_id')
-        
-        if not user_id:
-            # Если user_id не найден в состоянии, получаем из БД
-            user_id = await get_user_id_from_db(telegram_id)
+        # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Получаем данные пользователя НЕ из состояния модератора
+        user_id = await get_user_id_from_db(telegram_id)
         
         # ✅ Уведомляем модератора
         await callback_query.answer("✅ Скриншот проверен, пользователь продолжает квест (этап 2)", show_alert=True)
         
-        # ✅ Обновляем сообщение модератора
+        # ✅ ИСПРАВЛЕНИЕ: Обновляем сообщение модератора БЕЗ Markdown
         original_caption = callback_query.message.caption or ""
         username_line = original_caption.split('Пользователь: ')[1] if 'Пользователь: ' in original_caption else ""
         username = username_line.split('\n')[0] if username_line else "неизвестно"
         
         updated_caption = (
-            "✅ *СКРИНШОТ ПРОВЕРЕН - ЭТАП 2*\n\n"
+            "✅ СКРИНШОТ ПРОВЕРЕН - ЭТАП 2\n\n"
             f"👤 Пользователь: {username}\n"
             f"🆔 ID: {telegram_id}\n"
             f"✅ Решение принято: @{callback_query.from_user.username or callback_query.from_user.first_name}\n"
@@ -459,7 +538,7 @@ async def handle_moderator_approve_2(callback_query: CallbackQuery, state: FSMCo
         
         await callback_query.message.edit_caption(
             caption=updated_caption,
-            parse_mode="Markdown",
+            parse_mode=None,  # ✅ ИСПРАВЛЕНИЕ: Отключаем разметку
             reply_markup=None  # Убираем кнопки
         )
         
@@ -487,112 +566,18 @@ async def handle_moderator_approve_2(callback_query: CallbackQuery, state: FSMCo
                 parse_mode="Markdown"
             )
             
-            # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Отправляем ПРАВИЛЬНЫЙ сценарий этапа 2
-            await callback_query.bot.send_message(
-                chat_id=telegram_id,
-                text="🎉 *Ура! Ты – на складе!*",
-                parse_mode="Markdown"
-            )
-            await asyncio.sleep(2)
-            
-            await callback_query.bot.send_message(
-                chat_id=telegram_id,
-                text=(
-                    "📹 Камеры уничтожены, но ты, подключаешься к резервному облаку и находишь видеозапись. "
-                    "Ты видишь не только БЕЗЛИКОГО, но и его сообщника — кого-то из наших! Предательство!\n\n"
-                    "🔍 Досмотрев запись до конца, ты отслеживаешь куда был спрятан «Снеговик». "
-                    "Оказывается он стоял на самом входе на склад. Но не всё так просто! "
-                    "Тебя ждало новое послание на записке, которую оставили рядом.."
-                )
-            )
-            await asyncio.sleep(2)
-            
-            # ✅ ИСПРАВЛЕНИЕ: Отправляем видео БЕЗ подписи
+            # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Упрощенная очистка состояния
             try:
-                video_path = get_media_file("4_logo.mp4")
-                if os.path.exists(video_path):
-                    video = FSInputFile(video_path)
-                    await callback_query.bot.send_video(
-                        chat_id=telegram_id,
-                        video=video
-                    )
-                else:
-                    logging.error(f"Видео файл не найден: {video_path}")
-            except Exception as video_error:
-                logging.error(f"Ошибка отправки видео: {video_error}")
-            
-            await asyncio.sleep(2)
-            
-            # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Отправляем ПРАВИЛЬНУЮ загадку этапа 2
-            riddle_message = (
-                "💡 *У меня есть стрелки, но я не время показываю*\n"
-                "*А раскрываю карту с обратной стороны*\n\n"
-                "*Что я❓*\n\n"
-                "*Напиши свой ответ:*"
-            )
-            
-            await callback_query.bot.send_message(
-                chat_id=telegram_id,
-                text=riddle_message,
-                parse_mode="Markdown"
-            )
-            
-            # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Обновляем состояние пользователя через прямое обновление
-            try:
-                # ✅ ИСПРАВЛЕНИЕ: Правильное получение storage
-                storage = state.storage
-                
-                # ✅ ИСПРАВЛЕНИЕ: Используем прямое обновление как основной способ
-                success = await update_user_state_directly(
-                    callback_query.bot, 
-                    telegram_id, 
-                    Stage2States.waiting_for_riddle_answer, 
-                    storage
-                )
-                
-                if not success:
-                    # ✅ АЛЬТЕРНАТИВНЫЙ СПОСОБ: force_update_user_state
-                    success = await force_update_user_state(storage, telegram_id, Stage2States.waiting_for_riddle_answer)
-                
-                if success:
-                    logging.info(f"✅ Состояние пользователя {telegram_id} успешно обновлено на waiting_for_riddle_answer (этап 2)")
-                    
-                else:
-                    # ✅ КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: Если не удалось обновить состояние, отправляем инструкцию
-                    instruction_text = (
-                        "🔄 *Квест продолжен, но возникла техническая проблема.*\n\n"
-                        "💡 *Для продолжения выполните следующие действия:*\n"
-                        "1. Нажмите /start\n" 
-                        "2. Выберите этап 2\n"
-                        "3. Напишите ответ на загадку: *компас*"
-                    )
-                    
-                    await callback_query.bot.send_message(
-                        chat_id=telegram_id,
-                        text=instruction_text,
-                        parse_mode="Markdown"
-                    )
-                    
+                # Просто очищаем состояние текущего пользователя
+                await state.clear()
+                logging.info(f"✅ Состояние пользователя {telegram_id} очищено после одобрения модератора (этап 2)")
             except Exception as storage_error:
-                logging.error(f"❌ Ошибка обновления состояния пользователя {telegram_id} (этап 2): {storage_error}")
-                
-                # ✅ РЕЗЕРВНЫЙ ВАРИАНТ: Отправляем инструкцию пользователю
-                instruction_text = (
-                    "🔄 *Квест продолжен!*\n\n"
-                    "💡 *Для ответа на загадку выполните:*\n"
-                    "1. Нажмите /start\n"
-                    "2. Выберите этап 2\n" 
-                    "3. Напишите ответ: *компас*"
-                )
-                
-                await callback_query.bot.send_message(
-                    chat_id=telegram_id,
-                    text=instruction_text,
-                    parse_mode="Markdown"
-                )
+                logging.error(f"Ошибка очистки состояния пользователя {telegram_id} (этап 2): {storage_error}")
+            
+            # ✅ ИСПРАВЛЕНИЕ: Передаем storage в функцию
+            await send_moderator_approved_quest(callback_query.bot, telegram_id, state.storage)
             
         else:
-            # Если не удалось сохранить данные, отправляем сообщение об ошибке
             await callback_query.bot.send_message(
                 chat_id=telegram_id,
                 text="❌ Произошла ошибка при обработке. Пожалуйста, попробуйте еще раз.",
@@ -603,13 +588,16 @@ async def handle_moderator_approve_2(callback_query: CallbackQuery, state: FSMCo
         logging.error(f"Ошибка при обработке решения модератора (этап 2): {e}")
         await callback_query.answer("❌ Ошибка при обработке", show_alert=True)
 
+
+
+
 async def handle_moderator_decision_waiting_2(message: Message, state: FSMContext):
     """Обработчик для состояния ожидания решения модератора (этап 2)"""
     try:
         user_data = await state.get_data()
         telegram_id = message.from_user.id
         
-        # ✅ ПРОВЕРЯЕМ: Если квест уже продолжен, сбрасываем состояние
+        # ✅ ПРОВЕРЯЕМ: Если квест уже продолжен, сбрасываем состояние и даем инструкцию
         if user_data.get('quest_continued') or user_data.get('moderator_approved'):
             await state.clear()
             await message.answer(
@@ -629,6 +617,30 @@ async def handle_moderator_decision_waiting_2(message: Message, state: FSMContex
             )
             return
             
+        # ✅ ПРОВЕРЯЕМ: Если это текстовое сообщение, возможно пользователь пытается ответить на загадку
+        if message.text and message.text.strip():
+            # Проверяем, не является ли это ответом на загадку
+            user_answer = message.text.strip().lower()
+            if user_answer == "компас":
+                # Пользователь угадал загадку!
+                await message.answer(
+                    "🎉 *Поздравляем! Вы отгадали загадку!*\n\n"
+                    "💡 *Продолжаем квест...*",
+                    parse_mode="Markdown"
+                )
+                # Переходим к следующему состоянию
+                await state.set_state(Stage2States.waiting_for_address)
+                return
+            else:
+                # Неправильный ответ, но квест продолжен
+                await message.answer(
+                    "❌ *Неправильный ответ.*\n\n"
+                    "💡 *Подсказка:* КОМП..\n\n"
+                    "📝 *Попробуйте еще раз:*",
+                    parse_mode="Markdown"
+                )
+                return
+            
         # Стандартное сообщение ожидания
         await message.answer(
             "⏳ *Ожидайте решения модератора по вашему скриншоту.*\n\n"
@@ -640,6 +652,19 @@ async def handle_moderator_decision_waiting_2(message: Message, state: FSMContex
     except Exception as e:
         logging.error(f"Ошибка в обработчике ожидания модератора (этап 2): {e}")
         await message.answer("⏳ Ожидайте решения модератора по вашему скриншоту.")
+
+
+async def clear_user_state(bot, telegram_id: int, storage):
+    """Очищает состояние пользователя после решения модератора"""
+    try:
+        user_key = StorageKey(chat_id=telegram_id, user_id=telegram_id, bot_id=bot.id)
+        await storage.set_state(key=user_key, state=None)
+        await storage.set_data(key=user_key, data={})
+        logging.info(f"✅ Состояние пользователя {telegram_id} очищено")
+        return True
+    except Exception as e:
+        logging.error(f"❌ Ошибка очистки состояния пользователя {telegram_id}: {e}")
+        return False
 
 async def save_user_address_to_db(telegram_id: int, address: str, stage: int = 2) -> bool:
     """Сохраняет адрес пользователя в таблицу user_addresses для этапа 2"""
@@ -662,104 +687,87 @@ async def handle_stage_2_riddle_answer(message: Message, state: FSMContext):
     """Обработка ответа на загадку этапа 2 с поддержкой stage_5 и запросом адреса"""
     logger = logging.getLogger('bot')
     try:
-        # ✅ ПРОВЕРКА: Получаем данные состояния, если они есть
-        try:
-            user_data = await state.get_data()
-            telegram_id = user_data.get('telegram_id', message.from_user.id)
-            attempts_left = user_data.get('attempts_left', 3)
-        except:
-            # Если состояние недоступно, используем данные из сообщения
-            telegram_id = message.from_user.id
-            attempts_left = 3
-            user_data = {'is_stage_5_user': False}
+        # ✅ ПРОВЕРКА: Получаем данные состояния
+        user_data = await state.get_data()
+        telegram_id = user_data.get('telegram_id', message.from_user.id)
+        attempts_left = user_data.get('attempts_left', 3)
         
         user_answer = message.text.strip().lower()
         correct_answer = "компас"
         
-        attempts_left -= 1
-        
         if user_answer == correct_answer:
-            # Правильный ответ - обновляем в БД через общую функцию
+            # ✅ ПРАВИЛЬНЫЙ ОТВЕТ - обновляем в БД
             update_user_answer_in_db(telegram_id, user_answer)
             
             # ✅ ПРОВЕРКА НА 5-Й ЭТАП
             is_stage_5_user = user_data.get('is_stage_5_user', False)
             
+            # ✅ СООБЩЕНИЕ О ПРАВИЛЬНОМ ОТВЕТЕ
+            congrats_message = "🎉 *Поздравляем! Вы отгадали загадку!*"
+            await message.answer(congrats_message, parse_mode="Markdown")
+            await asyncio.sleep(2)
+            
             if is_stage_5_user:
-                # ✅ ИСПРАВЛЕНИЕ: Для stage_5 показываем трофей и запрашиваем адрес
-                congrats_message = (
-                    "🎉 *Поздравляем! Вы отгадали загадку!*\n"
+                # ✅ ДЛЯ STAGE_5: Показываем трофей
+                trophy_message = (
+                    "🏆 *Вы получаете второй трофей!*"
                 )
-                
-                await message.answer(congrats_message, parse_mode="Markdown")
+                await message.answer(trophy_message, parse_mode="Markdown")
                 await asyncio.sleep(3)
-                
-                # ✅ ЗАПРАШИВАЕМ АДРЕС ДОСТАВКИ
-                address_message = (
-                    "📍 *Свою реликвию ты можешь получить здесь*\n\n"
-                    "📦 Напишите адрес ближайшего ПВЗ СДЭК или Яндекс Маркет:\n\n"
-                    "💡 *Пример:* г. Москва, ул. Пушкина, д. 10, ПВЗ СДЭК №123"
-                )
-                
-                await message.answer(address_message, parse_mode="Markdown")
-                
-                # ✅ ПЕРЕХОДИМ В СОСТОЯНИЕ ОЖИДАНИЯ АДРЕСА
-                await state.set_state(Stage2States.waiting_for_address)
-                
-                # ✅ Сохраняем данные о правильном ответе
-                await state.update_data(
-                    riddle_solved=True,
-                    telegram_id=telegram_id,
-                    is_stage_5_user=True  # ✅ ВАЖНО: сохраняем флаг stage_5
-                )
-            else:
-                # ✅ НОВАЯ ЛОГИКА: Обычное завершение с запросом адреса
-                congrats_message = (
-                    "🎉 *Поздравляем! Вы отгадали загадку!*\n"
-                    "И получаете второй трофей:\n\n"
-                    "🎁 *Промокод: GUARDIAN2025*\n"
-                    "Скидка 20% на следующий этап!"
-                )
-                
-                await message.answer(congrats_message, parse_mode="Markdown")
-                await asyncio.sleep(3)
-                
-                # ✅ ДОБАВЛЯЕМ: Сообщение с запросом адреса
-                address_message = (
-                    "📍 *Свою реликвию ты можешь получить здесь*\n\n"
-                    "📦 Напишите адрес ближайшего ПВЗ СДЭК или Яндекс Маркет:\n\n"
-                    "💡 *Пример:* г. Москва, ул. Пушкина, д. 10, ПВЗ СДЭК №123"
-                )
-                
-                await message.answer(address_message, parse_mode="Markdown")
-                
-                # ✅ ПЕРЕХОДИМ В СОСТОЯНИЕ ОЖИДАНИЯ АДРЕСА
-                await state.set_state(Stage2States.waiting_for_address)
-                
-                # ✅ Сохраняем данные о правильном ответе
-                await state.update_data(
-                    riddle_solved=True,
-                    telegram_id=telegram_id
-                )
+            
+            # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: ЗАПРАШИВАЕМ АДРЕС ДОСТАВКИ ДЛЯ ВСЕХ
+            address_message = (
+                "📍 *Свою реликвию ты можешь получить здесь*\n\n"
+                "📦 Напишите адрес ближайшего ПВЗ СДЭК или Яндекс Маркет:\n\n"
+                "💡 *Пример:* г. Москва, ул. Пушкина, д. 10, ПВЗ СДЭК №123"
+            )
+            
+            await message.answer(address_message, parse_mode="Markdown")
+            
+            # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: ПЕРЕХОДИМ В СОСТОЯНИЕ ОЖИДАНИЯ АДРЕСА
+            await state.set_state(Stage2States.waiting_for_address)
+            
+            # ✅ Сохраняем данные о правильном ответе
+            await state.update_data(
+                riddle_solved=True,
+                telegram_id=telegram_id,
+                is_stage_5_user=is_stage_5_user,
+                attempts_left=0  # ✅ Сбрасываем попытки
+            )
             
         else:
-            # Неправильный ответ
+            # ✅ НЕПРАВИЛЬНЫЙ ОТВЕТ - обрабатываем попытки
+            attempts_left -= 1
+            
             if attempts_left > 0:
-                hint_message = get_common_wrong_answer(attempts_left)
-                await message.answer(hint_message)
-                # Сохраняем обновленное количество попыток
-                if 'attempts_left' in user_data:
-                    await state.update_data(attempts_left=attempts_left)
-            else:
-                # После 3 попыток даем подсказку
-                hint_message = get_common_final_hint("КОМП..")
+                # ✅ ЕСТЬ ЕЩЕ ПОПЫТКИ - просим попробовать еще раз
+                hint_message = (
+                    f"❌ *Неправильный ответ.*\n\n"
+                    f"📝 *Попыток осталось: {attempts_left} из 3*\n\n"
+                    f"💡 Попробуйте еще раз:"
+                )
                 await message.answer(hint_message, parse_mode="Markdown")
-                if 'attempts_left' in user_data:
-                    await state.update_data(attempts_left=1)  # Даем еще одну попытку с подсказкой
+                
+                # ✅ Сохраняем обновленное количество попыток
+                await state.update_data(attempts_left=attempts_left)
+                
+            else:
+                # ✅ ПОСЛЕДНЯЯ ПОПЫТКА - даем подсказку
+                hint_message = (
+                    "❌ *Неправильный ответ.*\n\n"
+                    "💡 *Подсказка:* КОМП..\n\n"
+                    "📝 *Попробуйте еще раз:*"
+                )
+                await message.answer(hint_message, parse_mode="Markdown")
+                
+                # ✅ Даем еще одну попытку с подсказкой
+                await state.update_data(attempts_left=1)
         
     except Exception as e:
         logger.error(f"Ошибка при обработке ответа stage_2: {e}")
         await message.answer("❌ Ошибка при обработке ответа. Попробуйте еще раз.")
+
+
 
 async def handle_stage_2_address(message: Message, state: FSMContext):
     """Обработка адреса пользователя и завершение этапа 2"""
@@ -795,15 +803,41 @@ async def handle_stage_2_address(message: Message, state: FSMContext):
             await asyncio.sleep(2)
             
             if is_stage_5_user:
-                # ✅ ДЛЯ STAGE_5: Обновляем этап и переходим к следующему
-                await update_user_stage_in_db(telegram_id, 3)  # Переходим на этап 3
+                # ✅ ДЛЯ STAGE_5: Сначала отправляем финальное видео и сообщение
+                try:
+                    # ✅ ОТПРАВЛЯЕМ ФИНАЛЬНОЕ ВИДЕО ДЛЯ STAGE_5
+                    from aiogram.types import FSInputFile
+                    
+                    media_path = get_media_path()
+                    video_path = media_path / "5_logo.mp4"
+                    
+                    if video_path.exists():
+                        video = FSInputFile(video_path)
+                        await message.answer_video(
+                            video=video,
+                            supports_streaming=True
+                        )
+                        logger.info(f"✅ Финальное видео отправлено пользователю {telegram_id} (stage_5)")
+                    else:
+                        logger.error(f"❌ Финальное видео не найдено: {video_path}")
+                        await message.answer("🎬 *Продолжаем историю...*", parse_mode="Markdown")
+                except Exception as video_error:
+                    logger.error(f"❌ Ошибка отправки финального видео: {video_error}")
+                    await message.answer("🎬 *Продолжаем историю...*", parse_mode="Markdown")
                 
-                await message.answer(
-                    "🎉 *Этап 2 завершен!*\n\n"
-                    "🔄 *Автоматически запускаю следующий этап...*",
-                    parse_mode="Markdown"
-                )
                 await asyncio.sleep(2)
+                
+                # ✅ ФИНАЛЬНОЕ СООБЩЕНИЕ ДЛЯ STAGE_5
+                final_message = (
+                    "🔥 *Готов ли ты к этому?*\n\n"
+                    "🔄 *Автоматически запускаю следующий этап...*"
+                )
+                
+                await message.answer(final_message, parse_mode="Markdown")
+                await asyncio.sleep(2)
+                
+                # ✅ ОБНОВЛЯЕМ ЭТАП И ПЕРЕХОДИМ К СЛЕДУЮЩЕМУ
+                await update_user_stage_in_db(telegram_id, 3)  # Переходим на этап 3
                 
                 # ✅ ЗАПУСКАЕМ СЛЕДУЮЩИЙ ЭТАП
                 from .stage_3 import handle_stage_3_quest
@@ -816,14 +850,25 @@ async def handle_stage_2_address(message: Message, state: FSMContext):
                 fake_callback = FakeCallback(message)
                 await handle_stage_3_quest(fake_callback, state)
             else:
-                # ✅ ОБЫЧНЫЙ ЗАВЕРШЕНИЕ: Отправляем видео и финальное сообщение
+                # ✅ ОБЫЧНОЕ ЗАВЕРШЕНИЕ: Отправляем видео и финальное сообщение
                 try:
-                    await send_optimized_video(
-                        message,
-                        "5_logo.mp4"
-                    )
+                    # ✅ ИСПРАВЛЕНИЕ: Отправляем видео напрямую
+                    from aiogram.types import FSInputFile
+                    
+                    media_path = get_media_path()
+                    video_path = media_path / "5_logo.mp4"
+                    
+                    if video_path.exists():
+                        video = FSInputFile(video_path)
+                        await message.answer_video(
+                            video=video,
+                            supports_streaming=True
+                        )
+                        logging.info(f"✅ Финальное видео отправлено пользователю {telegram_id}")
+                    else:
+                        logging.error(f"❌ Финальное видео не найдено: {video_path}")
                 except Exception as video_error:
-                    logging.error(f"Ошибка отправки видео: {video_error}")
+                    logging.error(f"❌ Ошибка отправки финального видео: {video_error}")
                 
                 await asyncio.sleep(2)
                 
@@ -855,14 +900,8 @@ async def handle_stage_2_address(message: Message, state: FSMContext):
             "🔄 Пожалуйста, попробуйте отправить адрес еще раз:",
             parse_mode="Markdown"
         )
-        
-    except Exception as e:
-        logger.error(f"Ошибка при обработке адреса stage_2: {e}")
-        await message.answer(
-            "❌ *Произошла ошибка при обработке адреса.*\n\n"
-            "🔄 Пожалуйста, попробуйте отправить адрес еще раз:",
-            parse_mode="Markdown"
-        )
+
+
 
 async def handle_wrong_address_input_2(message: Message, state: FSMContext):
     """Обработчик некорректных сообщений в состоянии ожидания адреса (этап 2)"""
@@ -894,14 +933,24 @@ async def continue_stage_2_quest(message: Message, state: FSMContext):
         await message.answer(message6)
         await asyncio.sleep(2)
         
-        # ✅ Отправляем оптимизированное видео БЕЗ подписи
+        # ✅ ИСПРАВЛЕНИЕ: Отправляем видео напрямую
         try:
-            await send_optimized_video(
-                message, 
-                "4_logo.mp4"
-            )
+            from aiogram.types import FSInputFile
+            
+            media_path = get_media_path()
+            video_path = media_path / "4_logo.mp4"
+            
+            if video_path.exists():
+                video = FSInputFile(video_path)
+                await message.answer_video(
+                    video=video,
+                    supports_streaming=True
+                )
+                logging.info(f"✅ Видео отправлено пользователю {message.from_user.id}")
+            else:
+                logging.error(f"❌ Видео файл не найден: {video_path}")
         except Exception as video_error:
-            logging.error(f"Ошибка отправки видео: {video_error}")
+            logging.error(f"❌ Ошибка отправки видео: {video_error}")
         
         await asyncio.sleep(2)
         
@@ -917,7 +966,14 @@ async def continue_stage_2_quest(message: Message, state: FSMContext):
         # ✅ ДОБАВЛЯЕМ: Проверяем stage_5 и сохраняем в состояние
         telegram_id = message.from_user.id
         is_stage_5_user = await check_if_stage_5_user(telegram_id)
-        await state.update_data(is_stage_5_user=is_stage_5_user)
+        
+        # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Сохраняем начальные данные состояния
+        await state.update_data(
+            telegram_id=telegram_id,
+            is_stage_5_user=is_stage_5_user,
+            attempts_left=3,  # ✅ НАЧИНАЕМ С 3 ПОПЫТОК
+            recognition_attempts=0
+        )
         
         # Переходим в состояние ожидания ответа на загадку
         await state.set_state(Stage2States.waiting_for_riddle_answer)
@@ -927,24 +983,40 @@ async def continue_stage_2_quest(message: Message, state: FSMContext):
         await message.answer("❌ Ошибка при продолжении квеста. Попробуйте еще раз.")
 
 
+
+
 async def handle_stage_2_quest(callback_query: CallbackQuery, state: FSMContext):
     """Сценарий квеста для stage_id = 2"""
     try:
-        # Сохраняем данные пользователя в состоянии
+        # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Сохраняем правильные начальные данные
+        telegram_id = callback_query.from_user.id
+        is_stage_5_user = await check_if_stage_5_user(telegram_id)
+        
         await state.update_data(
-            telegram_id=callback_query.from_user.id,
-            attempts_left=3,
-            recognition_attempts=0  # ✅ ДОБАВЛЯЕМ: счетчик попыток распознавания
+            telegram_id=telegram_id,
+            is_stage_5_user=is_stage_5_user,
+            attempts_left=3,  # ✅ НАЧИНАЕМ С 3 ПОПЫТОК
+            recognition_attempts=0
         )
         
-        # ✅ Отправляем оптимизированное видео
+        # ✅ ИСПРАВЛЕНИЕ: Отправляем видео напрямую
         try:
-            await send_optimized_video(
-                callback_query.message, 
-                "1_logo.mp4"
-            )
+            from aiogram.types import FSInputFile
+            
+            media_path = get_media_path()
+            video_path = media_path / "1_logo.mp4"
+            
+            if video_path.exists():
+                video = FSInputFile(video_path)
+                await callback_query.message.answer_video(
+                    video=video,
+                    supports_streaming=True
+                )
+                logging.info(f"✅ Стартовое видео отправлено пользователю {telegram_id}")
+            else:
+                logging.error(f"❌ Стартовое видео не найдено: {video_path}")
         except Exception as video_error:
-            logging.error(f"Ошибка отправки видео: {video_error}")
+            logging.error(f"❌ Ошибка отправки стартового видео: {video_error}")
         
         # Общее вступление с названием этапа из БД
         message1 = get_common_intro(2)
@@ -1053,13 +1125,13 @@ async def handle_moderator_reject_2(callback_query: CallbackQuery, state: FSMCon
         # ✅ Уведомляем модератора
         await callback_query.answer("❌ Пользователю отправлен отказ (этап 2)", show_alert=True)
         
-        # ✅ Обновляем сообщение модератора
+        # ✅ ИСПРАВЛЕНИЕ: Обновляем сообщение модератора БЕЗ Markdown
         original_caption = callback_query.message.caption or ""
         username_line = original_caption.split('Пользователь: ')[1] if 'Пользователь: ' in original_caption else ""
         username = username_line.split('\n')[0] if username_line else "неизвестно"
         
         updated_caption = (
-            "❌ *СКРИНШОТ ОТКЛОНЕН - ЭТАП 2*\n\n"
+            "❌ СКРИНШОТ ОТКЛОНЕН - ЭТАП 2\n\n"  # ✅ УБИРАЕМ ЗВЕЗДОЧКИ
             f"👤 Пользователь: {username}\n"
             f"🆔 ID: {telegram_id}\n"
             f"❌ Решение принято: @{callback_query.from_user.username or callback_query.from_user.first_name}\n"
@@ -1068,7 +1140,7 @@ async def handle_moderator_reject_2(callback_query: CallbackQuery, state: FSMCon
         
         await callback_query.message.edit_caption(
             caption=updated_caption,
-            parse_mode="Markdown",
+            parse_mode=None,  # ✅ ИСПРАВЛЕНИЕ: Отключаем разметку
             reply_markup=None  # Убираем кнопки
         )
         
@@ -1100,6 +1172,24 @@ async def handle_moderator_reject_2(callback_query: CallbackQuery, state: FSMCon
     except Exception as e:
         logging.error(f"Ошибка при обработке отказа модератора (этап 2): {e}")
         await callback_query.answer("❌ Ошибка при обработке", show_alert=True)
+
+
+logger = logging.getLogger('bot')
+if not logger.handlers:
+    # Создаем папку logs если её нет
+    if not os.path.exists('logs'):
+        os.makedirs('logs')
+    
+    # Базовая настройка логирования
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S',
+        handlers=[
+            logging.StreamHandler(sys.stdout),
+            logging.FileHandler('logs/bot.log', encoding='utf-8', mode='a')
+        ]
+    )
 
 def setup_stage_2_handlers(dp):
     """Настройка обработчиков для этапа 2"""
@@ -1134,6 +1224,7 @@ def setup_stage_2_handlers(dp):
         handle_moderator_reject_2,
         F.data.startswith("moderator_reject_2_")
     )
+
     
     # Обработчик некорректных сообщений в состоянии ожидания изображения
     dp.message.register(

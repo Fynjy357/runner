@@ -28,7 +28,7 @@ class Database:
                         last_name TEXT NOT NULL,
                         first_name TEXT NOT NULL,
                         middle_name TEXT,
-                        email TEXT NOT NULL UNIQUE,
+                        email TEXT NOT NULL,
                         phone INTEGER NOT NULL,
                         stage_id INTEGER NOT NULL,
                         FOREIGN KEY (stage_id) REFERENCES stages(stage_id)

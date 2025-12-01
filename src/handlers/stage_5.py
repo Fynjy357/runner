@@ -1,8 +1,14 @@
+# src/handlers/stage_5.py
 import asyncio
 import logging
-from aiogram.types import CallbackQuery, Message
+from aiogram.types import CallbackQuery, Message, FSInputFile
 from aiogram.fsm.context import FSMContext
 from database import db
+from pathlib import Path
+
+# ✅ ПРАВИЛЬНЫЕ ПУТИ
+PROJECT_ROOT = Path(__file__).parent.parent
+MEDIA_PATH = PROJECT_ROOT / "media"
 
 # Импортируем обработчики всех этапов
 from .stage_1 import handle_stage_1_quest
@@ -20,10 +26,9 @@ async def get_user_current_stage(telegram_id: int) -> int:
                 (telegram_id,)
             )
             result = cursor.fetchone()
-            # ✅ ИСПРАВЛЕНИЕ: Преобразуем в int, если результат есть
             if result and result[0] is not None:
-                return int(result[0])  # Преобразуем в число
-            return 1  # По умолчанию начинаем с 1 этапа
+                return int(result[0])
+            return 1
     except Exception as e:
         logging.error(f"Ошибка получения текущего этапа для {telegram_id}: {e}")
         return 1
@@ -47,7 +52,7 @@ async def update_user_stage(telegram_id: int, new_stage: int) -> bool:
 async def save_user_address_to_db(telegram_id: int, address: str, stage: int) -> bool:
     """Сохраняет адрес пользователя в таблицу user_addresses"""
     try:
-        username = None  # Можно добавить получение username из состояния если нужно
+        username = None
         
         success = db.save_user_address(telegram_id, username, address, stage)
         if success:
@@ -61,8 +66,37 @@ async def save_user_address_to_db(telegram_id: int, address: str, stage: int) ->
         logging.error(f"❌ Ошибка при сохранении адреса пользователя {telegram_id} (этап {stage}): {e}")
         return False
 
+async def send_optimized_video_directly(message_or_callback, video_filename: str):
+    """✅ ОПТИМИЗИРОВАННАЯ отправка видео напрямую через FSInputFile"""
+    try:
+        video_path = MEDIA_PATH / video_filename
+        
+        if not video_path.exists():
+            logging.error(f"❌ Видео файл не найден: {video_path}")
+            return False
+        
+        video = FSInputFile(video_path)
+        
+        if isinstance(message_or_callback, Message):
+            await message_or_callback.answer_video(
+                video=video,
+                supports_streaming=True
+            )
+        else:
+            await message_or_callback.message.answer_video(
+                video=video,
+                supports_streaming=True
+            )
+        
+        logging.info(f"✅ Видео {video_filename} отправлено успешно")
+        return True
+        
+    except Exception as e:
+        logging.error(f"❌ Ошибка отправки видео {video_filename}: {e}")
+        return False
+
 async def handle_stage_5_address(message: Message, state: FSMContext):
-    """Обработка адреса пользователя для stage_5 и переход к следующему этапу"""
+    """✅ ОПТИМИЗИРОВАННАЯ обработка адреса для stage_5"""
     logger = logging.getLogger('bot')
     try:
         user_data = await state.get_data()
@@ -71,83 +105,82 @@ async def handle_stage_5_address(message: Message, state: FSMContext):
         
         address = message.text.strip()
         
-        # ✅ ПРОВЕРКА: Адрес не должен быть пустым
+        # ✅ ПРОВЕРКА АДРЕСА
         if not address or len(address) < 5:
             await message.answer(
                 "❌ *Пожалуйста, укажите полный адрес.*\n\n"
-                "💡 *Пример корректного адреса:*\n"
-                "г. Москва, ул. Пушкина, д. 10, ПВЗ СДЭК №123\n\n"
+                "💡 *Пример:* г. Москва, ул. Пушкина, д. 10, ПВЗ СДЭК №123\n\n"
                 "📝 *Напишите адрес еще раз:*",
                 parse_mode="Markdown"
             )
             return
         
-        # ✅ СОХРАНЯЕМ АДРЕС В БАЗУ ДАННЫХ
+        # ✅ СОХРАНЕНИЕ АДРЕСА
         success = await save_user_address_to_db(telegram_id, address, stage=current_stage)
         
-        if success:
-            # ✅ УСПЕШНО СОХРАНЕНО - отправляем подтверждение
-            await message.answer(
-                "✅ *Адрес успешно сохранен!*\n\n"
-                "📦 Ваша реликвия будет доставлена по указанному адресу.",
-                parse_mode="Markdown"
-            )
-            await asyncio.sleep(2)
-            
-            # ✅ ОБНОВЛЯЕМ ЭТАП И ПЕРЕХОДИМ К СЛЕДУЮЩЕМУ
-            next_stage = current_stage + 1
-            
-            if next_stage <= 4:
-                # Обновляем этап в БД
-                await update_user_stage(telegram_id, next_stage)
-                
-                # ✅ СООБЩЕНИЕ О ПЕРЕХОДЕ К СЛЕДУЮЩЕМУ ЭТАПУ
-                stage_names = {
-                    1: "первый",
-                    2: "второй", 
-                    3: "третий",
-                    4: "четвертый"
-                }
-                
-                await message.answer(
-                    f"🎉 *Этап {current_stage} завершен!*\n\n"
-                    f"🔄 *Автоматически запускаю {stage_names[next_stage]} этап...*",
-                    parse_mode="Markdown"
-                )
-                await asyncio.sleep(2)
-                
-                # ✅ ЗАПУСКАЕМ СЛЕДУЮЩИЙ ЭТАП
-                if next_stage == 1:
-                    await handle_stage_1_quest(message, state)
-                elif next_stage == 2:
-                    await handle_stage_2_quest(message, state)
-                elif next_stage == 3:
-                    await handle_stage_3_quest(message, state)
-                elif next_stage == 4:
-                    await handle_stage_4_quest(message, state)
-                    
-            else:
-                # ✅ ФИНАЛЬНОЕ ЗАВЕРШЕНИЕ - все этапы пройдены
-                await update_user_stage(telegram_id, 5)  # Завершаем квест
-                
-                await message.answer(
-                    "🎊 *УРА! ВСЕ ЭТАПЫ ПРОЙДЕНЫ!*\n\n"
-                    "✨ *Вы вернули все пропавшие реликвии и спасли Новый год!*\n\n"
-                    "🏆 *Все реликвии будут доставлены по указанным адресам!*\n\n"
-                    "💫 *Спасибо за участие в этом невероятном приключении!*",
-                    parse_mode="Markdown"
-                )
-                
-                # Сбрасываем состояние
-                await state.clear()
-            
-        else:
-            # ❌ ОШИБКА СОХРАНЕНИЯ АДРЕСА
+        if not success:
             await message.answer(
                 "❌ *Произошла ошибка при сохранении адреса.*\n\n"
                 "🔄 Пожалуйста, попробуйте отправить адрес еще раз:",
                 parse_mode="Markdown"
             )
+            return
+        
+        # ✅ УСПЕШНОЕ СОХРАНЕНИЕ
+        await message.answer(
+            "✅ *Адрес успешно сохранен!*\n\n"
+            "📦 Ваша реликвия будет доставлена по указанному адресу.",
+            parse_mode="Markdown"
+        )
+        await asyncio.sleep(2)
+        
+        # ✅ ОБНОВЛЕНИЕ ЭТАПА И ПЕРЕХОД
+        next_stage = current_stage + 1
+        
+        if next_stage <= 4:
+            await update_user_stage(telegram_id, next_stage)
+            
+            stage_names = {1: "первый", 2: "второй", 3: "третий", 4: "четвертый"}
+            
+            await message.answer(
+                f"🎉 *Этап {current_stage} завершен!*\n\n"
+                f"🔄 *Автоматически запускаю {stage_names[next_stage]} этап...*",
+                parse_mode="Markdown"
+            )
+            await asyncio.sleep(2)
+            
+            # ✅ ЗАПУСК СЛЕДУЮЩЕГО ЭТАПА
+            stage_handlers = {
+                1: handle_stage_1_quest,
+                2: handle_stage_2_quest, 
+                3: handle_stage_3_quest,
+                4: handle_stage_4_quest
+            }
+            
+            handler = stage_handlers.get(next_stage)
+            if handler:
+                # Создаем fake callback для запуска
+                class FakeCallback:
+                    def __init__(self, message):
+                        self.message = message
+                        self.from_user = message.from_user
+                
+                fake_callback = FakeCallback(message)
+                await handler(fake_callback, state)
+                
+        else:
+            # ✅ ФИНАЛЬНОЕ ЗАВЕРШЕНИЕ
+            await update_user_stage(telegram_id, 5)
+            
+            await message.answer(
+                "🎊 *УРА! ВСЕ ЭТАПЫ ПРОЙДЕНЫ!*\n\n"
+                "✨ *Вы вернули все пропавшие реликвии и спасли Новый год!*\n\n"
+                "🏆 *Все реликвии будут доставлены по указанным адресам!*\n\n"
+                "💫 *Спасибо за участие в этом невероятном приключении!*",
+                parse_mode="Markdown"
+            )
+            
+            await state.clear()
         
     except Exception as e:
         logger.error(f"Ошибка при обработке адреса stage_5: {e}")
@@ -158,134 +191,110 @@ async def handle_stage_5_address(message: Message, state: FSMContext):
         )
 
 async def handle_stage_5_riddle_answer(message: Message, state: FSMContext):
-    """Обработка ответа на загадку для stage_5 с правильным завершением этапа"""
+    """✅ ОПТИМИЗИРОВАННАЯ обработка ответов на загадки для stage_5"""
     logger = logging.getLogger('bot')
     try:
         user_data = await state.get_data()
         telegram_id = user_data.get('telegram_id', message.from_user.id)
         current_stage = user_data.get('current_stage', 1)
+        attempts_left = user_data.get('attempts_left', 3)
         
-        # ✅ ПРАВИЛЬНЫЕ ОТВЕТЫ ДЛЯ КАЖДОГО ЭТАПА
-        correct_answers = {
-            1: "маяк",
-            2: "компас", 
-            3: "магнитофон",
-            4: "очередь"
+        # ✅ ПРАВИЛЬНЫЕ ОТВЕТЫ И ПОДСКАЗКИ
+        stage_data = {
+            1: {"answer": "маяк", "hint": "МА..", "promo": "RUNNER2025"},
+            2: {"answer": "компас", "hint": "КОМП..", "promo": "GUARDIAN2025"}, 
+            3: {"answer": "магнитофон", "hint": "МАГНИТ....", "promo": "SAVIOR2025"},
+            4: {"answer": "очередь", "hint": "ОЧЕР..", "promo": "HERO2025"}
         }
         
+        stage_info = stage_data.get(current_stage, {})
         user_answer = message.text.strip().lower()
-        correct_answer = correct_answers.get(current_stage, "")
         
-        if user_answer == correct_answer:
-            # ✅ ПРАВИЛЬНЫЙ ОТВЕТ - показываем сообщение о трофее и запрашиваем адрес
-            
-            # ✅ СООБЩЕНИЯ О ТРОФЕЯХ ДЛЯ КАЖДОГО ЭТАПА
+        if user_answer == stage_info.get("answer", ""):
+            # ✅ ПРАВИЛЬНЫЙ ОТВЕТ
             trophy_messages = {
-                1: (
-                    "🎉 *Поздравляем! Вы отгадали загадку!*\n"
-                    "И получаете первый трофей:\n\n"
-                    "🎁 *Промокод: RUNNER2025*\n"
-                    "Скидка 20% на следующий этап!"
-                ),
-                2: (
-                    "🎉 *Поздравляем! Вы отгадали загадку!*\n"
-                    "И получаете второй трофей:\n\n"
-                    "🎁 *Промокод: GUARDIAN2025*\n"
-                    "Скидка 20% на следующий этап!"
-                ),
-                3: (
-                    "🎉 *Поздравляем! Вы отгадали загадку!*\n"
-                    "И получаете третий трофей:\n\n"
-                    "🎁 *Промокод: SAVIOR2025*\n"
-                    "Скидка 20% на следующий этап!"
-                ),
-                4: (
-                    "🎉 *Поздравляем! Вы отгадали загадку!*\n"
-                    "И получаете четвертый трофей:\n\n"
-                    "🎁 *Промокод: FINAL2025*\n"
-                    "Скидка 20% на следующий этап!"
-                )
+                1: f"🎉 *Поздравляем! Вы отгадали загадку!*\n\n🏆 *Первый трофей!*\n\n🎁 *Промокод: {stage_info['promo']}*\nСкидка 20% на следующий этап!",
+                2: f"🎉 *Поздравляем! Вы отгадали загадку!*\n\n🏆 *Второй трофей!*\n\n🎁 *Промокод: {stage_info['promo']}*\nСкидка 20% на следующий этап!",
+                3: f"🎉 *Поздравляем! Вы отгадали загадку!*\n\n🏆 *Третий трофей!*\n\n🎁 *Промокод: {stage_info['promo']}*\nСкидка 20% на следующий этап!",
+                4: f"🎉 *Поздравляем! Вы отгадали загадку!*\n\n🏆 *Четвертый трофей!*\n\n🎁 *Промокод: {stage_info['promo']}*\nСкидка 20% на следующий этап!"
             }
             
-            congrats_message = trophy_messages.get(current_stage, "🎉 Поздравляем! Вы отгадали загадку!")
-            
-            await message.answer(congrats_message, parse_mode="Markdown")
+            await message.answer(trophy_messages.get(current_stage, "🎉 Поздравляем!"), parse_mode="Markdown")
             await asyncio.sleep(3)
             
-            # ✅ ЗАПРАШИВАЕМ АДРЕС ДОСТАВКИ
-            address_message = (
+            # ✅ ЗАПРОС АДРЕСА
+            await message.answer(
                 "📍 *Свою реликвию ты можешь получить здесь*\n\n"
                 "📦 Напишите адрес ближайшего ПВЗ СДЭК или Яндекс Маркет:\n\n"
-                "💡 *Пример:* г. Москва, ул. Пушкина, д. 10, ПВЗ СДЭК №123"
+                "💡 *Пример:* г. Москва, ул. Пушкина, д. 10, ПВЗ СДЭК №123",
+                parse_mode="Markdown"
             )
             
-            await message.answer(address_message, parse_mode="Markdown")
-            
-            # ✅ ПЕРЕХОДИМ В СОСТОЯНИЕ ОЖИДАНИЯ АДРЕСА
-            await state.set_state("waiting_for_address_stage_5")
-            
-            # ✅ Сохраняем данные о правильном ответе
             await state.update_data(
                 riddle_solved=True,
                 telegram_id=telegram_id,
-                current_stage=current_stage
+                current_stage=current_stage,
+                attempts_left=3  # Сбрасываем попытки
             )
             
         else:
             # ❌ НЕПРАВИЛЬНЫЙ ОТВЕТ
-            attempts_left = user_data.get('attempts_left', 3) - 1
+            attempts_left -= 1
             
             if attempts_left > 0:
-                hint_message = f"❌ Неправильный ответ. Попробуйте еще раз. Осталось попыток: {attempts_left}"
-                await message.answer(hint_message)
+                await message.answer(
+                    f"❌ *Неправильный ответ.*\n\n"
+                    f"📝 *Попыток осталось: {attempts_left} из 3*\n\n"
+                    f"💡 Попробуйте еще раз:",
+                    parse_mode="Markdown"
+                )
                 await state.update_data(attempts_left=attempts_left)
             else:
-                # После 3 попыток даем подсказку
-                hints = {
-                    1: "МА..",
-                    2: "КОМП..", 
-                    3: "МАГНИТ....",
-                    4: "ОЧЕР.."
-                }
-                hint = hints.get(current_stage, "")
-                hint_message = f"💡 Подсказка: {hint}\n\nПопробуйте еще раз!"
-                await message.answer(hint_message, parse_mode="Markdown")
-                await state.update_data(attempts_left=1)  # Даем еще одну попытку с подсказкой
+                # ✅ ПОСЛЕДНЯЯ ПОПЫТКА С ПОДСКАЗКОЙ
+                await message.answer(
+                    f"❌ *Неправильный ответ.*\n\n"
+                    f"💡 *Подсказка:* {stage_info.get('hint', '')}\n\n"
+                    f"📝 *Попробуйте еще раз:*",
+                    parse_mode="Markdown"
+                )
+                await state.update_data(attempts_left=1)
         
     except Exception as e:
         logger.error(f"Ошибка при обработке ответа stage_5: {e}")
         await message.answer("❌ Ошибка при обработке ответа. Попробуйте еще раз.")
 
 async def handle_stage_5_quest(callback_query: CallbackQuery, state: FSMContext):
-    """Автоматический переход по этапам для stage_id = 5 с правильным завершением каждого"""
+    """✅ ОПТИМИЗИРОВАННЫЙ запуск stage_5 с автоматическим переходом по этапам"""
     try:
         telegram_id = callback_query.from_user.id
         
-        # Получаем текущий этап пользователя
+        # ✅ ПОЛУЧАЕМ ТЕКУЩИЙ ЭТАП
         current_stage = await get_user_current_stage(telegram_id)
         
-        # Сохраняем текущий этап в состоянии
+        # ✅ СОХРАНЯЕМ ДАННЫЕ В СОСТОЯНИИ
         await state.update_data(
             telegram_id=telegram_id,
             current_stage=current_stage,
-            is_stage_5_user=True,  # Флаг что это пользователь 5-го этапа
+            is_stage_5_user=True,
             attempts_left=3
         )
         
-        # ✅ ИСПРАВЛЕНИЕ: Убеждаемся, что current_stage - число
-        logging.info(f"Пользователь {telegram_id} продолжает с этапа {current_stage} (тип: {type(current_stage)})")
+        logging.info(f"🚀 Пользователь {telegram_id} продолжает с этапа {current_stage}")
         
-        # Автоматически запускаем соответствующий этап
-        if current_stage == 1:
-            await handle_stage_1_quest(callback_query, state)
-        elif current_stage == 2:
-            await handle_stage_2_quest(callback_query, state)
-        elif current_stage == 3:
-            await handle_stage_3_quest(callback_query, state)
-        elif current_stage == 4:
-            await handle_stage_4_quest(callback_query, state)
+        # ✅ АВТОМАТИЧЕСКИЙ ЗАПУСК ЭТАПА
+        stage_handlers = {
+            1: handle_stage_1_quest,
+            2: handle_stage_2_quest,
+            3: handle_stage_3_quest, 
+            4: handle_stage_4_quest
+        }
+        
+        handler = stage_handlers.get(current_stage)
+        
+        if handler:
+            await handler(callback_query, state)
         else:
-            # Если все этапы пройдены
+            # ✅ ВСЕ ЭТАПЫ ПРОЙДЕНЫ
             await callback_query.message.answer(
                 "🎉 *ПОЗДРАВЛЯЕМ!* Вы прошли все этапы квеста!\n\n"
                 "✨ Вы вернули все реликвии и спасли Новый год!\n\n"
@@ -297,16 +306,58 @@ async def handle_stage_5_quest(callback_query: CallbackQuery, state: FSMContext)
         logging.error(f"Ошибка в stage_5: {e}")
         await callback_query.message.answer("❌ Произошла ошибка. Попробуйте позже.")
 
+async def handle_wrong_stage_5_input(message: Message, state: FSMContext):
+    """Обработчик некорректных сообщений для stage_5"""
+    user_data = await state.get_data()
+    current_stage = user_data.get('current_stage', 1)
+    
+    if current_stage in [1, 2, 3, 4]:
+        # Пользователь находится в процессе этапа
+        await message.answer(
+            "💡 *Сейчас вам нужно ответить на загадку.*\n\n"
+            "📝 Напишите ответ на загадку текущего этапа.",
+            parse_mode="Markdown"
+        )
+    else:
+        # Все этапы пройдены
+        await message.answer(
+            "🎉 *Поздравляем! Вы прошли все этапы квеста!*\n\n"
+            "✨ Ожидайте доставки ваших реликвий.",
+            parse_mode="Markdown"
+        )
+
 def setup_stage_5_handlers(dp):
     """Настройка обработчиков для этапа 5"""
-    # ✅ ДОБАВЛЯЕМ: Обработчик ответов на загадки для stage_5
+    # ✅ Обработчик ответов на загадки
     dp.message.register(
         handle_stage_5_riddle_answer,
         lambda message: message.text and not message.text.startswith('/')
     )
     
-    # ✅ ДОБАВЛЯЕМ: Обработчик адресов для stage_5
+    # ✅ Обработчик адресов
     dp.message.register(
         handle_stage_5_address,
         lambda message: message.text and not message.text.startswith('/')
+    )
+    
+    # ✅ Обработчик некорректных сообщений
+    dp.message.register(
+        handle_wrong_stage_5_input
+    )
+
+# ✅ НАСТРОЙКА ЛОГИРОВАНИЯ
+logger = logging.getLogger('bot')
+if not logger.handlers:
+    import os
+    if not os.path.exists('logs'):
+        os.makedirs('logs')
+    
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S',
+        handlers=[
+            logging.StreamHandler(),
+            logging.FileHandler('logs/stage_5.log', encoding='utf-8', mode='a')
+        ]
     )

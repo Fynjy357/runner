@@ -26,17 +26,23 @@ if ffmpeg_bin_path.exists():
         os.environ['PATH'] = str(ffmpeg_bin_path) + os.pathsep + os.environ['PATH']
         logger.info(f"✅ Добавлен FFmpeg в PATH: {ffmpeg_bin_path}")
     
-    # Проверяем наличие ffmpeg.exe
-    ffmpeg_exe = ffmpeg_bin_path / "ffmpeg.exe"
+    # ✅ ИСПРАВЛЕНИЕ: Проверяем наличие ffmpeg для разных ОС
+    ffmpeg_exe = ffmpeg_bin_path / "ffmpeg.exe"  # Windows
+    ffmpeg_bin = ffmpeg_bin_path / "ffmpeg"      # Linux/Mac
+    
     if ffmpeg_exe.exists():
-        logger.info(f"✅ FFmpeg.exe найден: {ffmpeg_exe}")
+        logger.info(f"✅ FFmpeg.exe найден (Windows): {ffmpeg_exe}")
+    elif ffmpeg_bin.exists():
+        logger.info(f"✅ FFmpeg найден (Linux/Mac): {ffmpeg_bin}")
     else:
-        logger.error(f"❌ FFmpeg.exe не найден в: {ffmpeg_bin_path}")
+        logger.error(f"❌ FFmpeg не найден в: {ffmpeg_bin_path}")
         # Показываем что есть в папке
         files = list(ffmpeg_bin_path.glob("*"))
         logger.info(f"📁 Файлы в папке bin: {[f.name for f in files]}")
 else:
     logger.error(f"❌ Папка FFmpeg не найдена: {ffmpeg_bin_path}")
+    # ✅ ИСПРАВЛЕНИЕ: Проверяем системный FFmpeg
+    logger.info("🔍 Проверяем системный FFmpeg...")
 
 def get_media_path() -> Path:
     """Получает путь к медиа директории"""
@@ -69,6 +75,7 @@ def get_video_path(video_filename: str) -> str:
 def is_ffmpeg_available() -> bool:
     """Проверяет доступность FFmpeg в системе"""
     try:
+        # ✅ ИСПРАВЛЕНИЕ: Используем универсальную команду
         result = subprocess.run(
             ['ffmpeg', '-version'], 
             capture_output=True, 
@@ -78,11 +85,30 @@ def is_ffmpeg_available() -> bool:
         available = result.returncode == 0
         if available:
             logger.info("✅ FFmpeg доступен в системе")
+            # Логируем версию FFmpeg
+            version_line = result.stdout.split('\n')[0] if result.stdout else "неизвестно"
+            logger.info(f"📋 Версия FFmpeg: {version_line}")
         else:
             logger.warning("⚠️ FFmpeg не доступен")
         return available
     except (FileNotFoundError, subprocess.CalledProcessError, subprocess.TimeoutExpired) as e:
         logger.warning(f"⚠️ FFmpeg не доступен: {e}")
+        
+        # ✅ ИСПРАВЛЕНИЕ: Проверяем альтернативные пути
+        try:
+            # Проверяем системный ffmpeg
+            result = subprocess.run(
+                ['which', 'ffmpeg'], 
+                capture_output=True, 
+                text=True
+            )
+            if result.returncode == 0:
+                ffmpeg_path = result.stdout.strip()
+                logger.info(f"✅ Найден системный FFmpeg: {ffmpeg_path}")
+                return True
+        except Exception:
+            pass
+            
         return False
 
 def optimize_standard_video(input_path: str, output_path: str = None) -> str:
@@ -115,6 +141,8 @@ def optimize_standard_video(input_path: str, output_path: str = None) -> str:
         ]
         
         logger.info(f"🔄 Запускаем оптимизацию: {os.path.basename(input_path)}")
+        logger.debug(f"Команда FFmpeg: {' '.join(ffmpeg_command)}")
+        
         result = subprocess.run(
             ffmpeg_command,
             capture_output=True,

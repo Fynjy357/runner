@@ -160,7 +160,7 @@ async def send_moderator_notification(telegram_id: int, username: str, image_pat
             ]
         )
         
-        # ✅ ИСПРАВЛЕНИЕ: Убираем Markdown разметку как в stage_2
+        # ✅ ИСПРАВЛЕНИЕ: Убираем Markdown разметку как в stage_1
         caption = (
             "🚨 ПРОБЛЕМА С РАСПОЗНАВАНИЕМ СКРИНШОТА - ЭТАП 4\n\n"
             f"👤 Пользователь: @{username or 'без username'}\n"
@@ -178,7 +178,7 @@ async def send_moderator_notification(telegram_id: int, username: str, image_pat
                     chat_id=moderator_id,
                     photo=photo,
                     caption=caption,
-                    parse_mode=None,  # ✅ ИСПРАВЛЕНИЕ: Отключаем разметку как в stage_2
+                    parse_mode=None,  # ✅ ИСПРАВЛЕНИЕ: Отключаем разметку как в stage_1
                     reply_markup=keyboard
                 )
                 logging.info(f"✅ Уведомление отправлено модератору {moderator_id} для этапа 4")
@@ -318,7 +318,7 @@ async def send_moderator_approved_quest(bot, telegram_id: int, storage):
         )
         await asyncio.sleep(1)
         
-        # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Отправляем ПРАВИЛЬНУЮ загадку этапа 4
+        # ✅ ИСПРАВЛЕНИЕ: Отправляем загадку в ОДНОМ сообщении как в stage_1
         riddle_message = (
             "💡 *ФИНАЛЬНАЯ ЗАГАДКА БЕЗЛИКОГО:*\n\n"
             "«Не зверь, но дышит, не река, но течёт,\n"
@@ -335,7 +335,7 @@ async def send_moderator_approved_quest(bot, telegram_id: int, storage):
             parse_mode="Markdown"
         )
         
-        # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Устанавливаем правильное состояние для пользователя как в stage_2
+        # ✅ ИСПРАВЛЕНИЕ: Устанавливаем состояние как в stage_1
         try:
             from aiogram.fsm.storage.base import StorageKey
             from aiogram.fsm.context import FSMContext
@@ -353,7 +353,7 @@ async def send_moderator_approved_quest(bot, telegram_id: int, storage):
             # ✅ ПРОВЕРЯЕМ: Получаем данные пользователя
             is_stage_5_user = await check_if_stage_5_user(telegram_id)
             
-            # ✅ УСТАНАВЛИВАЕМ ПРАВИЛЬНОЕ СОСТОЯНИЕ И ДАННЫЕ
+            # ✅ УСТАНАВЛИВАЕМ ПРАВИЛЬНОЕ СОСТОЯНИЕ И ДАННЫЕ как в stage_1
             await user_state.set_state(Stage4States.waiting_for_riddle_answer)
             await user_state.set_data({
                 'telegram_id': telegram_id,
@@ -455,13 +455,13 @@ async def handle_moderator_approve_4(callback_query: CallbackQuery, state: FSMCo
             await callback_query.answer("❌ У вас нет прав для этого действия", show_alert=True)
             return
         
-        # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Получаем данные пользователя НЕ из состояния модератора как в stage_2
+        # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Получаем данные пользователя НЕ из состояния модератора как в stage_1
         user_id = await get_user_id_from_db(telegram_id)
         
         # ✅ Уведомляем модератора
         await callback_query.answer("✅ Скриншот проверен, пользователь продолжает квест (этап 4)", show_alert=True)
         
-        # ✅ ИСПРАВЛЕНИЕ: Обновляем сообщение модератора БЕЗ Markdown как в stage_2
+        # ✅ ИСПРАВЛЕНИЕ: Обновляем сообщение модератора БЕЗ Markdown как в stage_1
         original_caption = callback_query.message.caption or ""
         username_line = original_caption.split('Пользователь: ')[1] if 'Пользователь: ' in original_caption else ""
         username = username_line.split('\n')[0] if username_line else "неизвестно"
@@ -476,7 +476,7 @@ async def handle_moderator_approve_4(callback_query: CallbackQuery, state: FSMCo
         
         await callback_query.message.edit_caption(
             caption=updated_caption,
-            parse_mode=None,  # ✅ ИСПРАВЛЕНИЕ: Отключаем разметку как в stage_2
+            parse_mode=None,  # ✅ ИСПРАВЛЕНИЕ: Отключаем разметку как в stage_1
             reply_markup=None  # Убираем кнопки
         )
         
@@ -504,15 +504,17 @@ async def handle_moderator_approve_4(callback_query: CallbackQuery, state: FSMCo
                 parse_mode="Markdown"
             )
             
-            # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Упрощенная очистка состояния как в stage_2
+            # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Очищаем состояние пользователя как в stage_1
             try:
-                # Просто очищаем состояние текущего пользователя
-                await state.clear()
+                storage = state.storage
+                user_key = StorageKey(chat_id=telegram_id, user_id=telegram_id, bot_id=storage.bot.id)
+                await storage.set_state(key=user_key, state=None)
+                await storage.set_data(key=user_key, data={})
                 logging.info(f"✅ Состояние пользователя {telegram_id} очищено после одобрения модератора (этап 4)")
             except Exception as storage_error:
                 logging.error(f"Ошибка очистки состояния пользователя {telegram_id} (этап 4): {storage_error}")
             
-            # ✅ ИСПРАВЛЕНИЕ: Передаем storage в функцию как в stage_2
+            # ✅ ИСПРАВЛЕНИЕ: Передаем storage в функцию как в stage_1
             await send_moderator_approved_quest(callback_query.bot, telegram_id, state.storage)
             
         else:
@@ -608,21 +610,33 @@ async def save_user_address_to_db(telegram_id: int, address: str, stage: int = 4
 async def handle_stage_4_riddle_answer(message: Message, state: FSMContext):
     """Обработка ответа на загадку этапа 4 с поддержкой stage_5 и запросом адреса"""
     logger = logging.getLogger('bot')
+    
+    # ✅ УПРОЩАЕМ: Убираем все проверки состояния - они уже сделаны aiogram через фильтры
+    logger.info(f"🔍 Обработчик загадки вызван для пользователя {message.from_user.id} (этап 4)")
+    logger.info(f"📝 Сообщение: {message.text}")
+    
     try:
         # ✅ ПРОВЕРКА: Получаем данные состояния
         user_data = await state.get_data()
         telegram_id = user_data.get('telegram_id', message.from_user.id)
         attempts_left = user_data.get('attempts_left', 3)
         
+        logger.info(f"📊 Данные состояния: telegram_id={telegram_id}, attempts_left={attempts_left}")
+        logger.info(f"📊 Все данные состояния: {user_data}")
+        
         user_answer = message.text.strip().lower()
         correct_answer = "очередь"
         
+        logger.info(f"✅ Ответ пользователя: '{user_answer}', правильный ответ: '{correct_answer}'")
+        
         if user_answer == correct_answer:
             # ✅ ПРАВИЛЬНЫЙ ОТВЕТ - обновляем в БД
+            logger.info(f"🎉 Пользователь {telegram_id} дал правильный ответ! (этап 4)")
             update_user_answer_in_db(telegram_id, user_answer)
             
             # ✅ ПРОВЕРКА НА 5-Й ЭТАП
             is_stage_5_user = user_data.get('is_stage_5_user', False)
+            logger.info(f"📊 Пользователь stage_5: {is_stage_5_user}")
             
             # ✅ СООБЩЕНИЕ О ПРАВИЛЬНОМ ОТВЕТЕ
             congrats_message = "🎉 *Поздравляем! Вы отгадали загадку!*"
@@ -631,13 +645,11 @@ async def handle_stage_4_riddle_answer(message: Message, state: FSMContext):
             
             if is_stage_5_user:
                 # ✅ ДЛЯ STAGE_5: Показываем трофей
-                trophy_message = (
-                    "🏆 *Вы получаете четвертый трофей!*"
-                )
+                trophy_message = "🏆 *Вы получаете четвертый трофей!*"
                 await message.answer(trophy_message, parse_mode="Markdown")
                 await asyncio.sleep(3)
             
-            # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: ЗАПРАШИВАЕМ АДРЕС ДОСТАВКИ ДЛЯ ВСЕХ
+            # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: ЗАПРАШИВАЕМ АДРЕС ДОСТАВКИ ДЛЯ ВСЕХ как в stage_1
             address_message = (
                 "📍 *Свою реликвию ты можешь получить здесь*\n\n"
                 "📦 Напишите адрес ближайшего ПВЗ СДЭК или Яндекс Маркет:\n\n"
@@ -646,8 +658,9 @@ async def handle_stage_4_riddle_answer(message: Message, state: FSMContext):
             
             await message.answer(address_message, parse_mode="Markdown")
             
-            # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: ПЕРЕХОДИМ В СОСТОЯНИЕ ОЖИДАНИЯ АДРЕСА
+            # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: ПЕРЕХОДИМ В СОСТОЯНИЕ ОЖИДАНИЯ АДРЕСА как в stage_1
             await state.set_state(Stage4States.waiting_for_address)
+            logger.info(f"✅ Состояние пользователя {telegram_id} изменено на waiting_for_address (этап 4)")
             
             # ✅ Сохраняем данные о правильном ответе
             await state.update_data(
@@ -656,9 +669,11 @@ async def handle_stage_4_riddle_answer(message: Message, state: FSMContext):
                 is_stage_5_user=is_stage_5_user,
                 attempts_left=0  # ✅ Сбрасываем попытки
             )
+            logger.info(f"✅ Данные состояния обновлены для пользователя {telegram_id} (этап 4)")
             
         else:
-            # ✅ НЕПРАВИЛЬНЫЙ ОТВЕТ - обрабатываем попытки
+            # ✅ НЕПРАВИЛЬНЫЙ ОТВЕТ - обрабатываем попытки как в stage_1
+            logger.info(f"❌ Пользователь {telegram_id} дал неправильный ответ: '{user_answer}' (этап 4)")
             attempts_left -= 1
             
             if attempts_left > 0:
@@ -672,6 +687,7 @@ async def handle_stage_4_riddle_answer(message: Message, state: FSMContext):
                 
                 # ✅ Сохраняем обновленное количество попыток
                 await state.update_data(attempts_left=attempts_left)
+                logger.info(f"📊 Обновлены попытки для пользователя {telegram_id}: {attempts_left} (этап 4)")
                 
             else:
                 # ✅ ПОСЛЕДНЯЯ ПОПЫТКА - даем подсказку
@@ -684,14 +700,20 @@ async def handle_stage_4_riddle_answer(message: Message, state: FSMContext):
                 
                 # ✅ Даем еще одну попытку с подсказкой
                 await state.update_data(attempts_left=1)
+                logger.info(f"📊 Дана дополнительная попытка пользователю {telegram_id} (этап 4)")
         
     except Exception as e:
-        logger.error(f"Ошибка при обработке ответа stage_4: {e}")
+        logger.error(f"❌ Ошибка при обработке ответа stage_4: {e}", exc_info=True)
         await message.answer("❌ Ошибка при обработке ответа. Попробуйте еще раз.")
+
 
 async def handle_stage_4_address(message: Message, state: FSMContext):
     """Обработка адреса пользователя и завершение этапа 4"""
     logger = logging.getLogger('bot')
+    
+    # ✅ УПРОЩАЕМ: Убираем все проверки состояния - они уже сделаны aiogram через фильтры
+    logger.info(f"🔍 Обработчик адреса вызван для пользователя {message.from_user.id} (этап 4)")
+    
     try:
         user_data = await state.get_data()
         telegram_id = user_data.get('telegram_id', message.from_user.id)
@@ -699,7 +721,7 @@ async def handle_stage_4_address(message: Message, state: FSMContext):
         
         address = message.text.strip()
         
-        # ✅ ПРОВЕРКА: Адрес не должен быть пустым
+        # ✅ ПРОВЕРКА: Адрес не должен быть пустым как в stage_1
         if not address or len(address) < 5:
             await message.answer(
                 "❌ *Пожалуйста, укажите полный адрес.*\n\n"
@@ -722,6 +744,14 @@ async def handle_stage_4_address(message: Message, state: FSMContext):
             )
             await asyncio.sleep(2)
             
+            # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: ПРОМОКОД НЕ ОТПРАВЛЯЕМ НИКОМУ В ЭТАПЕ 4
+            # ✅ Обычные пользователи уже получили промокоды на этапах 1-3
+            # ✅ Stage_5 пользователи не получают промокоды вообще
+            # ❌ НИКАКОГО send_promo_code_to_user ЗДЕСЬ!
+            
+            # ✅ ОТМЕЧАЕМ ЭТАП КАК ЗАВЕРШЕННЫЙ
+            await mark_stage_4_completed(telegram_id)
+            
             if is_stage_5_user:
                 # ✅ ДЛЯ STAGE_5: Сначала отправляем финальное видео и сообщение
                 try:
@@ -737,7 +767,7 @@ async def handle_stage_4_address(message: Message, state: FSMContext):
                             video=video,
                             supports_streaming=True
                         )
-                        logger.info(f"✅ Финальное видео отправлено пользователю {telegram_id} (stage_5)")
+                        logger.info(f"✅ Финальное видео отправлено пользователю {telegram_id} (stage_5, этап 4)")
                     else:
                         logger.error(f"❌ Финальное видео не найдено: {video_path}")
                         await message.answer("🎬 *Продолжаем историю...*", parse_mode="Markdown")
@@ -770,12 +800,10 @@ async def handle_stage_4_address(message: Message, state: FSMContext):
                 # ✅ ОБНОВЛЯЕМ ЭТАП НА ЗАВЕРШЕНИЕ (этап 5)
                 await update_user_stage_in_db(telegram_id, 5)  # Завершаем квест
                 
-                # ✅ СБРАСЫВАЕМ СОСТОЯНИЕ ПОЛЬЗОВАТЕЛЯ
-                await state.clear()
             else:
                 # ✅ ОБЫЧНОЕ ЗАВЕРШЕНИЕ: Отправляем видео и финальное сообщение
                 try:
-                    # ✅ ИСПРАВЛЕНИЕ: Отправляем видео напрямую как в stage_2
+                    # ✅ ИСПРАВЛЕНИЕ: Отправляем видео напрямую как в stage_1
                     from aiogram.types import FSInputFile
                     
                     media_path = get_media_path()
@@ -787,7 +815,7 @@ async def handle_stage_4_address(message: Message, state: FSMContext):
                             video=video,
                             supports_streaming=True
                         )
-                        logging.info(f"✅ Финальное видео отправлено пользователю {telegram_id}")
+                        logging.info(f"✅ Финальное видео отправлено пользователю {telegram_id} (этап 4)")
                     else:
                         logging.error(f"❌ Финальное видео не найдено: {video_path}")
                         await message.answer("🎬 *Продолжаем историю...*", parse_mode="Markdown")
@@ -808,8 +836,37 @@ async def handle_stage_4_address(message: Message, state: FSMContext):
                 )
                 
                 await message.answer(final_message, parse_mode="Markdown")
+            
+            # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: ПОЛНОСТЬЮ СБРАСЫВАЕМ СОСТОЯНИЕ ПОЛЬЗОВАТЕЛЯ как в stage_1
+            try:
+                # ✅ Сначала очищаем данные состояния
+                await state.clear()
+                logger.info(f"✅ Данные состояния очищены для пользователя {telegram_id} (этап 4)")
                 
-                # ✅ СБРАСЫВАЕМ СОСТОЯНИЕ ПОЛЬЗОВАТЕЛЯ
+                # ✅ Затем принудительно очищаем состояние в storage
+                storage = state.storage
+                from aiogram.fsm.storage.base import StorageKey
+                
+                try:
+                    user_key = StorageKey(
+                        chat_id=telegram_id,
+                        user_id=telegram_id,
+                        bot_id=storage.bot.id
+                    )
+                except AttributeError:
+                    user_key = StorageKey(
+                        chat_id=telegram_id,
+                        user_id=telegram_id,
+                        bot_id=telegram_id
+                    )
+                
+                await storage.set_state(key=user_key, state=None)
+                await storage.set_data(key=user_key, data={})
+                logger.info(f"✅ Состояние пользователя {telegram_id} полностью очищено в storage (этап 4)")
+                
+            except Exception as clear_error:
+                logger.error(f"❌ Ошибка очистки состояния пользователя {telegram_id} (этап 4): {clear_error}")
+                # Даже если есть ошибка, все равно пытаемся очистить
                 await state.clear()
             
             logging.info(f"✅ Этап 4 завершен для пользователя {telegram_id}. Адрес сохранен: {address}")
@@ -829,14 +886,34 @@ async def handle_stage_4_address(message: Message, state: FSMContext):
             "🔄 Пожалуйста, попробуйте отправить адрес еще раз:",
             parse_mode="Markdown"
         )
+
+
+async def force_clear_user_state(telegram_id: int, storage):
+    """Принудительная очистка состояния пользователя"""
+    try:
+        from aiogram.fsm.storage.base import StorageKey
         
+        try:
+            user_key = StorageKey(
+                chat_id=telegram_id,
+                user_id=telegram_id,
+                bot_id=storage.bot.id
+            )
+        except AttributeError:
+            user_key = StorageKey(
+                chat_id=telegram_id,
+                user_id=telegram_id,
+                bot_id=telegram_id
+            )
+        
+        await storage.set_state(key=user_key, state=None)
+        await storage.set_data(key=user_key, data={})
+        logging.info(f"✅ Состояние пользователя {telegram_id} принудительно очищено")
+        return True
     except Exception as e:
-        logger.error(f"Ошибка при обработке адреса stage_4: {e}")
-        await message.answer(
-            "❌ *Произошла ошибка при обработке адреса.*\n\n"
-            "🔄 Пожалуйста, попробуйте отправить адрес еще раз:",
-            parse_mode="Markdown"
-        )
+        logging.error(f"❌ Ошибка принудительной очистки состояния пользователя {telegram_id}: {e}")
+        return False
+
 
 async def handle_wrong_address_input_4(message: Message, state: FSMContext):
     """Обработчик некорректных сообщений в состоянии ожидания адреса (этап 4)"""
@@ -849,7 +926,11 @@ async def handle_wrong_address_input_4(message: Message, state: FSMContext):
 
 async def continue_stage_4_quest(message: Message, state: FSMContext):
     """Продолжение квеста после успешного анализа картинки для этапа 4"""
+    logger = logging.getLogger('bot')
+    
     try:
+        logger.info(f"🔍 Продолжение квеста для пользователя {message.from_user.id} (этап 4)")
+        
         # Продолжаем квест
         await asyncio.sleep(1)
         
@@ -863,7 +944,8 @@ async def continue_stage_4_quest(message: Message, state: FSMContext):
         await message.answer(message6, parse_mode="Markdown")
         await asyncio.sleep(1)
         
-        message7 = (
+        # ✅ ИСПРАВЛЕНИЕ: Отправляем загадку в ОДНОМ сообщении как в stage_1
+        riddle_message = (
             "💡 *ФИНАЛЬНАЯ ЗАГАДКА БЕЗЛИКОГО:*\n\n"
             "«Не зверь, но дышит, не река, но течёт,\n"
             "Её результат порою— счастливый билет.\n"
@@ -873,11 +955,15 @@ async def continue_stage_4_quest(message: Message, state: FSMContext):
             "*Напиши свой ответ:*"
         )
         
-        await message.answer(message7, parse_mode="Markdown")
+        await message.answer(riddle_message, parse_mode="Markdown")
         
-        # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Сохраняем правильные начальные данные состояния как в stage_2
+        # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Сохраняем правильные начальные данные состояния как в stage_1
         telegram_id = message.from_user.id
         is_stage_5_user = await check_if_stage_5_user(telegram_id)
+        
+        logger.info(f"📊 Устанавливаем состояние для пользователя {telegram_id} (этап 4):")
+        logger.info(f"   - is_stage_5_user: {is_stage_5_user}")
+        logger.info(f"   - attempts_left: 3")
         
         await state.update_data(
             telegram_id=telegram_id,
@@ -888,18 +974,45 @@ async def continue_stage_4_quest(message: Message, state: FSMContext):
         
         # Переходим в состояние ожидания ответа на загадку
         await state.set_state(Stage4States.waiting_for_riddle_answer)
+        logger.info(f"✅ Состояние пользователя {telegram_id} установлено в waiting_for_riddle_answer (этап 4)")
         
     except Exception as e:
-        logging.error(f"Ошибка при продолжении квеста stage_4: {e}")
+        logger.error(f"❌ Ошибка при продолжении квеста stage_4: {e}", exc_info=True)
         await message.answer("❌ Ошибка при продолжении квеста. Попробуйте еще раз.")
 
 async def handle_stage_4_quest(callback_query: CallbackQuery, state: FSMContext):
     """Сценарий квеста для stage_id = 4 (финальный этап)"""
+    logger = logging.getLogger('bot')
+    
     try:
-        # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Сохраняем правильные начальные данные как в stage_2
         telegram_id = callback_query.from_user.id
-        is_stage_5_user = await check_if_stage_5_user(telegram_id)
         
+        logger.info(f"🔍 Запуск этапа 4 для пользователя {telegram_id}")
+        
+        # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Проверяем, является ли пользователь stage_5
+        # Сначала проверяем через БД, так как состояние может быть пустым
+        is_stage_5_user = await check_if_stage_5_user(telegram_id)
+        logger.info(f"📊 is_stage_5_user из БД: {is_stage_5_user}")
+        
+        # ✅ ТОЛЬКО для обычных пользователей проверяем завершенность этапа
+        # ✅ ДЛЯ STAGE_5 ПОЛЬЗОВАТЕЛЕЙ ПРОПУСКАЕМ ПРОВЕРКУ ЗАВЕРШЕННОСТИ!
+        if not is_stage_5_user:
+            try:
+                stage_completed = await is_stage_4_completed(telegram_id)
+                
+                if stage_completed:
+                    await callback_query.message.answer(
+                        "👋 *Вы уже завершили этот этап!*\n\n"
+                        "Для участия в забеге используйте ссылку от организатора.\n"
+                        "Для навигации используйте /menu.",
+                        parse_mode="Markdown"
+                    )
+                    return
+            except Exception as db_error:
+                logging.error(f"Ошибка проверки завершенности этапа 4: {db_error}")
+        
+        # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Сохраняем правильные начальные данные
+        # Обновляем is_stage_5_user в состоянии
         await state.update_data(
             telegram_id=telegram_id,
             is_stage_5_user=is_stage_5_user,
@@ -907,7 +1020,7 @@ async def handle_stage_4_quest(callback_query: CallbackQuery, state: FSMContext)
             recognition_attempts=0
         )
         
-        # ✅ ИСПРАВЛЕНИЕ: Отправляем видео напрямую как в stage_2
+        # ✅ ИСПРАВЛЕНИЕ: Отправляем видео напрямую как в stage_1
         try:
             from aiogram.types import FSInputFile
             
@@ -920,11 +1033,11 @@ async def handle_stage_4_quest(callback_query: CallbackQuery, state: FSMContext)
                     video=video,
                     supports_streaming=True
                 )
-                logging.info(f"✅ Стартовое видео отправлено пользователю {telegram_id}")
+                logger.info(f"✅ Стартовое видео отправлено пользователю {telegram_id} (этап 4)")
             else:
-                logging.error(f"❌ Стартовое видео не найдено: {video_path}")
+                logger.error(f"❌ Стартовое видео не найдено: {video_path}")
         except Exception as video_error:
-            logging.error(f"❌ Ошибка отправки стартового видео: {video_error}")
+            logger.error(f"❌ Ошибка отправки стартового видео: {video_error}")
         
         # Общее вступление с названием этапа из БД
         message1 = get_common_intro(4)
@@ -934,14 +1047,14 @@ async def handle_stage_4_quest(callback_query: CallbackQuery, state: FSMContext)
         # Второе сообщение (специфичное для этапа 4)
         message2 = (
             "🚨 *ФИНАЛЬНАЯ СТАДИЯ!*\n\n"
-            "БЕЗЛИКИЙ захватил управление поездом, на котором перевозятся все реликвии! "
-            "Он направляет его к пропасти, угрожая уничтожить всё, что мы спасли."
+            "БЕЗЛИКИЙ захватил управление поездом, на котором спрятана последняя реликвия! "
+            "Он направляет его в закрытый для движения путь к обрыву."
         )
         
         await callback_query.message.answer(message2, parse_mode="Markdown")
         await asyncio.sleep(2)
         
-        # ✅ ИСПРАВЛЕНИЕ: Отправляем видео напрямую как в stage_2
+        # ✅ ИСПРАВЛЕНИЕ: Отправляем видео напрямую как в stage_1
         try:
             from aiogram.types import FSInputFile
             
@@ -954,11 +1067,11 @@ async def handle_stage_4_quest(callback_query: CallbackQuery, state: FSMContext)
                     video=video,
                     supports_streaming=True
                 )
-                logging.info(f"✅ Второе видео отправлено пользователю {telegram_id}")
+                logger.info(f"✅ Второе видео отправлено пользователю {telegram_id} (этап 4)")
             else:
-                logging.error(f"❌ Второе видео не найдено: {video_path}")
+                logger.error(f"❌ Второе видео не найдено: {video_path}")
         except Exception as video_error:
-            logging.error(f"❌ Ошибка отправки второго видео: {video_error}")
+            logger.error(f"❌ Ошибка отправки второго видео: {video_error}")
         
         # Третье сообщение с кнопкой
         message3 = (
@@ -970,9 +1083,10 @@ async def handle_stage_4_quest(callback_query: CallbackQuery, state: FSMContext)
         
         # Переходим в состояние ожидания изображения
         await state.set_state(Stage4States.waiting_for_image)
+        logger.info(f"✅ Состояние пользователя {telegram_id} установлено в waiting_for_image (этап 4)")
         
     except Exception as e:
-        logging.error(f"Ошибка в stage_4: {e}")
+        logger.error(f"❌ Ошибка в stage_4: {e}", exc_info=True)
         await callback_query.message.answer(get_common_error_message())
 
 async def handle_stage_4_image(message: Message, state: FSMContext):
@@ -1016,7 +1130,7 @@ async def handle_stage_4_image(message: Message, state: FSMContext):
         # ✅ Сохраняем путь в базу данных через общую функцию
         save_user_data_to_db(telegram_id, local_path)
         
-        logger.info(f"Сохранено изображение для пользователя {telegram_id}: {local_path}")
+        logger.info(f"Сохранено изображение для пользователя {telegram_id}: {local_path} (этап 4)")
         
         # ✅ Сообщаем что картинка сохранена и переходим к анализу
         await message.answer("✅ *Скриншот сохранен! Теперь анализирую данные пробежки...*", parse_mode="Markdown")
@@ -1043,7 +1157,7 @@ async def handle_moderator_reject_4(callback_query: CallbackQuery, state: FSMCon
         # ✅ Уведомляем модератора
         await callback_query.answer("❌ Пользователю отправлен отказ (этап 4)", show_alert=True)
         
-        # ✅ ИСПРАВЛЕНИЕ: Обновляем сообщение модератора БЕЗ Markdown как в stage_2
+        # ✅ ИСПРАВЛЕНИЕ: Обновляем сообщение модератора БЕЗ Markdown как в stage_1
         original_caption = callback_query.message.caption or ""
         username_line = original_caption.split('Пользователь: ')[1] if 'Пользователь: ' in original_caption else ""
         username = username_line.split('\n')[0] if username_line else "неизвестно"
@@ -1058,7 +1172,7 @@ async def handle_moderator_reject_4(callback_query: CallbackQuery, state: FSMCon
         
         await callback_query.message.edit_caption(
             caption=updated_caption,
-            parse_mode=None,  # ✅ ИСПРАВЛЕНИЕ: Отключаем разметку как в stage_2
+            parse_mode=None,  # ✅ ИСПРАВЛЕНИЕ: Отключаем разметку как в stage_1
             reply_markup=None  # Убираем кнопки
         )
         
@@ -1077,7 +1191,7 @@ async def handle_moderator_reject_4(callback_query: CallbackQuery, state: FSMCon
             text=user_message
         )
         
-        # ✅ Очищаем состояние пользователя через storage
+        # ✅ Очищаем состояние пользователя через storage как в stage_1
         try:
             storage = state.storage
             user_key = StorageKey(chat_id=telegram_id, user_id=telegram_id, bot_id=storage.bot.id)
@@ -1091,8 +1205,37 @@ async def handle_moderator_reject_4(callback_query: CallbackQuery, state: FSMCon
         logging.error(f"Ошибка при обработке отказа модератора (этап 4): {e}")
         await callback_query.answer("❌ Ошибка при обработке", show_alert=True)
 
+async def handle_unknown_messages_4(message: Message, state: FSMContext):
+    """Обработчик для всех неизвестных сообщений после завершения этапа 4"""
+    logger = logging.getLogger('bot')
+    telegram_id = message.from_user.id
+    
+    # ✅ Проверяем, завершен ли этап 4 для этого пользователя
+    try:
+        stage_completed = await is_stage_4_completed(telegram_id)
+        
+        if stage_completed:
+            # Этап 4 завершен - отправляем стандартное сообщение
+            await message.answer(
+                "🤔 *Я не понимаю, о чем Вы говорите.*\n\n"
+                "👋 Для участия в забеге используйте ссылку от организатора.\n"
+                "Для навигации используйте /menu.",
+                parse_mode="Markdown"
+            )
+            return True  # Сообщение обработано
+    except Exception as db_error:
+        logger.error(f"Ошибка проверки завершенности этапа 4: {db_error}")
+    
+    return False  # Сообщение не обработано
+
 def setup_stage_4_handlers(dp):
     """Настройка обработчиков для этапа 4"""
+    logger = logging.getLogger('bot')
+    
+    # ✅ ИСПРАВЛЕНИЕ: Регистрируем обработчики в правильном порядке как в stage_1
+    
+    # 1. Сначала обработчики состояний (они должны быть более специфичными)
+    
     # Обработчик изображений для этапа 4
     dp.message.register(
         handle_stage_4_image,
@@ -1100,21 +1243,51 @@ def setup_stage_4_handlers(dp):
         F.photo
     )
     
-    # Обработчик текстовых ответов для этапа 4
+    # ✅ ИСПРАВЛЕНИЕ: Обработчик текстовых ответов для этапа 4
     dp.message.register(
         handle_stage_4_riddle_answer,
         Stage4States.waiting_for_riddle_answer,
-        F.text
+        F.text & ~F.text.startswith("/")  # ✅ Добавляем фильтр для текста без команд
     )
     
     # ✅ ДОБАВЛЯЕМ: Обработчик адресов для этапа 4
     dp.message.register(
         handle_stage_4_address,
         Stage4States.waiting_for_address,
-        F.text
+        F.text & ~F.text.startswith("/")
     )
     
-    # ✅ Обработчики решений модератора для этапа 4
+    # ✅ Обработчик ожидания решения модератора
+    dp.message.register(
+        handle_moderator_decision_waiting_4,
+        Stage4States.waiting_for_moderator_decision,
+        F.text | F.photo  # ✅ Принимаем и текст, и фото
+    )
+    
+    # 2. Обработчики некорректных сообщений в состояниях
+    
+    # Обработчик некорректных сообщений в состоянии ожидания изображения
+    dp.message.register(
+        lambda message: message.answer(get_common_photo_error()),
+        Stage4States.waiting_for_image,
+        ~F.photo  # ✅ Все что не фото
+    )
+    
+    # Обработчик некорректных сообщений в состоянии ожидания ответа
+    dp.message.register(
+        lambda message: message.answer(get_common_answer_error()),
+        Stage4States.waiting_for_riddle_answer,
+        ~F.text  # ✅ Все что не текст
+    )
+    
+    # ✅ Обработчик некорректных сообщений в состоянии ожидания адреса
+    dp.message.register(
+        handle_wrong_address_input_4,
+        Stage4States.waiting_for_address,
+        ~F.text  # ✅ Все что не текст
+    )
+    
+    # 3. Обработчики решений модератора (callback)
     dp.callback_query.register(
         handle_moderator_approve_4,
         F.data.startswith("moderator_approve_4_")
@@ -1125,29 +1298,33 @@ def setup_stage_4_handlers(dp):
         F.data.startswith("moderator_reject_4_")
     )
     
-    # Обработчик некорректных сообщений в состоянии ожидания изображения
-    dp.message.register(
-        lambda message: message.answer(get_common_photo_error()),
-        Stage4States.waiting_for_image
-    )
+    # ❌ УДАЛЯЕМ: Глобальный обработчик для завершенных этапов
+    # Он уже есть в global_handler.py и должен регистрироваться ПОСЛЕ всех обработчиков этапов
+    # dp.message.register(
+    #     handle_unknown_messages_4,
+    #     F.text & ~F.text.startswith("/")  # Все текстовые сообщения, не начинающиеся с "/"
+    # )
     
-    # Обработчик некорректных сообщений в состоянии ожидания ответа
-    dp.message.register(
-        lambda message: message.answer(get_common_answer_error()),
-        Stage4States.waiting_for_riddle_answer
-    )
-    
-    # ✅ Обработчик некорректных сообщений в состоянии ожидания адреса
-    dp.message.register(
-        handle_wrong_address_input_4,
-        Stage4States.waiting_for_address
-    )
-    
-    # ✅ Обработчик некорректных сообщений в состоянии ожидания решения модератора
-    dp.message.register(
-        handle_moderator_decision_waiting_4,
-        Stage4States.waiting_for_moderator_decision
-    )
+    logger.info("✅ Обработчики этапа 4 настроены")
+
+
+# ✅ Функция для проверки завершения этапа 4
+async def is_stage_4_completed(telegram_id: int) -> bool:
+    """Проверяет, завершен ли этап 4 для пользователя"""
+    try:
+        return db.is_stage_completed(telegram_id, 4)
+    except Exception as e:
+        logging.error(f"Ошибка проверки завершения этапа 4: {e}")
+        return False
+
+# ✅ Функция для отметки этапа 4 как завершенного
+async def mark_stage_4_completed(telegram_id: int) -> bool:
+    """Отмечает этап 4 как завершенный"""
+    try:
+        return db.mark_stage_completed(telegram_id, 4)
+    except Exception as e:
+        logging.error(f"Ошибка отметки завершения этапа 4: {e}")
+        return False
 
 logger = logging.getLogger('bot')
 if not logger.handlers:

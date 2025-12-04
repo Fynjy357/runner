@@ -15,9 +15,11 @@ from handlers.update_data import update_router
 from handlers.menu import setup_menu_handler
 from handlers.admin_commands import setup_admin_handler
 
+# ✅ ИМПОРТИРУЕМ ГЛОБАЛЬНЫЙ ОБРАБОТЧИК
+from handlers.global_handler import setup_global_handler
+
 # Импортируем интеграцию с рассылкой из текущей директории
 from mail_integration import mail_integration
-
 
 from database import db
 
@@ -52,9 +54,13 @@ async def on_startup():
     if bot_username:
         logger.info(f"Бот: @{bot_username}")
         # Настраиваем обработчики с username бота
+        
+        # ✅ ВАЖНО: Порядок регистрации обработчиков имеет значение!
+        # Сначала регистрируем специфичные обработчики
+        
         setup_start_handler(dp, shutdown_manager, logger, bot_username)
         setup_link_generation_handler(dp, logger, bot_username)
-        setup_stage_handlers(dp)
+        setup_stage_handlers(dp)  # Этапы 1, 2, 3, 4, 5
         setup_quest_handler(dp, logger)
         setup_login_handler(dp)
         setup_mail_handlers(dp)
@@ -63,8 +69,12 @@ async def on_startup():
         setup_menu_handler(dp)
         setup_admin_handler(dp)
         
+        # ✅ ВАЖНО: Глобальный обработчик должен быть ПОСЛЕДНИМ!
+        setup_global_handler(dp)
+        
         logger.info("✅ Все обработчики успешно зарегистрированы")
         logger.info("✅ Обработчик квеста зарегистрирован")
+        logger.info("✅ Глобальный обработчик зарегистрирован (последним)")
         
     else:
         logger.error("Не удалось получить username бота")

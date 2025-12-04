@@ -3,6 +3,9 @@
 Общие элементы для всех этапов квеста
 """
 
+import asyncio
+
+
 def get_common_intro(stage_id: int) -> str:
     """
     Возвращает общее вступление для всех этапов
@@ -400,7 +403,7 @@ def get_stage_history(stage_number: int) -> dict:
 # ✅ ДОБАВЛЯЕМ НОВУЮ ФУНКЦИЮ ДЛЯ ОТПРАВКИ ВИДЕО ЧЕРЕЗ ОПТИМИЗАТОР
 async def send_stage_history_video(message, stage_number: int):
     """
-    Отправляет видео истории этапа через оптимизатор
+    Отправляет видео истории этапа
     
     Args:
         message: Объект сообщения
@@ -411,10 +414,14 @@ async def send_stage_history_video(message, stage_number: int):
     """
     try:
         from utils.video_optimizer import send_optimized_video
+        from aiogram.types import FSInputFile
+        from utils.video_optimizer import get_media_path
+        import asyncio
+        import logging  # ✅ Импортируем logging здесь
         
         history = get_stage_history(stage_number)
         if history:
-            # Отправляем видео через оптимизатор
+            # ✅ Отправляем первое видео через оптимизатор (как обычно)
             await send_optimized_video(
                 message,
                 history['video'],
@@ -423,18 +430,41 @@ async def send_stage_history_video(message, stage_number: int):
             
             # Отправляем историю текстом
             await message.answer(history['story'], parse_mode="Markdown")
-            
+            await asyncio.sleep(2)
 
-            # ✅ ВТОРОЕ ВИДЕО без заголовка
-            await send_optimized_video(
-                message,
-                history['video2']
-            )
+            # ✅ ИСПРАВЛЕНИЕ: Для видео 7_logo.mp4 отправляем БЕЗ оптимизации
+            if stage_number == 3 and history.get('video2') == "7_logo.mp4":
+                try:
+                    media_path = get_media_path()
+                    video_path = media_path / "7_logo.mp4"
+                    
+                    if video_path.exists():
+                        video = FSInputFile(str(video_path))
+                        await message.answer_video(
+                            video=video,
+                            supports_streaming=True
+                        )
+                        logging.info(f"✅ Видео 7_logo.mp4 отправлено напрямую (без оптимизации)")
+                    else:
+                        logging.error(f"❌ Видео не найдено: {video_path}")
+                        await message.answer("🎬 *Продолжаем историю...*", parse_mode="Markdown")
+                except Exception as direct_error:
+                    logging.error(f"❌ Ошибка прямой отправки 7_logo.mp4: {direct_error}")
+                    await message.answer("🎬 *Продолжаем историю...*", parse_mode="Markdown")
+            else:
+                # ✅ Остальные видео отправляем через оптимизатор
+                await send_optimized_video(
+                    message,
+                    history['video2']
+                )
 
             return True
         return False
         
     except Exception as e:
+        # ✅ ИСПРАВЛЕНИЕ: Используем глобальный logging
         import logging
         logging.error(f"Ошибка при отправке истории этапа {stage_number}: {e}")
         return False
+
+

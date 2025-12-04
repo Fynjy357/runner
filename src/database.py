@@ -48,7 +48,7 @@ class Database:
                     )
                 ''')
                 
-                # Таблица 3: Основная - ДОБАВЛЯЕМ current_stage
+                # Таблица 3: Основная - ДОБАВЛЯЕМ current_stage И ПОЛЯ ДЛЯ ОТСЛЕЖИВАНИЯ ЗАВЕРШЕНИЯ ЭТАПОВ
                 cursor.execute('''
                     CREATE TABLE IF NOT EXISTS main (
                         user_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -58,7 +58,12 @@ class Database:
                         role TEXT NOT NULL CHECK(role IN ('admin', 'moderator', 'user')),
                         quest_started INTEGER DEFAULT 0 CHECK(quest_started IN (0, 1)),
                         quest_started_at DATETIME,
-                        current_stage INTEGER DEFAULT 1 
+                        current_stage INTEGER DEFAULT 1,
+                        stage_1_completed INTEGER DEFAULT 0 CHECK(stage_1_completed IN (0, 1)),
+                        stage_2_completed INTEGER DEFAULT 0 CHECK(stage_2_completed IN (0, 1)),
+                        stage_3_completed INTEGER DEFAULT 0 CHECK(stage_3_completed IN (0, 1)),
+                        stage_4_completed INTEGER DEFAULT 0 CHECK(stage_4_completed IN (0, 1)),
+                        registration_date DATETIME DEFAULT CURRENT_TIMESTAMP
                     )
                 ''')
                 
@@ -117,7 +122,7 @@ class Database:
                     )
                 ''')
                 
-                # ✅ ТАБЛИЦА 9: Адреса пользователей (УПРОЩЕННАЯ ВЕРСИЯ)
+                # ✅ ТАБЛИЦА 9: Адреса пользователей
                 cursor.execute('''
                     CREATE TABLE IF NOT EXISTS user_addresses (
                         address_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -129,6 +134,20 @@ class Database:
                         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                         FOREIGN KEY (telegram_id) REFERENCES main(telegram_id),
                         UNIQUE(telegram_id, stage)
+                    )
+                ''')
+                
+                # ✅ ТАБЛИЦА 10: Промокоды
+                cursor.execute('''
+                    CREATE TABLE IF NOT EXISTS promo_codes (
+                        promo_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        promo_code TEXT NOT NULL UNIQUE,
+                        status TEXT NOT NULL DEFAULT 'active' CHECK(status IN ('active', 'used', 'expired')),
+                        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                        sent_at DATETIME,
+                        sent_to_telegram_id INTEGER,
+                        sent_to_username TEXT,
+                        FOREIGN KEY (sent_to_telegram_id) REFERENCES main(telegram_id)
                     )
                 ''')
                 
@@ -150,6 +169,10 @@ class Database:
             "CREATE INDEX IF NOT EXISTS idx_main_telegram_id ON main(telegram_id)",
             "CREATE INDEX IF NOT EXISTS idx_main_role ON main(role)",
             "CREATE INDEX IF NOT EXISTS idx_main_current_stage ON main(current_stage)", 
+            "CREATE INDEX IF NOT EXISTS idx_main_stage_1_completed ON main(stage_1_completed)",
+            "CREATE INDEX IF NOT EXISTS idx_main_stage_2_completed ON main(stage_2_completed)",
+            "CREATE INDEX IF NOT EXISTS idx_main_stage_3_completed ON main(stage_3_completed)",
+            "CREATE INDEX IF NOT EXISTS idx_main_stage_4_completed ON main(stage_4_completed)",
             "CREATE INDEX IF NOT EXISTS idx_stage_content_stage ON stage_content(stage_id)",
             "CREATE INDEX IF NOT EXISTS idx_stage_content_order ON stage_content(order_number)",
             "CREATE INDEX IF NOT EXISTS idx_user_data_user ON user_data(user_id)",
@@ -160,11 +183,437 @@ class Database:
             "CREATE INDEX IF NOT EXISTS idx_raffle_participants_raffle ON raffle_participants(raffle_id)",
             # ✅ ИНДЕКСЫ ДЛЯ ТАБЛИЦЫ АДРЕСОВ
             "CREATE INDEX IF NOT EXISTS idx_user_addresses_telegram ON user_addresses(telegram_id)",
-            "CREATE INDEX IF NOT EXISTS idx_user_addresses_stage ON user_addresses(stage)"
+            "CREATE INDEX IF NOT EXISTS idx_user_addresses_stage ON user_addresses(stage)",
+            # ✅ ИНДЕКСЫ ДЛЯ ТАБЛИЦЫ ПРОМОКОДОВ
+            "CREATE INDEX IF NOT EXISTS idx_promo_codes_code ON promo_codes(promo_code)",
+            "CREATE INDEX IF NOT EXISTS idx_promo_codes_status ON promo_codes(status)",
+            "CREATE INDEX IF NOT EXISTS idx_promo_codes_sent_to ON promo_codes(sent_to_telegram_id)"
         ]
         
         for index_sql in indexes:
             cursor.execute(index_sql)
+
+    # ✅ МЕТОДЫ ДЛЯ РАБОТЫ С ПРОМОКОДАМИ
+
+    def add_promo_code(self, promo_code: str) -> bool:
+        """Добавление нового промокода"""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                
+                cursor.execute('''
+                    INSERT INTO promo_codes (promo_code, status)
+                    VALUES (?, 'active')
+                ''', (promo_code.strip().upper(),))
+                
+                conn.commit()
+                logging.info(f"Промокод добавлен: {promo_code}")
+                return True
+                
+        except sqlite3.IntegrityError:
+            logging.warning(f"Промокод уже существует: {promo_code}")
+            return False
+        except sqlite3.Error as e:
+            logging.error(f"Ошибка добавления промокода {promo_code}: {e}")
+            return False
+
+    def add_promo_codes_batch(self, promo_codes: list) -> tuple:
+        """Добавление нескольких промокодов"""
+        added = 0
+        skipped = 0
+        
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                
+                for promo_code in promo_codes:
+                    code = promo_code.strip().upper()
+                    if not code:
+                        continue
+                        
+                    try:
+                        cursor.execute('''
+                            INSERT INTO promo_codes (promo_code, status)
+                            VALUES (?, 'active')
+                        ''', (code,))
+                        added += 1
+                    except sqlite3.IntegrityError:
+                        skipped += 1
+                        logging.debug(f"Промокод уже существует: {code}")
+                
+                conn.commit()
+                logging.info(f"Добавлено промокодов: {added}, пропущено (дубликаты): {skipped}")
+                return added, skipped
+                
+        except sqlite3.Error as e:
+            logging.error(f"Ошибка пакетного добавления промокодов: {e}")
+            return 0, 0
+
+    def get_available_promo_code(self) -> str:
+        """Получение доступного промокода"""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                
+                # ✅ ИСПРАВЛЕНИЕ: Правильная проверка NULL в SQLite
+                cursor.execute('''
+                    SELECT promo_code FROM promo_codes 
+                    WHERE status = 'active' 
+                    AND sent_to_telegram_id IS NULL
+                    ORDER BY promo_id 
+                    LIMIT 1
+                ''')
+                
+                result = cursor.fetchone()
+                return result[0] if result else None
+                
+        except sqlite3.Error as e:
+            logging.error(f"Ошибка получения доступного промокода: {e}")
+            return None
+
+
+    def mark_promo_code_as_used(self, promo_code: str, telegram_id: int = None, username: str = None) -> bool:
+        """Отметка промокода как использованного"""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                
+                # ✅ ИСПРАВЛЕНИЕ: Убираем .upper() - ищем как есть
+                cursor.execute('''
+                    UPDATE promo_codes 
+                    SET status = 'used', 
+                        sent_at = CURRENT_TIMESTAMP,
+                        sent_to_telegram_id = ?,
+                        sent_to_username = ?
+                    WHERE promo_code = ? 
+                    AND status = 'active'
+                    AND sent_to_telegram_id IS NULL
+                ''', (telegram_id, username, promo_code.strip()))  # ✅ Убрали .upper()
+                
+                conn.commit()
+                if cursor.rowcount > 0:
+                    logging.info(f"Промокод {promo_code} отмечен как использованный (пользователь: {telegram_id})")
+                    return True
+                else:
+                    # ✅ ДОБАВЛЯЕМ ОТЛАДКУ: Проверяем почему не обновилось
+                    cursor.execute('''
+                        SELECT promo_code, status, sent_to_telegram_id 
+                        FROM promo_codes 
+                        WHERE promo_code = ?
+                    ''', (promo_code.strip(),))  # ✅ Убрали .upper()
+                    result = cursor.fetchone()
+                    if result:
+                        logging.warning(f"Промокод в базе: код='{result[0]}', статус='{result[1]}', выдан='{result[2]}'")
+                        logging.warning(f"Искали промокод: '{promo_code.strip()}'")
+                    else:
+                        logging.warning(f"Промокод '{promo_code}' не найден в базе")
+                    return False
+                    
+        except sqlite3.Error as e:
+            logging.error(f"Ошибка отметки промокода как использованного: {e}")
+            return False
+
+
+
+    def get_promo_code_info(self, promo_code: str) -> dict:
+        """Получение информации о промокоде"""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                
+                cursor.execute('''
+                    SELECT promo_id, promo_code, status, created_at, sent_at, 
+                           sent_to_telegram_id, sent_to_username
+                    FROM promo_codes 
+                    WHERE promo_code = ?
+                ''', (promo_code.strip(),))
+                
+                result = cursor.fetchone()
+                if result:
+                    return {
+                        'promo_id': result[0],
+                        'promo_code': result[1],
+                        'status': result[2],
+                        'created_at': result[3],
+                        'sent_at': result[4],
+                        'sent_to_telegram_id': result[5],
+                        'sent_to_username': result[6]
+                    }
+                return None
+                
+        except sqlite3.Error as e:
+            logging.error(f"Ошибка получения информации о промокоде: {e}")
+            return None
+
+    def get_promo_codes_stats(self) -> dict:
+        """Получение статистики по промокодам"""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                
+                cursor.execute('''
+                    SELECT 
+                        COUNT(*) as total,
+                        SUM(CASE WHEN status = 'active' THEN 1 ELSE 0 END) as active,
+                        SUM(CASE WHEN status = 'used' THEN 1 ELSE 0 END) as used,
+                        SUM(CASE WHEN status = 'expired' THEN 1 ELSE 0 END) as expired
+                    FROM promo_codes
+                ''')
+                
+                result = cursor.fetchone()
+                return {
+                    'total': result[0],
+                    'active': result[1],
+                    'used': result[2],
+                    'expired': result[3]
+                }
+                
+        except sqlite3.Error as e:
+            logging.error(f"Ошибка получения статистики промокодов: {e}")
+            return {'total': 0, 'active': 0, 'used': 0, 'expired': 0}
+
+    def get_all_promo_codes(self, status: str = None) -> list:
+        """Получение всех промокодов"""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                
+                if status:
+                    cursor.execute('''
+                        SELECT promo_id, promo_code, status, created_at, sent_at, 
+                               sent_to_telegram_id, sent_to_username
+                        FROM promo_codes 
+                        WHERE status = ?
+                        ORDER BY created_at DESC
+                    ''', (status,))
+                else:
+                    cursor.execute('''
+                        SELECT promo_id, promo_code, status, created_at, sent_at, 
+                               sent_to_telegram_id, sent_to_username
+                        FROM promo_codes 
+                        ORDER BY created_at DESC
+                    ''')
+                
+                results = cursor.fetchall()
+                promo_codes = []
+                for result in results:
+                    promo_codes.append({
+                        'promo_id': result[0],
+                        'promo_code': result[1],
+                        'status': result[2],
+                        'created_at': result[3],
+                        'sent_at': result[4],
+                        'sent_to_telegram_id': result[5],
+                        'sent_to_username': result[6]
+                    })
+                return promo_codes
+                
+        except sqlite3.Error as e:
+            logging.error(f"Ошибка получения всех промокодов: {e}")
+            return []
+
+    def delete_promo_code(self, promo_code: str) -> bool:
+        """Удаление промокода"""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                
+                # ✅ ИСПРАВЛЕНИЕ: Используем UPPER() для сравнения без учета регистра
+                cursor.execute('''
+                    DELETE FROM promo_codes 
+                    WHERE UPPER(promo_code) = UPPER(?)
+                ''', (promo_code.strip(),))
+                
+                conn.commit()
+                if cursor.rowcount > 0:
+                    logging.info(f"Промокод {promo_code} удален")
+                    return True
+                else:
+                    logging.warning(f"Промокод {promo_code} не найден")
+                    return False
+                    
+        except sqlite3.Error as e:
+            logging.error(f"Ошибка удаления промокода: {e}")
+            return False
+
+
+    def delete_all_promo_codes(self) -> bool:
+        """Удаление всех промокодов"""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                cursor.execute('DELETE FROM promo_codes')
+                conn.commit()
+                logging.info("Все промокоды удалены")
+                return True
+                
+        except sqlite3.Error as e:
+            logging.error(f"Ошибка удаления всех промокодов: {e}")
+            return False
+
+    def export_promo_codes_to_csv(self, status: str = None) -> str:
+        """Экспорт промокодов в CSV"""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                
+                if status:
+                    cursor.execute('''
+                        SELECT promo_code, status, created_at, sent_at, 
+                               sent_to_telegram_id, sent_to_username
+                        FROM promo_codes 
+                        WHERE status = ?
+                        ORDER BY created_at DESC
+                    ''', (status,))
+                else:
+                    cursor.execute('''
+                        SELECT promo_code, status, created_at, sent_at, 
+                               sent_to_telegram_id, sent_to_username
+                        FROM promo_codes 
+                        ORDER BY created_at DESC
+                    ''')
+                
+                results = cursor.fetchall()
+                
+                if not results:
+                    return "Нет данных для экспорта"
+                
+                # Заголовки CSV
+                csv_data = "promo_code;status;created_at;sent_at;sent_to_telegram_id;sent_to_username\n"
+                
+                for result in results:
+                    promo_code, status, created_at, sent_at, sent_to_telegram_id, sent_to_username = result
+                    csv_data += f"{promo_code};{status};{created_at or ''};{sent_at or ''};{sent_to_telegram_id or ''};{sent_to_username or ''}\n"
+                
+                return csv_data
+                
+        except sqlite3.Error as e:
+            logging.error(f"Ошибка экспорта промокодов в CSV: {e}")
+            return f"Ошибка экспорта: {e}"
+
+    # ✅ МЕТОДЫ ДЛЯ РАБОТЫ С ЗАВЕРШЕНИЕМ ЭТАПОВ
+
+    def mark_stage_completed(self, telegram_id: int, stage_number: int) -> bool:
+        """Отмечает этап как завершенный"""
+        try:
+            if stage_number not in [1, 2, 3, 4]:
+                logging.error(f"Некорректный номер этапа: {stage_number}")
+                return False
+                
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                
+                column_name = f"stage_{stage_number}_completed"
+                cursor.execute(f'''
+                    UPDATE main 
+                    SET {column_name} = 1 
+                    WHERE telegram_id = ?
+                ''', (telegram_id,))
+                
+                conn.commit()
+                if cursor.rowcount > 0:
+                    logging.info(f"Этап {stage_number} отмечен как завершенный для пользователя {telegram_id}")
+                    return True
+                else:
+                    logging.warning(f"Пользователь {telegram_id} не найден")
+                    return False
+                
+        except sqlite3.Error as e:
+            logging.error(f"Ошибка отметки завершения этапа {stage_number} для пользователя {telegram_id}: {e}")
+            return False
+
+    def is_stage_completed(self, telegram_id: int, stage_number: int) -> bool:
+        """Проверяет, завершен ли этап"""
+        try:
+            if stage_number not in [1, 2, 3, 4]:
+                logging.error(f"Некорректный номер этапа: {stage_number}")
+                return False
+                
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                
+                column_name = f"stage_{stage_number}_completed"
+                cursor.execute(f'''
+                    SELECT {column_name} FROM main 
+                    WHERE telegram_id = ?
+                ''', (telegram_id,))
+                
+                result = cursor.fetchone()
+                if result:
+                    return result[0] == 1
+                return False
+                
+        except sqlite3.Error as e:
+            logging.error(f"Ошибка проверки завершения этапа {stage_number} для пользователя {telegram_id}: {e}")
+            return False
+
+    def get_completed_stages(self, telegram_id: int) -> list:
+        """Получает список завершенных этапов"""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                
+                cursor.execute('''
+                    SELECT stage_1_completed, stage_2_completed, stage_3_completed, stage_4_completed
+                    FROM main 
+                    WHERE telegram_id = ?
+                ''', (telegram_id,))
+                
+                result = cursor.fetchone()
+                if result:
+                    completed_stages = []
+                    for i, completed in enumerate(result, start=1):
+                        if completed == 1:
+                            completed_stages.append(i)
+                    return completed_stages
+                return []
+                
+        except sqlite3.Error as e:
+            logging.error(f"Ошибка получения завершенных этапов для пользователя {telegram_id}: {e}")
+            return []
+
+    def reset_stage_completion(self, telegram_id: int, stage_number: int = None) -> bool:
+        """Сбрасывает отметку о завершении этапа"""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                
+                if stage_number:
+                    if stage_number not in [1, 2, 3, 4]:
+                        logging.error(f"Некорректный номер этапа: {stage_number}")
+                        return False
+                    
+                    column_name = f"stage_{stage_number}_completed"
+                    cursor.execute(f'''
+                        UPDATE main 
+                        SET {column_name} = 0 
+                        WHERE telegram_id = ?
+                    ''', (telegram_id,))
+                else:
+                    # Сбрасываем все этапы
+                    cursor.execute('''
+                        UPDATE main 
+                        SET stage_1_completed = 0,
+                            stage_2_completed = 0,
+                            stage_3_completed = 0,
+                            stage_4_completed = 0
+                        WHERE telegram_id = ?
+                    ''', (telegram_id,))
+                
+                conn.commit()
+                if cursor.rowcount > 0:
+                    if stage_number:
+                        logging.info(f"Завершение этапа {stage_number} сброшено для пользователя {telegram_id}")
+                    else:
+                        logging.info(f"Все завершения этапов сброшены для пользователя {telegram_id}")
+                    return True
+                else:
+                    logging.warning(f"Пользователь {telegram_id} не найден")
+                    return False
+                
+        except sqlite3.Error as e:
+            logging.error(f"Ошибка сброса завершения этапа для пользователя {telegram_id}: {e}")
+            return False
 
     # ✅ МЕТОДЫ ДЛЯ РАБОТЫ С АДРЕСАМИ ПОЛЬЗОВАТЕЛЕЙ
 
@@ -423,6 +872,44 @@ class Database:
             logging.error(f"Ошибка удаления всех участников розыгрыша: {e}")
             return False
 
+    def get_user_by_telegram_id(self, telegram_id: int):
+        """Получение пользователя по telegram_id"""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                
+                cursor.execute('''
+                    SELECT user_id, participant_id, telegram_id, telegram_username, 
+                            role, quest_started, quest_started_at, current_stage,
+                            stage_1_completed, stage_2_completed, stage_3_completed, stage_4_completed,
+                            registration_date
+                    FROM main 
+                    WHERE telegram_id = ?
+                ''', (telegram_id,))
+                
+                result = cursor.fetchone()
+                if result:
+                    return {
+                        'user_id': result[0],
+                        'participant_id': result[1],
+                        'telegram_id': result[2],
+                        'telegram_username': result[3],
+                        'role': result[4],
+                        'quest_started': result[5],
+                        'quest_started_at': result[6],
+                        'current_stage': result[7],
+                        'stage_1_completed': result[8],
+                        'stage_2_completed': result[9],
+                        'stage_3_completed': result[10],
+                        'stage_4_completed': result[11],
+                        'registration_date': result[12]
+                    }
+                return None
+                
+        except sqlite3.Error as e:
+            logging.error(f"Ошибка получения пользователя по telegram_id {telegram_id}: {e}")
+            return None
+    
     def get_connection(self):
         """Получение соединения с базой данных"""
         return sqlite3.connect(self.db_path)

@@ -12,6 +12,7 @@ from aiogram.filters import Command
 import pandas as pd
 import tempfile
 from datetime import datetime
+from src.promo import promo_router
 
 try:
     from database import db
@@ -262,3 +263,4 @@ async def cancel_delete_all_participants(message: Message):
 def setup_admin_handler(dp):
     """Настройка обработчиков административных команд"""
     dp.include_router(admin_router)
+    dp.include_router(promo_router)

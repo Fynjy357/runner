@@ -1,0 +1,159 @@
+#!/usr/bin/env python3
+# src/handlers/global_handler.py
+import logging
+from aiogram.types import Message
+from aiogram.fsm.context import FSMContext
+from database import db
+
+logger = logging.getLogger('bot')
+
+async def is_stage_completed(telegram_id: int, stage: int) -> bool:
+    """Проверяет, завершен ли этап для пользователя"""
+    try:
+        return db.is_stage_completed(telegram_id, stage)
+    except Exception as e:
+        logger.error(f"Ошибка проверки завершения этапа {stage}: {e}")
+        return False
+
+async def handle_global_unknown_messages(message: Message, state: FSMContext):
+    """Глобальный обработчик для всех неизвестных сообщений"""
+    telegram_id = message.from_user.id
+    
+    # ✅ Сначала проверяем текущее состояние пользователя
+    current_state = await state.get_state()
+    logger.info(f"🔍 Глобальный обработчик для пользователя {telegram_id}")
+    logger.info(f"📊 Текущее состояние: {current_state}")
+    
+    # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Проверяем, находится ли пользователь в состоянии какого-либо этапа
+    try:
+        # Импортируем состояния всех этапов
+        from handlers.stage_1 import Stage1States
+        from handlers.stage_2 import Stage2States
+        from handlers.stage_3 import Stage3States
+        from handlers.stage_4 import Stage4States
+        from handlers.stage_5 import Stage5States  # ✅ ДОБАВЛЯЕМ
+        
+        # Список всех состояний всех этапов
+        all_stage_states = []
+        
+        # Этап 1
+        all_stage_states.extend([
+            Stage1States.waiting_for_image,
+            Stage1States.waiting_for_riddle_answer,
+            Stage1States.waiting_for_moderator_decision,
+            Stage1States.waiting_for_address,
+        ])
+        
+        # Этап 2
+        all_stage_states.extend([
+            Stage2States.waiting_for_image,
+            Stage2States.waiting_for_riddle_answer,
+            Stage2States.waiting_for_moderator_decision,
+            Stage2States.waiting_for_address,
+        ])
+        
+        # Этап 3
+        all_stage_states.extend([
+            Stage3States.waiting_for_image,
+            Stage3States.waiting_for_riddle_answer,
+            Stage3States.waiting_for_moderator_decision,
+            Stage3States.waiting_for_address,
+        ])
+        
+        # Этап 4
+        all_stage_states.extend([
+            Stage4States.waiting_for_image,
+            Stage4States.waiting_for_riddle_answer,
+            Stage4States.waiting_for_moderator_decision,
+            Stage4States.waiting_for_address,
+        ])
+        
+        # ✅ ДОБАВЛЯЕМ: Этап 5
+        all_stage_states.extend([
+            Stage5States.waiting_for_riddle_answer,
+            Stage5States.waiting_for_address,
+        ])
+        
+        # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Проверяем, находится ли пользователь в состоянии какого-либо этапа
+        if current_state in all_stage_states:
+            logger.info(f"📊 Пользователь {telegram_id} находится в состоянии этапа ({current_state}) - пропускаем обработку")
+            return False  # Сообщение не обработано, пусть обрабатывается обработчиками этапов
+            
+    except ImportError as e:
+        logger.warning(f"⚠️ Не удалось импортировать состояния этапов: {e}")
+        # Если не удалось импортировать, продолжаем проверку
+    
+    # ✅ Если пользователь не в состоянии этапа, проверяем завершенность этапов
+    try:
+        # Проверяем все этапы в обратном порядке (сначала последние)
+        # Это нужно, потому что если пользователь завершил этап 4, 
+        # он автоматически завершил и предыдущие этапы
+        
+        # Сначала проверяем этап 4
+        stage_4_completed = await is_stage_completed(telegram_id, 4)
+        if stage_4_completed:
+            logger.info(f"📊 Пользователь {telegram_id} завершил этап 4 - отправляем стандартное сообщение")
+            await message.answer(
+                "🤔 *Я не понимаю, о чем Вы говорите.*\n\n"
+                "👋 Для участия в забеге используйте ссылку от организатора.\n"
+                "Для навигации используйте /menu.",
+                parse_mode="Markdown"
+            )
+            return True
+        
+        # Затем проверяем этап 3
+        stage_3_completed = await is_stage_completed(telegram_id, 3)
+        if stage_3_completed:
+            logger.info(f"📊 Пользователь {telegram_id} завершил этап 3 - отправляем стандартное сообщение")
+            await message.answer(
+                "🤔 *Я не понимаю, о чем Вы говорите.*\n\n"
+                "👋 Для участия в забеге используйте ссылку от организатора.\n"
+                "Для навигации используйте /menu.",
+                parse_mode="Markdown"
+            )
+            return True
+        
+        # Затем проверяем этап 2
+        stage_2_completed = await is_stage_completed(telegram_id, 2)
+        if stage_2_completed:
+            logger.info(f"📊 Пользователь {telegram_id} завершил этап 2 - отправляем стандартное сообщение")
+            await message.answer(
+                "🤔 *Я не понимаю, о чем Вы говорите.*\n\n"
+                "👋 Для участия в забеге используйте ссылку от организатора.\n"
+                "Для навигации используйте /menu.",
+                parse_mode="Markdown"
+            )
+            return True
+        
+        # Затем проверяем этап 1
+        stage_1_completed = await is_stage_completed(telegram_id, 1)
+        if stage_1_completed:
+            logger.info(f"📊 Пользователь {telegram_id} завершил этап 1 - отправляем стандартное сообщение")
+            await message.answer(
+                "🤔 *Я не понимаю, о чем Вы говорите.*\n\n"
+                "👋 Для участия в забеге используйте ссылку от организатора.\n"
+                "Для навигации используйте /menu.",
+                parse_mode="Markdown"
+            )
+            return True
+            
+        # Если ни один этап не завершен, но пользователь не в состоянии
+        # Это может быть новый пользователь или что-то пошло не так
+        logger.info(f"📊 Пользователь {telegram_id} не в состоянии и не завершил этапы - пропускаем обработку")
+            
+    except Exception as db_error:
+        logger.error(f"❌ Ошибка проверки завершенности этапа: {db_error}")
+    
+    return False  # Сообщение не обработано
+
+def setup_global_handler(dp):
+    """Настройка глобального обработчика"""
+    from aiogram import F
+    
+    # ✅ Регистрируем глобальный обработчик ПОСЛЕ всех остальных обработчиков
+    dp.message.register(
+        handle_global_unknown_messages,
+        F.text & ~F.text.startswith("/")  # Все текстовые сообщения, не начинающиеся с "/"
+    )
+    
+    logger.info("✅ Глобальный обработчик настроен")

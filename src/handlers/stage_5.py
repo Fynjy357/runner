@@ -3,6 +3,8 @@ import asyncio
 import logging
 from aiogram.types import CallbackQuery, Message, FSInputFile
 from aiogram.fsm.context import FSMContext
+from aiogram.fsm.state import State, StatesGroup
+from aiogram import F
 from database import db
 from pathlib import Path
 
@@ -15,6 +17,11 @@ from .stage_1 import handle_stage_1_quest
 from .stage_2 import handle_stage_2_quest
 from .stage_3 import handle_stage_3_quest
 from .stage_4 import handle_stage_4_quest
+
+# ✅ СОЗДАЕМ СОСТОЯНИЯ ДЛЯ STAGE_5
+class Stage5States(StatesGroup):
+    waiting_for_riddle_answer = State()
+    waiting_for_address = State()
 
 async def get_user_current_stage(telegram_id: int) -> int:
     """Получает текущий этап пользователя из БД"""
@@ -31,6 +38,28 @@ async def get_user_current_stage(telegram_id: int) -> int:
             return 1
     except Exception as e:
         logging.error(f"Ошибка получения текущего этапа для {telegram_id}: {e}")
+        return 1
+
+async def is_stage_completed(telegram_id: int, stage: int) -> bool:
+    """Проверяет, завершен ли конкретный этап для пользователя"""
+    try:
+        return db.is_stage_completed(telegram_id, stage)
+    except Exception as e:
+        logging.error(f"Ошибка проверки завершения этапа {stage}: {e}")
+        return False
+
+async def get_next_uncompleted_stage(telegram_id: int) -> int:
+    """Находит следующий незавершенный этап для пользователя"""
+    try:
+        # Проверяем этапы по порядку
+        for stage in range(1, 5):  # Этапы 1-4
+            completed = await is_stage_completed(telegram_id, stage)
+            if not completed:
+                return stage
+        # Если все этапы завершены
+        return 5
+    except Exception as e:
+        logging.error(f"Ошибка поиска незавершенного этапа для {telegram_id}: {e}")
         return 1
 
 async def update_user_stage(telegram_id: int, new_stage: int) -> bool:
@@ -134,8 +163,19 @@ async def handle_stage_5_address(message: Message, state: FSMContext):
         )
         await asyncio.sleep(2)
         
-        # ✅ ОБНОВЛЕНИЕ ЭТАПА И ПЕРЕХОД
-        next_stage = current_stage + 1
+        # ✅ ОТМЕЧАЕМ ЭТАП КАК ЗАВЕРШЕННЫЙ
+        if current_stage <= 4:
+            try:
+                db.mark_stage_completed(telegram_id, current_stage)
+                logger.info(f"✅ Этап {current_stage} отмечен как завершенный для пользователя {telegram_id}")
+            except Exception as e:
+                logger.error(f"❌ Ошибка отметки завершения этапа {current_stage}: {e}")
+        
+        # ✅ ОЧИЩАЕМ СОСТОЯНИЕ СРАЗУ ПОСЛЕ СОХРАНЕНИЯ АДРЕСА
+        await state.clear()
+        
+        # ✅ НАХОДИМ СЛЕДУЮЩИЙ НЕЗАВЕРШЕННЫЙ ЭТАП
+        next_stage = await get_next_uncompleted_stage(telegram_id)
         
         if next_stage <= 4:
             await update_user_stage(telegram_id, next_stage)
@@ -180,8 +220,6 @@ async def handle_stage_5_address(message: Message, state: FSMContext):
                 parse_mode="Markdown"
             )
             
-            await state.clear()
-        
     except Exception as e:
         logger.error(f"Ошибка при обработке адреса stage_5: {e}")
         await message.answer(
@@ -201,10 +239,10 @@ async def handle_stage_5_riddle_answer(message: Message, state: FSMContext):
         
         # ✅ ПРАВИЛЬНЫЕ ОТВЕТЫ И ПОДСКАЗКИ
         stage_data = {
-            1: {"answer": "маяк", "hint": "МА..", "promo": "RUNNER2025"},
-            2: {"answer": "компас", "hint": "КОМП..", "promo": "GUARDIAN2025"}, 
-            3: {"answer": "магнитофон", "hint": "МАГНИТ....", "promo": "SAVIOR2025"},
-            4: {"answer": "очередь", "hint": "ОЧЕР..", "promo": "HERO2025"}
+            1: {"answer": "маяк", "hint": "МА.."},
+            2: {"answer": "компас", "hint": "КОМП.."}, 
+            3: {"answer": "магнитофон", "hint": "МАГНИТ...."},
+            4: {"answer": "очередь", "hint": "ОЧЕР.."}
         }
         
         stage_info = stage_data.get(current_stage, {})
@@ -213,22 +251,25 @@ async def handle_stage_5_riddle_answer(message: Message, state: FSMContext):
         if user_answer == stage_info.get("answer", ""):
             # ✅ ПРАВИЛЬНЫЙ ОТВЕТ
             trophy_messages = {
-                1: f"🎉 *Поздравляем! Вы отгадали загадку!*\n\n🏆 *Первый трофей!*\n\n🎁 *Промокод: {stage_info['promo']}*\nСкидка 20% на следующий этап!",
-                2: f"🎉 *Поздравляем! Вы отгадали загадку!*\n\n🏆 *Второй трофей!*\n\n🎁 *Промокод: {stage_info['promo']}*\nСкидка 20% на следующий этап!",
-                3: f"🎉 *Поздравляем! Вы отгадали загадку!*\n\n🏆 *Третий трофей!*\n\n🎁 *Промокод: {stage_info['promo']}*\nСкидка 20% на следующий этап!",
-                4: f"🎉 *Поздравляем! Вы отгадали загадку!*\n\n🏆 *Четвертый трофей!*\n\n🎁 *Промокод: {stage_info['promo']}*\nСкидка 20% на следующий этап!"
+                1: f"🎉 *Поздравляем! Вы отгадали загадку!*\n\n🏆 *Первый трофей!*\n\n",
+                2: f"🎉 *Поздравляем! Вы отгадали загадку!*\n\n🏆 *Второй трофей!*\n\n",
+                3: f"🎉 *Поздравляем! Вы отгадали загадку!*\n\n🏆 *Третий трофей!*\n\n",
+                4: f"🎉 *Поздравляем! Вы отгадали загадку!*\n\n🏆 *Четвертый трофей!*\n\n"
             }
             
             await message.answer(trophy_messages.get(current_stage, "🎉 Поздравляем!"), parse_mode="Markdown")
             await asyncio.sleep(3)
             
-            # ✅ ЗАПРОС АДРЕСА
+            # ✅ ЗАПРОС АДРЕСА И ПЕРЕХОД В СОСТОЯНИЕ ОЖИДАНИЯ АДРЕСА
             await message.answer(
                 "📍 *Свою реликвию ты можешь получить здесь*\n\n"
                 "📦 Напишите адрес ближайшего ПВЗ СДЭК или Яндекс Маркет:\n\n"
                 "💡 *Пример:* г. Москва, ул. Пушкина, д. 10, ПВЗ СДЭК №123",
                 parse_mode="Markdown"
             )
+            
+            # ✅ ПЕРЕХОДИМ В СОСТОЯНИЕ ОЖИДАНИЯ АДРЕСА
+            await state.set_state(Stage5States.waiting_for_address)
             
             await state.update_data(
                 riddle_solved=True,
@@ -268,31 +309,44 @@ async def handle_stage_5_quest(callback_query: CallbackQuery, state: FSMContext)
     try:
         telegram_id = callback_query.from_user.id
         
-        # ✅ ПОЛУЧАЕМ ТЕКУЩИЙ ЭТАП
-        current_stage = await get_user_current_stage(telegram_id)
+        # ✅ НАХОДИМ СЛЕДУЮЩИЙ НЕЗАВЕРШЕННЫЙ ЭТАП
+        next_stage = await get_next_uncompleted_stage(telegram_id)
         
-        # ✅ СОХРАНЯЕМ ДАННЫЕ В СОСТОЯНИИ
-        await state.update_data(
-            telegram_id=telegram_id,
-            current_stage=current_stage,
-            is_stage_5_user=True,
-            attempts_left=3
-        )
+        logging.info(f"🚀 Пользователь {telegram_id}: следующий незавершенный этап = {next_stage}")
         
-        logging.info(f"🚀 Пользователь {telegram_id} продолжает с этапа {current_stage}")
-        
-        # ✅ АВТОМАТИЧЕСКИЙ ЗАПУСК ЭТАПА
-        stage_handlers = {
-            1: handle_stage_1_quest,
-            2: handle_stage_2_quest,
-            3: handle_stage_3_quest, 
-            4: handle_stage_4_quest
-        }
-        
-        handler = stage_handlers.get(current_stage)
-        
-        if handler:
-            await handler(callback_query, state)
+        if next_stage <= 4:
+            # ✅ ЕСТЬ НЕЗАВЕРШЕННЫЕ ЭТАПЫ
+            # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Проверяем, является ли пользователь stage_5
+            is_stage_5_user = True  # Все пользователи stage_5 - это stage_5 пользователи
+            
+            # ✅ СОХРАНЯЕМ ДАННЫЕ В СОСТОЯНИИ
+            await state.update_data(
+                telegram_id=telegram_id,
+                current_stage=next_stage,
+                is_stage_5_user=is_stage_5_user,  # ✅ Устанавливаем флаг
+                attempts_left=3
+            )
+            
+            # ✅ УСТАНАВЛИВАЕМ СОСТОЯНИЕ ДЛЯ STAGE_5
+            await state.set_state(Stage5States.waiting_for_riddle_answer)
+            
+            # ✅ ЗАПУСКАЕМ НУЖНЫЙ ЭТАП
+            stage_handlers = {
+                1: handle_stage_1_quest,
+                2: handle_stage_2_quest,
+                3: handle_stage_3_quest, 
+                4: handle_stage_4_quest
+            }
+            
+            handler = stage_handlers.get(next_stage)
+            
+            if handler:
+                await handler(callback_query, state)
+            else:
+                await callback_query.message.answer(
+                    "❌ *Ошибка:* Не удалось найти обработчик для этапа.",
+                    parse_mode="Markdown"
+                )
         else:
             # ✅ ВСЕ ЭТАПЫ ПРОЙДЕНЫ
             await callback_query.message.answer(
@@ -328,22 +382,31 @@ async def handle_wrong_stage_5_input(message: Message, state: FSMContext):
 
 def setup_stage_5_handlers(dp):
     """Настройка обработчиков для этапа 5"""
-    # ✅ Обработчик ответов на загадки
+    from aiogram import F
+    
+    # ✅ Обработчик ответов на загадки - ТОЛЬКО в состоянии waiting_for_riddle_answer
     dp.message.register(
         handle_stage_5_riddle_answer,
-        lambda message: message.text and not message.text.startswith('/')
+        F.state(Stage5States.waiting_for_riddle_answer),
+        F.text & ~F.text.startswith('/')
     )
     
-    # ✅ Обработчик адресов
+    # ✅ Обработчик адресов - ТОЛЬКО в состоянии waiting_for_address
     dp.message.register(
         handle_stage_5_address,
-        lambda message: message.text and not message.text.startswith('/')
+        F.state(Stage5States.waiting_for_address),
+        F.text & ~F.text.startswith('/')
     )
     
-    # ✅ Обработчик некорректных сообщений
+    # ✅ Обработчик некорректных сообщений в состояниях stage_5
     dp.message.register(
-        handle_wrong_stage_5_input
+        handle_wrong_stage_5_input,
+        F.state(Stage5States.waiting_for_riddle_answer) | F.state(Stage5States.waiting_for_address),
+        ~F.text  # Все что не текст
     )
+    
+    logger = logging.getLogger('bot')
+    logger.info("✅ Обработчики этапа 5 настроены с состояниями")
 
 # ✅ НАСТРОЙКА ЛОГИРОВАНИЯ
 logger = logging.getLogger('bot')

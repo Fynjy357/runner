@@ -27,11 +27,11 @@ class EmailSender:
         self.templates = EmailTemplates()
     
     def attach_header_image(self, message: MIMEMultipart) -> bool:
-        """Прикрепляет картинку header.jpg к письму"""
+        """Прикрепляет картинку header.png к письму"""
         try:
             # Путь к картинке относительно src/mail_service
             current_dir = Path(__file__).parent  # src/mail_service
-            image_path = current_dir.parent / "media" / "header.jpg"  # src/media/header.jpg
+            image_path = current_dir.parent / "media" / "header.png"  # src/media/header.png
             
             logger.info(f"🔍 Ищем картинку по пути: {image_path}")
             
@@ -41,9 +41,9 @@ class EmailSender:
                 
                 image = MIMEImage(img_data)
                 image.add_header('Content-ID', '<header_image>')
-                image.add_header('Content-Disposition', 'inline', filename='header.jpg')
+                image.add_header('Content-Disposition', 'inline', filename='header.png')
                 message.attach(image)
-                logger.info("✅ Картинка header.jpg прикреплена к письму")
+                logger.info("✅ Картинка header.png прикреплена к письму")
                 return True
             else:
                 logger.error(f"❌ Файл картинки не найден: {image_path}")

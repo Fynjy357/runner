@@ -308,16 +308,95 @@ async def send_optimized_video(message, video_filename: str, caption: str = ""):
         # ✅ ИСПОЛЬЗУЕМ ПРЕДВАРИТЕЛЬНО ОПТИМИЗИРОВАННУЮ ВЕРСИЮ
         final_video_path = get_optimized_video_path(video_path)
         
+        # ✅ ИСПРАВЛЕНИЕ: Для 7_logo.mp4 проверяем пропорции
+        if video_filename == "7_logo.mp4":
+            logger.info(f"🔧 Проверяем пропорции для проблемного видео: {video_filename}")
+            
+            # Проверяем размеры видео
+            try:
+                import subprocess
+                import json
+                
+                cmd = [
+                    'ffprobe',
+                    '-v', 'quiet',
+                    '-print_format', 'json',
+                    '-show_format',
+                    '-show_streams',
+                    final_video_path
+                ]
+                
+                result = subprocess.run(cmd, capture_output=True, text=True)
+                if result.returncode == 0:
+                    video_info = json.loads(result.stdout)
+                    
+                    # Ищем видео поток
+                    for stream in video_info.get('streams', []):
+                        if stream.get('codec_type') == 'video':
+                            width = stream.get('width', 0)
+                            height = stream.get('height', 0)
+                            logger.info(f"📊 Размеры видео {video_filename}: {width}x{height}")
+                            
+                            # ✅ Если видео имеет нестандартные пропорции, создаем исправленную версию
+                            if width > 0 and height > 0:
+                                aspect_ratio = width / height
+                                if aspect_ratio < 1.5 or aspect_ratio > 2.0:  # Не 16:9 (~1.78)
+                                    logger.warning(f"⚠️ Нестандартное соотношение сторон: {aspect_ratio:.2f}")
+                                    
+                                    # Создаем исправленную версию
+                                    fixed_path = final_video_path.replace('.mp4', '_fixed.mp4')
+                                    
+                                    ffmpeg_cmd = [
+                                        'ffmpeg',
+                                        '-i', final_video_path,
+                                        '-vf', 'scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2',
+                                        '-c:v', 'libx264',
+                                        '-preset', 'fast',
+                                        '-crf', '23',
+                                        '-c:a', 'copy',
+                                        '-movflags', '+faststart',
+                                        '-y',
+                                        fixed_path
+                                    ]
+                                    
+                                    logger.info(f"🔄 Исправляем пропорции видео: {video_filename}")
+                                    result = subprocess.run(
+                                        ffmpeg_cmd,
+                                        capture_output=True,
+                                        text=True,
+                                        timeout=60
+                                    )
+                                    
+                                    if result.returncode == 0 and os.path.exists(fixed_path):
+                                        final_video_path = fixed_path
+                                        logger.info(f"✅ Исправленное видео создано: {fixed_path}")
+                                    else:
+                                        logger.error(f"❌ Ошибка исправления пропорций: {result.stderr}")
+            except Exception as check_error:
+                logger.error(f"❌ Ошибка проверки пропорций: {check_error}")
+        
         # ✅ ОТПРАВКА ВИДЕО
         video = FSInputFile(final_video_path)
         
         try:
-            await message.answer_video(
-                video,
-                caption=caption,
-                parse_mode="Markdown",
-                supports_streaming=True
-            )
+            # ✅ ИСПРАВЛЕНИЕ: Для 7_logo.mp4 используем явные параметры
+            if video_filename == "7_logo.mp4":
+                await message.answer_video(
+                    video,
+                    caption=caption,
+                    parse_mode="Markdown",
+                    supports_streaming=True,
+                    width=1920,  # ✅ Явно указываем ширину
+                    height=1080, # ✅ Явно указываем высоту
+                    duration=10   # ✅ Указываем продолжительность
+                )
+            else:
+                await message.answer_video(
+                    video,
+                    caption=caption,
+                    parse_mode="Markdown",
+                    supports_streaming=True
+                )
             
             success = True
             logger.info(f"✅ Видео успешно отправлено: {video_filename}")
@@ -345,6 +424,7 @@ async def send_optimized_video(message, video_filename: str, caption: str = ""):
         if caption:
             await message.answer(caption, parse_mode="Markdown")
         return False
+
 
 # Автоматически запускаем предварительную оптимизацию при импорте
 logger.info("📦 Импортирован модуль video_optimizer - запускаем предварительную оптимизацию")

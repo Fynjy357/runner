@@ -227,7 +227,7 @@ class Database:
                 cursor = conn.cursor()
                 
                 for promo_code in promo_codes:
-                    code = promo_code.strip().upper()
+                    code = promo_code.strip()
                     if not code:
                         continue
                         

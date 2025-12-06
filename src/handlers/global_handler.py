@@ -24,64 +24,11 @@ async def handle_global_unknown_messages(message: Message, state: FSMContext):
     logger.info(f"🔍 Глобальный обработчик для пользователя {telegram_id}")
     logger.info(f"📊 Текущее состояние: {current_state}")
     
-    # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Проверяем, находится ли пользователь в состоянии какого-либо этапа
-    try:
-        # Импортируем состояния всех этапов
-        from handlers.stage_1 import Stage1States
-        from handlers.stage_2 import Stage2States
-        from handlers.stage_3 import Stage3States
-        from handlers.stage_4 import Stage4States
-        from handlers.stage_5 import Stage5States  # ✅ ДОБАВЛЯЕМ
-        
-        # Список всех состояний всех этапов
-        all_stage_states = []
-        
-        # Этап 1
-        all_stage_states.extend([
-            Stage1States.waiting_for_image,
-            Stage1States.waiting_for_riddle_answer,
-            Stage1States.waiting_for_moderator_decision,
-            Stage1States.waiting_for_address,
-        ])
-        
-        # Этап 2
-        all_stage_states.extend([
-            Stage2States.waiting_for_image,
-            Stage2States.waiting_for_riddle_answer,
-            Stage2States.waiting_for_moderator_decision,
-            Stage2States.waiting_for_address,
-        ])
-        
-        # Этап 3
-        all_stage_states.extend([
-            Stage3States.waiting_for_image,
-            Stage3States.waiting_for_riddle_answer,
-            Stage3States.waiting_for_moderator_decision,
-            Stage3States.waiting_for_address,
-        ])
-        
-        # Этап 4
-        all_stage_states.extend([
-            Stage4States.waiting_for_image,
-            Stage4States.waiting_for_riddle_answer,
-            Stage4States.waiting_for_moderator_decision,
-            Stage4States.waiting_for_address,
-        ])
-        
-        # ✅ ДОБАВЛЯЕМ: Этап 5
-        all_stage_states.extend([
-            Stage5States.waiting_for_riddle_answer,
-            Stage5States.waiting_for_address,
-        ])
-        
-        # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Проверяем, находится ли пользователь в состоянии какого-либо этапа
-        if current_state in all_stage_states:
-            logger.info(f"📊 Пользователь {telegram_id} находится в состоянии этапа ({current_state}) - пропускаем обработку")
-            return False  # Сообщение не обработано, пусть обрабатывается обработчиками этапов
-            
-    except ImportError as e:
-        logger.warning(f"⚠️ Не удалось импортировать состояния этапов: {e}")
-        # Если не удалось импортировать, продолжаем проверку
+    # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Упрощенная проверка состояний этапов
+    # Проверяем, содержит ли текущее состояние ключевые слова этапов
+    if current_state and any(f"stage_{i}" in str(current_state) for i in range(1, 6)):
+        logger.info(f"📊 Пользователь {telegram_id} находится в состоянии этапа ({current_state}) - пропускаем обработку")
+        return False  # Сообщение не обработано, пусть обрабатывается обработчиками этапов
     
     # ✅ Если пользователь не в состоянии этапа, проверяем завершенность этапов
     try:
@@ -140,11 +87,12 @@ async def handle_global_unknown_messages(message: Message, state: FSMContext):
         # Если ни один этап не завершен, но пользователь не в состоянии
         # Это может быть новый пользователь или что-то пошло не так
         logger.info(f"📊 Пользователь {telegram_id} не в состоянии и не завершил этапы - пропускаем обработку")
-            
+        
     except Exception as db_error:
         logger.error(f"❌ Ошибка проверки завершенности этапа: {db_error}")
     
     return False  # Сообщение не обработано
+
 
 def setup_global_handler(dp):
     """Настройка глобального обработчика"""

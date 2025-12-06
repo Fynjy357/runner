@@ -16,6 +16,36 @@ from .stage_5 import handle_stage_5_quest, setup_stage_5_handlers
 # Импортируем функцию для получения истории
 from .common_intro import get_stage_history
 
+
+async def force_clear_all_states(bot, telegram_id: int, storage):
+    """Полная очистка всех состояний пользователя"""
+    try:
+        from aiogram.fsm.storage.base import StorageKey
+        
+        # Создаем ключ для пользователя
+        try:
+            user_key = StorageKey(
+                chat_id=telegram_id,
+                user_id=telegram_id,
+                bot_id=bot.id
+            )
+        except AttributeError:
+            user_key = StorageKey(
+                chat_id=telegram_id,
+                user_id=telegram_id,
+                bot_id=telegram_id
+            )
+        
+        # Очищаем состояние
+        await storage.set_state(key=user_key, state=None)
+        await storage.set_data(key=user_key, data={})
+        
+        logging.info(f"✅ Все состояния пользователя {telegram_id} полностью очищены")
+        return True
+    except Exception as e:
+        logging.error(f"❌ Ошибка очистки состояний пользователя {telegram_id}: {e}")
+        return False
+
 def setup_quest_handler(dp, logger: logging.Logger):
     """Настройка обработчиков квеста"""
     
@@ -83,7 +113,8 @@ def setup_quest_handler(dp, logger: logging.Logger):
                 1: handle_stage_1_quest,
                 2: handle_stage_2_quest,
                 3: handle_stage_3_quest,
-                4: handle_stage_4_quest
+                4: handle_stage_4_quest,
+                5: handle_stage_5_quest
             }
             
             handler = stage_handlers.get(current_stage)

@@ -814,9 +814,9 @@ async def handle_stage_3_address(message: Message, state: FSMContext):
                 )
                 
                 await message.answer(final_message, parse_mode="Markdown", disable_web_page_preview=True)
-                
-                # ✅ СБРАСЫВАЕМ СОСТОЯНИЕ ПОЛЬЗОВАТЕЛЯ
                 await state.clear()
+                # ✅ СБРАСЫВАЕМ СОСТОЯНИЕ ПОЛЬЗОВАТЕЛЯ
+                # await state.clear()
             
             logging.info(f"✅ Этап 3 завершен для пользователя {telegram_id}. Адрес сохранен: {address}")
             
@@ -857,7 +857,7 @@ async def continue_stage_3_quest(message: Message, state: FSMContext):
         await asyncio.sleep(2)
         
         message5 = (
-            "🔍 В пыльной будке охранника висят те самые часы. Но при попытке вскрыть механизм срабатывает голозовая защита: "
+            "🔍 В пыльной будке охранника висят те самые часы. Но при попытке вскрыть механизм срабатывает голосовая защита: "
             "*«Назовите пароль»*. На стене проецируется загадка:"
         )
         await message.answer(message5, parse_mode="Markdown")
@@ -1286,12 +1286,12 @@ def setup_stage_3_handlers(dp):
         F.data.startswith("moderator_reject_3_")
     )
     
-    # Обработчик некорректных сообщений в состоянии ожидания изображения
-    dp.message.register(
-        lambda message: message.answer(get_common_photo_error()),
-        F.state(Stage3States.waiting_for_image)
-    )
-    
+    # # Обработчик некорректных сообщений в состоянии ожидания изображения
+    # dp.message.register(
+    #     handle_stage_3_image,  # ✅ ПРАВИЛЬНО
+    #     Stage3States.waiting_for_image,
+    #     F.photo
+    # )
     # Обработчик некорректных сообщений в состоянии ожидания ответа
     dp.message.register(
         lambda message: message.answer(get_common_answer_error()),

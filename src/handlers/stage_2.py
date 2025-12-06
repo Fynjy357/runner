@@ -950,6 +950,9 @@ async def handle_stage_2_address(message: Message, state: FSMContext):
                 
                 await message.answer(final_message, parse_mode="Markdown")
                 await asyncio.sleep(2)
+
+                # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: ПРИНУДИТЕЛЬНАЯ ОЧИСТКА СОСТОЯНИЙ ПЕРЕД ПЕРЕХОДОМ
+                # await state.clear()  # Очищаем текущее состояние
                 
                 # ✅ ОБНОВЛЯЕМ ЭТАП И ПЕРЕХОДИМ К СЛЕДУЮЩЕМУ
                 await update_user_stage_in_db(telegram_id, 3)  # Переходим на этап 3
@@ -994,9 +997,9 @@ async def handle_stage_2_address(message: Message, state: FSMContext):
                 )
                 
                 await message.answer(final_message, parse_mode="Markdown", disable_web_page_preview=True)
-            
+                await state.clear()
             # ✅ СБРАСЫВАЕМ СОСТОЯНИЕ ПОЛЬЗОВАТЕЛЯ (как в этапе 1)
-            await state.clear()
+            # await state.clear()
             
             logging.info(f"✅ Этап 2 завершен для пользователя {telegram_id}. Адрес сохранен: {address}")
             
@@ -1199,6 +1202,7 @@ async def handle_stage_2_quest(callback_query: CallbackQuery, state: FSMContext)
         # Переходим в состояние ожидания изображения
         await state.set_state(Stage2States.waiting_for_image)
         logger.info(f"✅ Состояние пользователя {telegram_id} установлено в waiting_for_image (этап 2)")
+        
         
     except Exception as e:
         logger.error(f"❌ Ошибка в stage_2: {e}", exc_info=True)

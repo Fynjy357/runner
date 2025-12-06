@@ -931,7 +931,6 @@ async def continue_stage_4_quest(message: Message, state: FSMContext):
     try:
         logger.info(f"🔍 Продолжение квеста для пользователя {message.from_user.id} (этап 4)")
         
-        # Продолжаем квест
         await asyncio.sleep(1)
         
         message5 = "🎉 *Ура! Ты у пульта!*"
@@ -957,10 +956,12 @@ async def continue_stage_4_quest(message: Message, state: FSMContext):
         
         await message.answer(riddle_message, parse_mode="Markdown")
         
-        # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Сохраняем правильные начальные данные состояния как в stage_1
+        # ✅ ВАЖНОЕ ИСПРАВЛЕНИЕ: Устанавливаем состояние ожидания ответа на загадку
+        await state.set_state(Stage4States.waiting_for_riddle_answer)
+        
+        # ✅ Сохраняем правильные начальные данные состояния как в stage_1
         telegram_id = message.from_user.id
         is_stage_5_user = await check_if_stage_5_user(telegram_id)
-        
         logger.info(f"📊 Устанавливаем состояние для пользователя {telegram_id} (этап 4):")
         logger.info(f"   - is_stage_5_user: {is_stage_5_user}")
         logger.info(f"   - attempts_left: 3")
@@ -968,17 +969,13 @@ async def continue_stage_4_quest(message: Message, state: FSMContext):
         await state.update_data(
             telegram_id=telegram_id,
             is_stage_5_user=is_stage_5_user,
-            attempts_left=3,  # ✅ НАЧИНАЕМ С 3 ПОПЫТОК
-            recognition_attempts=0
+            attempts_left=3,
+            current_stage=4
         )
         
-        # Переходим в состояние ожидания ответа на загадку
-        await state.set_state(Stage4States.waiting_for_riddle_answer)
-        logger.info(f"✅ Состояние пользователя {telegram_id} установлено в waiting_for_riddle_answer (этап 4)")
-        
     except Exception as e:
-        logger.error(f"❌ Ошибка при продолжении квеста stage_4: {e}", exc_info=True)
-        await message.answer("❌ Ошибка при продолжении квеста. Попробуйте еще раз.")
+        logger.error(f"❌ Ошибка в continue_stage_4_quest: {e}")
+        await message.answer("❌ Произошла ошибка. Попробуйте еще раз.", parse_mode="Markdown")
 
 async def handle_stage_4_quest(callback_query: CallbackQuery, state: FSMContext):
     """Сценарий квеста для stage_id = 4 (финальный этап)"""

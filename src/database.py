@@ -48,7 +48,7 @@ class Database:
                     )
                 ''')
                 
-                # Таблица 3: Основная - ДОБАВЛЯЕМ current_stage И ПОЛЯ ДЛЯ ОТСЛЕЖИВАНИЯ ЗАВЕРШЕНИЯ ЭТАПОВ
+                # Таблица 3: Основная 
                 cursor.execute('''
                     CREATE TABLE IF NOT EXISTS main (
                         user_id INTEGER PRIMARY KEY AUTOINCREMENT,

@@ -42,16 +42,26 @@ def setup_start_handler(dp, shutdown_manager, logger: logging.Logger, bot_userna
                 
                 # Проверяем, не зарегистрирован ли уже пользователь
                 cursor.execute('''
-                    SELECT user_id FROM main WHERE telegram_id = ?
+                    SELECT user_id, role FROM main WHERE telegram_id = ?
                 ''', (telegram_id,))
                 
                 existing_user = cursor.fetchone()
                 
                 if existing_user:
-                    logger.info(f"Пользователь {telegram_id} уже зарегистрирован")
+                    user_id, current_role = existing_user
+                    logger.info(f"Пользователь {telegram_id} уже зарегистрирован с ролью: {current_role}")
+                    
+                    # ✅ ПРОВЕРКА: Если админ/модератор - оставляем как есть
+                    if current_role in ['admin', 'moderator']:
+                        logger.info(f"Админ/модератор {telegram_id} сохраняет свою роль")
+                        return True
+                    
+                    # ✅ СТАРАЯ ЛОГИКА: Просто возвращаем True для обычных пользователей
+                    # Не обновляем username, не меняем ничего
+                    logger.info(f"Обычный пользователь {telegram_id} уже зарегистрирован")
                     return True
                 
-                # Регистрируем нового пользователя с ролью 'user'
+                # ✅ СТАРАЯ ЛОГИКА: Регистрируем нового пользователя с ролью 'user'
                 cursor.execute('''
                     INSERT INTO main (telegram_id, telegram_username, role)
                     VALUES (?, ?, 'user')
@@ -60,7 +70,7 @@ def setup_start_handler(dp, shutdown_manager, logger: logging.Logger, bot_userna
                 user_id = cursor.lastrowid
                 conn.commit()
                 
-                logger.info(f"Зарегистрирован новый пользователь: user_id={user_id}, telegram_id={telegram_id}, username={telegram_username}")
+                logger.info(f"Зарегистрирован новый пользователь: user_id={user_id}, telegram_id={telegram_id}, username={telegram_username}, role=user")
                 return True
                 
         except Exception as e:

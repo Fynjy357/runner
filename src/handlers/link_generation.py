@@ -515,7 +515,7 @@ def handle_link_click(universal_link: str, telegram_id: int, telegram_username: 
         with db.get_connection() as conn:
             cursor = conn.cursor()
             
-            # Находим ссылку и проверяем её активность
+            # 1. Находим ссылку
             cursor.execute('''
                 SELECT lg.participant_id, mu.last_name, mu.first_name, lg.status
                 FROM link_generation lg
@@ -533,7 +533,7 @@ def handle_link_click(universal_link: str, telegram_id: int, telegram_username: 
             if status == 0:
                 return False, "Эта ссылка уже использована"
             
-            # Проверяем, не зарегистрирован ли уже этот participant_id
+            # 2. Проверяем, не занят ли participant_id другим пользователем
             cursor.execute('''
                 SELECT user_id FROM main WHERE participant_id = ?
             ''', (participant_id,))
@@ -543,30 +543,46 @@ def handle_link_click(universal_link: str, telegram_id: int, telegram_username: 
             if existing_registration:
                 return False, "Этот участник уже зарегистрирован"
             
-            # Проверяем, не зарегистрирован ли уже этот telegram_id
+            # 3. Проверяем, существует ли уже пользователь с этим telegram_id
             cursor.execute('''
-                SELECT user_id FROM main WHERE telegram_id = ?
+                SELECT user_id, role FROM main WHERE telegram_id = ?
             ''', (telegram_id,))
             
             existing_telegram_user = cursor.fetchone()
             
             if existing_telegram_user:
-                # Обновляем существующую запись пользователя
-                cursor.execute('''
-                    UPDATE main 
-                    SET participant_id = ?, role = 'user'
-                    WHERE telegram_id = ?
-                ''', (participant_id, telegram_id))
-                user_id = existing_telegram_user[0]
+                user_id, current_role = existing_telegram_user
+                
+                # ✅ ВАЖНО: Сохраняем роль админа/модератора
+                if current_role in ['admin', 'moderator']:
+                    # Админ/модератор - только добавляем participant_id
+                    cursor.execute('''
+                        UPDATE main 
+                        SET participant_id = ?,
+                            telegram_username = ?
+                        WHERE telegram_id = ?
+                    ''', (participant_id, telegram_username, telegram_id))
+                    logger.info(f"Админ/модератор {telegram_id} привязан к participant_id {participant_id}")
+                else:
+                    # Обычный пользователь - обновляем все поля
+                    cursor.execute('''
+                        UPDATE main 
+                        SET participant_id = ?,
+                            telegram_username = ?,
+                            role = 'user'
+                        WHERE telegram_id = ?
+                    ''', (participant_id, telegram_username, telegram_id))
+                    logger.info(f"Обычный пользователь {telegram_id} обновлен с participant_id {participant_id}")
             else:
-                # Создаем новую запись пользователя
+                # 4. Создаем новую запись для нового пользователя
                 cursor.execute('''
                     INSERT INTO main (participant_id, telegram_id, telegram_username, role)
                     VALUES (?, ?, ?, 'user')
                 ''', (participant_id, telegram_id, telegram_username))
                 user_id = cursor.lastrowid
+                logger.info(f"Новый пользователь создан: user_id={user_id}, telegram_id={telegram_id}")
             
-            # Деактивируем ссылку
+            # 5. Деактивируем использованную ссылку
             cursor.execute('''
                 UPDATE link_generation 
                 SET status = 0, link_click_date = CURRENT_TIMESTAMP
@@ -574,9 +590,6 @@ def handle_link_click(universal_link: str, telegram_id: int, telegram_username: 
             ''', (universal_link,))
             
             conn.commit()
-            
-            if logger:
-                logger.info(f"Участник зарегистрирован: user_id={user_id}, participant_id={participant_id}, telegram_id={telegram_id}")
             
             return True, f"🎉 Поздравляем! Вы успешно зарегистрированы как участник: {last_name} {first_name}"
             

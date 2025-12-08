@@ -810,7 +810,7 @@ async def handle_stage_3_address(message: Message, state: FSMContext):
                 final_message = (
                     "🚨 *УКРАДЕНА ПОСЛЕДНЯЯ РЕЛИКВИЯ «ЛОШАДЬ»!*\n\n"
                     "🔥 *Это крайний рубеж! Надежда вся на тебя!*\n\n"
-                    "[➡️ Перейти к следующему этапу](https://reg.russiarunning.com/event/OnlineraceTheMysteryoftheLostCollection)"
+                    "[➡️ Перейти к следующему этапу](https://russiarunning.com/event/mysticalrun)"
                 )
                 
                 await message.answer(final_message, parse_mode="Markdown", disable_web_page_preview=True)

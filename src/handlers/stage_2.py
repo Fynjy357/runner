@@ -993,7 +993,7 @@ async def handle_stage_2_address(message: Message, state: FSMContext):
                 # ✅ ФИНАЛЬНОЕ СООБЩЕНИЕ (как в этапе 1)
                 final_message = (
                     "🔥 *Готов ли ты к этому?*\n\n"
-                    "[➡️ Перейти к следующему этапу](https://reg.russiarunning.com/event/OnlineraceTheMysteryoftheLostCollection)"
+                    "[➡️ Перейти к следующему этапу](https://russiarunning.com/event/mysticalrun)"
                 )
                 
                 await message.answer(final_message, parse_mode="Markdown", disable_web_page_preview=True)

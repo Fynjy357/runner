@@ -24,7 +24,7 @@ def get_main_menu_keyboard() -> InlineKeyboardMarkup:
         [
             InlineKeyboardButton(
                 text="✉️ Написать нам", 
-                url="https://t.me/STARTANIchat/15"
+                url="https://t.me/STARTANIchat/18"
             ),
             InlineKeyboardButton(
                 text="🎁 Розыгрыш", 
